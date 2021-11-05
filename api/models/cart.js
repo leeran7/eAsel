@@ -8,13 +8,11 @@ module.exports = (sequelize, DataTypes) => {
   Cart.init({
     cart_id: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     cart_items: {
         type: DataTypes.ARRAY(DataTypes.STRING)
-    },
-    user_id: {
-        type: DataTypes.INTEGER
     }
   }, {
     sequelize,
@@ -23,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Cart.associate = (models) => {
     // associations can be defined here
-    
+    Cart.belongsTo(models.User, { foreignKey: "cart_id" });
   };
 
   return Cart;

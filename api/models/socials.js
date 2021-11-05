@@ -3,9 +3,14 @@ const { Model } = require('sequelize');
 
 
 module.exports = (sequelize, DataTypes) => {
-  class Socials extends Model {}
+  class Social extends Model {}
 
-  Socials.init({
+  Social.init({
+    socials_id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     linkedIn: {
         type: DataTypes.STRING,
         validate: {
@@ -34,18 +39,16 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         }
     },
-    socials_id: {
-        type: DataTypes.INTEGER
-    }
+    
   }, {
     sequelize,
-    modelName: 'socials'
+    modelName: 'social'
   });
 
-  Socials.associate = (models) => {
+  Social.associate = (models) => {
     // associations can be defined here
-    Socials.belongsTo(models.User, { foreignKey: "socialsId", as: "socials" });
+    Social.belongsTo(models.User, { foreignKey: "socials_id"});
   };
 
-  return Socials;
+  return Social;
 };

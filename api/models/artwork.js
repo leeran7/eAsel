@@ -6,52 +6,39 @@ module.exports = (sequelize, DataTypes) => {
   class Artwork extends Model {}
 
   Artwork.init({
+    artwork_id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     description: {
         type: DataTypes.STRING,
         validate: {
-          len: [28, 50],
-          notEmpty: true,
+          notEmpty: true
         }
     },
     category: {
         type: DataTypes.STRING,
         validate: {
-          len: [26, 50],
-          notEmpty: true,
+          notEmpty: true
         }
     }, 
     uri: {
         type: DataTypes.STRING,
         validate: {
-          len: [12, 30],
-          notEmpty: true,
+          notEmpty: true
         }
     }, 
     time_added: {
-        type: DataTypes.STRING,
-        validate: {
-          len: [25, 50],
-          notEmpty: true,
-        }
+        type: DataTypes.STRING
     },
     time_sold: {
-        type: DataTypes.STRING,
-        validate: {
-          len: [25, 50],
-          notEmpty: true,
-        }
+        type: DataTypes.STRING
     },
     price: {
-        type: DataTypes.INTEGER,
-        validate: {
-          len: [25, 50],
-          notEmpty: true,
-        }
+        type: DataTypes.INTEGER
     }, 
-    artwork_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true
-    }
+    
   }, {
     sequelize,
     modelName: 'artwork'
@@ -59,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Artwork.associate = (models) => {
     // associations can be defined here
-    Artwork.belongsTo(models.User, { foreignKey: "artwork_id", as: "artwork" });
+    Artwork.belongsTo(models.User, { foreignKey: "artwork_id"});
   };
 
   return Artwork;
