@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
-const { Post } = db;
+const { Artwork } = db;
 
 // This is a simple example for providing basic CRUD routes for
 // a resource/model. It provides the following:
@@ -16,69 +16,27 @@ const { Post } = db;
 // TODO: Can you spot where we have some duplication below?
 
 
-router.get('/', (req,res) => {
-  Post.findAll({})
-    .then(posts => res.json(posts));
+router.get('/artwork/:artworkid', (req,res) => { //get specific artwork details
+
 });
 
 
-router.post('/', (req, res) => {
-  let { content } = req.body;
-  
-  Post.create({ content })
-    .then(post => {
-      res.status(201).json(post);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
+router.post('/artwork/new', (req, res) => { //add new artwork 
+
 });
 
 
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-  Post.findByPk(id)
-    .then(post => {
-      if(!post) {
-        return res.sendStatus(404);
-      }
+router.put('/artwork/:artworkid', (req, res) => { //update artwork
 
-      res.json(post);
-    });
 });
 
+router.delete('/artwork/:artworkid', (req, res) => {
 
-router.put('/:id', (req, res) => {
-  const { id } = req.params;
-  Post.findByPk(id)
-    .then(post => {
-      if(!post) {
-        return res.sendStatus(404);
-      }
-
-      post.content = req.body.content;
-      post.save()
-        .then(post => {
-          res.json(post);
-        })
-        .catch(err => {
-          res.status(400).json(err);
-        });
-    });
 });
 
 
 router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  Post.findByPk(id)
-    .then(post => {
-      if(!post) {
-        return res.sendStatus(404);
-      }
 
-      post.destroy();
-      res.sendStatus(204);
-    });
 });
 
 

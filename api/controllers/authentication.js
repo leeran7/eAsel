@@ -16,22 +16,26 @@ const { User } = db;
 // TODO: Can you spot where we have some duplication below?
 
 
-router.get('/signup', (req,res) => {
-  Post.findAll({})
-    .then(posts => res.json(posts));
+router.get('/signup', (req,res) => { //Open signup page
+  res.send("GET Signup")
 });
 
 
-router.post('/signup', (req, res) => {
-  let { content } = req.body;
-  
-  Post.create({ content })
-    .then(post => {
-      res.status(201).json(post);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
+router.post('/signup', (req, res) => { //Post signup information
+  res.send("POST Signup")
 });
+
+router.get('/signin', (req,res) => { //signin page
+  res.send("GET Signin")
+});
+
+
+router.post('/signin', (req, res) => { //process signin
+  res.send("POST Signin")
+});
+
+router.get("/logout", (req,res) => { //process logout
+  res.send("Logout");
+})
 
 module.exports = router;
