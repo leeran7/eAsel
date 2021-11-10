@@ -5,11 +5,11 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {}
   User.init({
-    user_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
+    // user_id: {
+    //     type: DataTypes.INTEGER,
+    //     primaryKey: true,
+    //     autoIncrement: true
+    // },
     name: {
       type: DataTypes.STRING,
       validate: {
@@ -50,6 +50,11 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Artwork, { foreignKey: "user_id"});
     User.hasOne(models.Social, { foreignKey: "user_id"});
     User.hasOne(models.Transaction, { foreignKey: "user_id"});
+
+    // User.hasOne(models.Cart)
+    // User.hasMany(models.Artwork);
+    // User.hasOne(models.Social);
+    // User.hasOne(models.Transaction);
   };
 
   return User;

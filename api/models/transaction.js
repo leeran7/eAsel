@@ -6,11 +6,11 @@ module.exports = (sequelize, DataTypes) => {
   class Transaction extends Model {}
 
   Transaction.init({
-        trans_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
+        // trans_id: {
+        //     type: DataTypes.INTEGER,
+        //     primaryKey: true,
+        //     autoIncrement: true
+        // },
     user_purchased: {
         type: DataTypes.ARRAY(DataTypes.STRING)
     },
@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
 
   Transaction.associate = (models) => {
     // associations can be defined here
-    Transaction.belongsTo(models.User, { foreignKey: "trans_id"});
+    // Transaction.belongsTo(models.User, { foreignKey: "trans_id"});
+    // Transaction.belongsTo(models.User);
   };
 
   return Transaction;

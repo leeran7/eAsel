@@ -6,11 +6,11 @@ module.exports = (sequelize, DataTypes) => {
   class Social extends Model {}
 
   Social.init({
-    socials_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
+    // socials_id: {
+    //     type: DataTypes.INTEGER,
+    //     primaryKey: true,
+    //     autoIncrement: true
+    // },
     linkedIn: {
         type: DataTypes.STRING,
         validate: {
@@ -47,7 +47,8 @@ module.exports = (sequelize, DataTypes) => {
 
   Social.associate = (models) => {
     // associations can be defined here
-    Social.belongsTo(models.User, { foreignKey: "socials_id"});
+    // Social.belongsTo(models.User, { foreignKey: "socials_id"});
+    // Social.belongsTo(models.User);
   };
 
   return Social;
