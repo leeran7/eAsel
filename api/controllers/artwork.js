@@ -3,28 +3,79 @@ const router = express.Router();
 const db = require('../models');
 const { Artwork } = db;
 
-router.get('/artwork/:artworkid', (req,res) => { //get specific artwork details
-    
+router.get('/', (req, res) => {
+    Artwork.findAll()
+        .then(artworks => {
+            res.json(artworks);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        })
+})
+
+router.get('/:artworkid', (req,res) => { //get specific artwork details
+     const { artworkid } = req.params;
+    Artwork.findByPk(artworkid)
+    .then(artwork => {
+        if(!artwork){
+            return res.sendStatus(404);
+        }
+        res.json(artwork);
+    })
 });
 
 
-router.post('/artwork/new', (req, res) => { //add new artwork 
-
+router.post('/new',  (req, res) => { //add new artwork 
+    let { description, price, uri, } = req.body;
+     Artwork.create({ description, price, uri })
+        .then(artwork => {
+            res.status(201).json(artwork)
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        })
 });
 
 
-router.put('/artwork/:artworkid', (req, res) => { //update artwork
-
+router.put('/:artworkid', (req, res) => { //update artwork
+    let { artworkid } = req.params;
+    Artwork.findByPk(artworkid)
+        .then(artwork => {
+            if(!artwork){
+                res.sendStatus(404);
+            }
+            const { description, uri, price } = req.body;
+            if(uri){
+                artwork.uri = uri;
+            }
+            if(description){
+                artwork.description = description;
+            }
+            if(price){
+                artwork.price = price;
+            }
+            artwork.save()
+                .then(artwork => {
+                    res.json(artwork);
+                })
+                .catch(error => {
+                    res.status(400).json(error);
+                })
+        })
 });
 
-router.delete('/artwork/:artworkid', (req, res) => {
-
+router.delete('/:artworkid',  (req, res) => {
+    const {artworkid} = req.params;
+    Artwork.findByPk(artworkid)
+        .then(artwork => {
+            if(!artwork){
+                res.sendStatus(404);
+            }
+            artwork.destroy();
+            res.sendStatus(204);
+        })
 });
 
-
-router.delete('/:id', (req, res) => {
-
-});
 
 
 module.exports = router;
