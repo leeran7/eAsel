@@ -11,31 +11,31 @@ module.exports = (sequelize, DataTypes) => {
     //     primaryKey: true,
     //     autoIncrement: true
     // },
-    linkedin_link: {
+    linkedin: {
         type: DataTypes.STRING,
         validate: {
-          len: [28, 50],
+          // len: [28, 50],
           notEmpty: true,
         }
     },
-    instagram_link: {
+    instagram: {
         type: DataTypes.STRING,
         validate: {
-          len: [26, 50],
+          // len: [26, 50],
           notEmpty: true,
         }
     }, 
-    twitter_link: {
+    twitter: {
         type: DataTypes.STRING,
         validate: {
-          len: [12, 30],
+          // len: [12, 30],
           notEmpty: true,
         }
     }, 
-    facebook_link: {
+    facebook: {
         type: DataTypes.STRING,
         validate: {
-          len: [25, 50],
+          // len: [25, 50],
           notEmpty: true,
         }
     },

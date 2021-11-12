@@ -26,8 +26,8 @@ router.get('/:artworkid', (req,res) => { //get specific artwork details
 
 
 router.post('/new',  (req, res) => { //add new artwork 
-    let { description, price, uri, } = req.body;
-     Artwork.create({ description, price, uri })
+    let { description, price, uri, id} = req.body;
+     Artwork.create({ description, price, uri, userId: id })
         .then(artwork => {
             res.status(201).json(artwork)
         })
@@ -45,15 +45,10 @@ router.put('/:artworkid', (req, res) => { //update artwork
                 res.sendStatus(404);
             }
             const { description, uri, price } = req.body;
-            if(uri){
-                artwork.uri = uri;
-            }
-            if(description){
-                artwork.description = description;
-            }
-            if(price){
-                artwork.price = price;
-            }
+            artwork.uri = uri;
+            artwork.description = description;
+            artwork.price = price;
+            
             artwork.save()
                 .then(artwork => {
                     res.json(artwork);
@@ -65,7 +60,7 @@ router.put('/:artworkid', (req, res) => { //update artwork
 });
 
 router.delete('/:artworkid',  (req, res) => {
-    const {artworkid} = req.params;
+    const { artworkid } = req.params;
     Artwork.findByPk(artworkid)
         .then(artwork => {
             if(!artwork){
