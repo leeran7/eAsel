@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
-const { User } = db;
+const { User, Cart, Social, Transaction } = db;
 
 router.get("/", (req,res) => {
     User.findAll({})
@@ -21,16 +21,43 @@ router.get('/user/:userid', (req,res) => { // Get User
 });
 
 router.post('/user/new', (req,res) => {
-    const { name, state, city, zipcode } = req.body;
+    const { name, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
+    // let id;
     User.create({
         name, state, city, zipcode
     })
         .then(user => {
+            Cart.create({
+                userId: user.id
+            })
+                .catch(err => {
+                    res.status(400).json(err);
+                })
+            Transaction.create({
+                userId: user.id
+            })
+                .catch(err => {
+                    res.status(400).json(err);
+                })
+            Social.create({
+                linkedin_link: linkedin,
+                facebook_link: facebook,
+                instagram_link: instagram,
+                twitter_link: twitter,
+                userId: user.id
+            })
+                .catch(err => {
+                    res.status(400).json(err);
+                })
             res.status(201).json(user);
         })
         .catch(err => {
             res.status(400).json(err);
         })
+    
+    
+
+    
 })
 
 router.put('/user/:userid', (req, res) => { // Update user
@@ -42,6 +69,7 @@ router.put('/user/:userid', (req, res) => { // Update user
             }
 
         })
+    
 });
 
 router.put('/user/:userid/artworks', (req, res) => { // Get only users artworks
