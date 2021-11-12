@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
   Artwork.associate = (models) => {
     // associations can be defined here
     // Artwork.belongsTo(models.User, { foreignKey: "artwork_id"});
-    // Artwork.belongsTo(models.User);
+    Artwork.belongsTo(models.User);
   };
 
   return Artwork;
