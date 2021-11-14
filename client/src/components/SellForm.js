@@ -50,7 +50,7 @@ const SellForm = () => {
     return (
         <form onSubmit={handleSubmit}>
             <Grid container alignItems="center" justify="center" direction="column">
-                <Grid item xs={12}>
+                <Grid item xs={12} md={4}>
                     <TextField
                         type="text"
                         value={formValues.name}
@@ -131,8 +131,9 @@ const SellForm = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <div style={{ width: "400px" }}>
-                        Size
+                    <div style={{ width: "80vw" }}>
+                        <FormLabel> Size </FormLabel>
+                        
                         <Slider
                             value={formValues.size}
                             onChange={handleSliderChange("size")}

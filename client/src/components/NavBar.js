@@ -19,6 +19,7 @@ import Grid from '@material-ui/core/Grid';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import { Component } from 'react';
+import image from '../img/background5.png';
 
 const navigationLinks = [
     { name: "Artists", href: "" },
@@ -28,8 +29,9 @@ const navigationLinks = [
 ];
 
 const useStyles = makeStyles((theme) => ({
-    toolbar:{
-        width: "100",
+    appbar: {
+        backgroundImage: `url(${image})`,
+        backgroundSize:'cover',
     },
     link: {
         marginRight: '20px',
@@ -38,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(1),
     },
     logo: {
+        //backgroundImage: `url(${image})`,
         flexGrow: 1,
         maxWidth: 80,
         marginRight: "auto",
@@ -58,7 +61,7 @@ const Navbar = () => {
     };
 
     return (
-        <AppBar className={styles.appbar}>
+        <AppBar className={styles.appbar} >
             <Container maxWidth="md">
 
                 <Toolbar>
@@ -92,9 +95,6 @@ const Navbar = () => {
                     >
                         <AccountCircleOutlinedIcon fontSize="large" />
                     </IconButton>
-
-
-
                 </Toolbar>
             </Container>
 
@@ -134,6 +134,7 @@ const Navbar = () => {
                 </List>
             </SwipeableDrawer>
         </AppBar>
+       
     );
 };
 export default Navbar;

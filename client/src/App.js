@@ -21,6 +21,7 @@ import Navbar from './components/NavBar';
 import SellArtPage from './pages/SellArtPage';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { mergeClasses } from '@material-ui/styles';
+import toolbar from '@material-ui/core/Toolbar';
 
 import './index.css';
 
@@ -44,19 +45,20 @@ import './index.css';
 //     </nav>
 //   );
 // }
+
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#ffcdd2"
+      main: "#d50000"
     },
     secondary: {
-      main: "#b39ddb"
+      main: "#448aff"
     }
   }
 });
 
 class App extends React.Component {
-
+  
   render() {
     return (
       <Router>
@@ -65,7 +67,10 @@ class App extends React.Component {
           <Container>
 
             <div clasName="App">
-              <Navbar />
+              <Navbar /> 
+
+              {/* add this toolbar to push the rest of the content down on the page, so nothing is hidden by navabar */}
+              <Toolbar /> 
               <Route path="/SellWithUs" component={SellArtPage} />
             </div>
 
