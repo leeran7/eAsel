@@ -25,27 +25,6 @@ import toolbar from '@material-ui/core/Toolbar';
 
 import './index.css';
 
-
-// function Navigation(props) {
-//   return (
-//     <nav className="navbar navbar-expand-sm navbar-dark bg-dark shadow mb-3">
-//       <Link className="navbar-brand" to="/">Micro Blog</Link>
-//       <ul className="navbar-nav mr-auto">
-//         <li className="nav-item">
-//           <NavLink className="nav-link" exact to="/posts/new">
-//             Create a Micro Post
-//           </NavLink>
-//         </li>
-//         <li className="nav-item">
-//           <NavLink className="nav-link" exact to="/about-us">
-//             About Us
-//           </NavLink>
-//         </li>
-//       </ul>
-//     </nav>
-//   );
-// }
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -54,7 +33,16 @@ const theme = createTheme({
     secondary: {
       main: "#448aff"
     }
-  }
+  },
+  typography: {
+    fontFamily: [
+      "Roboto Condensed", "sans-serif" ,
+    ],
+    "fontSize": 15,
+    "fontWeightLight": 300,
+    "fontWeightRegular": 400,
+    "fontWeightMedium": 500,
+   }
 });
 
 class App extends React.Component {
@@ -73,9 +61,7 @@ class App extends React.Component {
               <Toolbar /> 
               <Route path="/SellWithUs" component={SellArtPage} />
             </div>
-
           </Container>
-
         </ThemeProvider>
       </Router>
 

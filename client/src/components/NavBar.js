@@ -30,8 +30,9 @@ const navigationLinks = [
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
+        flexGrow: 1,
         backgroundImage: `url(${image})`,
-        backgroundSize:'cover',
+        backgroundSize: 'cover',
     },
     link: {
         marginRight: '20px',
@@ -40,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(1),
     },
     logo: {
-        //backgroundImage: `url(${image})`,
         flexGrow: 1,
         maxWidth: 80,
         marginRight: "auto",
@@ -110,7 +110,7 @@ const Navbar = () => {
                     role="button"
                     tabIndex={0}>
                     <IconButton>
-                        <ChevronRightIcon />
+                        <ChevronRightIcon color="secondary" />
                     </IconButton>
                 </div>
 
@@ -134,7 +134,7 @@ const Navbar = () => {
                 </List>
             </SwipeableDrawer>
         </AppBar>
-       
+
     );
 };
 export default Navbar;

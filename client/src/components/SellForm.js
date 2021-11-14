@@ -8,17 +8,21 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import { IconButton } from '@material-ui/core';
+//import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlinedIcon';
+import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import Slider from "@material-ui/core/Slider";
 import Button from "@material-ui/core/Button";
+import { Typography } from '@material-ui/core';
 
 const defaultValues = {
     nameOfArt: "",
     nameOfArtist: "",
     description: "",
-    genre: "",
     dimensions: 0,
-    size: 0, //slider - small/medium/large OR - three input feilds for numbers 0x0x0
-    color: "",
+    genre: "",
+    price: 0,
+    photos: null,
 };
 
 
@@ -49,10 +53,17 @@ const SellForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Grid container alignItems="center" justify="center" direction="column">
-                <Grid item xs={12} md={4}>
+
+            <Grid container justify="center" direction="column" spacing={3}>
+
+                <Grid item>
+                    <Typography>Tell us a bit about your artwork...</Typography>
+                </Grid>
+
+                <Grid item xs={12}>
                     <TextField
                         type="text"
+                        variant="outlined"
                         value={formValues.name}
                         onChange={handleInputChange}
                         name="nameOfArtwork"
@@ -61,9 +72,10 @@ const SellForm = () => {
                         autocomplete="none" />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={9}>
                     <TextField
                         type="text"
+                        variant="outlined"
                         value={formValues.name}
                         onChange={handleInputChange}
                         name="nameOfArtist"
@@ -75,6 +87,7 @@ const SellForm = () => {
                 <Grid item xs={12}>
                     <TextField
                         type="text"
+                        variant="outlined"
                         value={formValues.name}
                         onChange={handleInputChange}
                         name="nameOfArtwork"
@@ -86,30 +99,55 @@ const SellForm = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <TextField
-                        type="number"
-                        value={formValues.name}
-                        onChange={handleInputChange}
-                        name="Dimensions"
-                        label="Dimensions"
-                        fullWidth
-                        autocomplete="none" />
+                    <Grid container alignItems="center" spacing={1} direction="row">
+                        <Grid item xs={12}>
+                            <FormLabel>Dimensions (in.)</FormLabel>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <TextField
+                                type="number"
+                                variant="outlined"
+                                value={formValues.name}
+                                onChange={handleInputChange}
+                                name="Dimensions"
+                                autocomplete="none" />
+
+                        </Grid>
+                        <FormLabel>x</FormLabel>
+                        <Grid item xs={3}>
+                            <TextField
+                                type="number"
+                                variant="outlined"
+                                value={formValues.name}
+                                onChange={handleInputChange}
+                                name="Dimensions"
+                                // label="dimension"
+                                autocomplete="none" />
+                        </Grid>
+                        <FormLabel>x</FormLabel>
+                        <Grid item xs={3}>
+                            <TextField
+                                type="number"
+                                variant="outlined"
+                                value={formValues.name}
+                                onChange={handleInputChange}
+                                name="Dimensions"
+                                autocomplete="none" />
+                        </Grid>
+                    </Grid>
                 </Grid>
-
                 <Grid item xs={12}>
-                    <FormControl >
-
+                    <FormControl  >
                         <FormLabel>Genre</FormLabel>
                         <RadioGroup
                             name="genre"
                             value={formValues.genre}
                             onChange={handleInputChange}
                             row
-                            fullWidth
                         >
                             <FormControlLabel
                                 key="contemporary"
-                                value="male"
+                                value="contemporary"
                                 control={<Radio size="small" />}
                                 label="Contemporary"
                             />
@@ -120,52 +158,75 @@ const SellForm = () => {
                                 label="Antique"
                             />
                             <FormControlLabel
+                                key="pop-art"
+                                value="pop"
+                                control={<Radio size="small" />}
+                                label="Pop-Art"
+                            />
+                            <FormControlLabel
+                                key="abstract"
+                                value="abstract"
+                                control={<Radio size="small" />}
+                                label="Abstract"
+                            />
+                            <FormControlLabel
                                 key="other"
                                 value="other"
                                 control={<Radio size="small" />}
                                 label="Other"
+                            // make text box for this option - so user can fill in themselves
                             />
-
                         </RadioGroup>
                     </FormControl>
                 </Grid>
 
                 <Grid item xs={12}>
                     <div style={{ width: "80vw" }}>
-                        <FormLabel> Size </FormLabel>
-                        
+                        <Typography>
+                            <FormLabel> Price: </FormLabel> ${formValues.price}
+                        </Typography>
                         <Slider
-                            value={formValues.size}
-                            onChange={handleSliderChange("size")}
-                            defaultValue={1}
-                            step={1}
-                            min={1}
-                            max={3}
+                            value={formValues.price}
+                            onChange={handleSliderChange("price")}
+                            defaultValue={10}
+                            valueLabelDisplay="auto"
+                            step={10}
+                            min={10}
+                            max={6000}
                             marks={[
                                 {
                                     value: 1,
-                                    label: "small",
+                                    label: "$10",
                                 },
                                 {
-                                    value: 2,
-                                    label: "medium",
+                                    value: 3000,
+                                    label: "$3,000",
                                 },
                                 {
-                                    value: 3,
-                                    label: "large",
+                                    value: 6000,
+                                    label: "$6,000",
                                 },
                             ]}
-                            valueLabelDisplay="off"
                         />
                     </div>
                 </Grid>
-                <Button variant="contained" color="primary" type="submit">
-                    Submit
-                </Button>
+                <Grid item xs={12}>
+                    <Button variant="contained" color="primary" component="label">
+                        <input type="file" hidden />
+                        <IconButton>
+                            <CameraAltOutlinedIcon fontSize="large" style={{ fill: "white" }} />
+                        </IconButton>
+                        {/* not updating any state... is it necessary? */}
+                        Upload Photos
+                    </Button>
+                </Grid>
 
+                <Grid item>
+                    <Button variant="contained" color="secondary" type="submit" fontSize="large">
+                        submit
+                    </Button>
+                </Grid>
             </Grid>
-
-
         </form>
     )
 }
