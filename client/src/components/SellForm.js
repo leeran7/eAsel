@@ -6,14 +6,14 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import { createTheme } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
-//import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlinedIcon';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import Slider from "@material-ui/core/Slider";
 import Button from "@material-ui/core/Button";
 import { Typography } from '@material-ui/core';
+
+
 
 const defaultValues = {
     nameOfArt: "",
@@ -24,7 +24,6 @@ const defaultValues = {
     price: 0,
     photos: null,
 };
-
 
 
 const SellForm = () => {
@@ -57,7 +56,7 @@ const SellForm = () => {
             <Grid container justify="center" direction="column" spacing={3}>
 
                 <Grid item>
-                    <Typography>Tell us a bit about your artwork...</Typography>
+                    <Typography variant="h5">Tell us a bit about your artwork...</Typography>
                 </Grid>
 
                 <Grid item xs={12}>
