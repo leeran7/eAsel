@@ -1,24 +1,117 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
-const { User } = db;
+const { User, Cart, Social, Transaction, Artwork } = db;
+
+router.get("/", (req,res) => {
+    User.findAll({})
+        .then(users => res.json(users));
+})
 
 
 router.get('/user/:userid', (req,res) => { // Get User
-    res.send("GET User");
+    const { userid } = req.params;
+    User.findOne(userid)
+        .then(user => {
+            if(!user){
+                return res.sendStatus(404)
+            }
+            res.json(user);
+        })
 });
 
+router.post('/user/new', (req,res) => {
+    const { name, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
+    // let id;
+    User.create({
+        name, state, city, zipcode
+    }).then(user => {
+        
+        Cart.create({
+            userId: user.id
+        }).catch(err => {
+            res.status(400).json(err);
+        })
+        
+        Transaction.create({
+            userId: user.id
+        }).catch(err => {
+            res.status(400).json(err);
+        })
+
+        Social.create({
+            linkedin,facebook,instagram,twitter,
+            userId: user.id
+        }).catch(err => {
+            res.status(400).json(err);
+        })
+
+        res.status(201).json(user);
+    }).catch(err => {
+        res.status(400).json(err);
+    })
+})
 
 router.put('/user/:userid', (req, res) => { // Update user
-    res.send("Update User");
+    const { userid } = req.params;
+    
+    User.findByPk(userid)
+        .then(user => {
+            if(!user){
+                return res.sendStatus(404);
+            }
+            const { name, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
+            user.name = name;
+            user.state = state;
+            user.city = city;
+            user.zipcode = zipcode;
+
+            Social.findByPk(userid)
+                .then(social => {
+                    if(!social){
+                        return res.sendStatus(404);
+                    }
+                    social.twitter = twitter;
+                    social.facebook = facebook;
+                    social.linkedin = linkedin;
+                    social.instagram = instagram;
+                    social.save()
+                        .catch(err => {
+                            res.sendStatus(400);
+                        })
+                })
+            user.save()
+                .then(user => {
+                    res.json(user);
+                })
+                .catch(err => {
+                    res.status(400).json(err);
+                })
+        })
+    
 });
 
 router.put('/user/:userid/artworks', (req, res) => { // Get only users artworks
-    res.send("Get user artworks");
+    const { userid } = req.params;
+    Artwork.findAll({
+        where: { userId: userid }
+    }).then(artworks => {
+        res.json(artworks);
+    }).catch(err => {
+        res.status(400).json(err);
+    })
   });
 
 router.delete('/user/:userid', (req, res) => { // Delete user
-    res.send("Delete user");
+    const { userid } = req.params;
+    User.findByPk(userid)
+        .then(user => {
+            if(!user){
+                res.json(404);
+            }
+            user.destroy();
+            res.sendStatus(204);
+        })
 });
 
 module.exports = router;
