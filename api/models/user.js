@@ -52,9 +52,10 @@ module.exports = (sequelize, DataTypes) => {
     // User.hasOne(models.Transaction, { foreignKey: "user_id"});
 
     User.hasOne(models.Cart)
-    User.hasMany(models.Artwork);
+    User.hasMany(models.Transaction, { as: "ArtSales", foreignKey: "sellerId" });
+    User.hasMany(models.Transaction, { as: "ArtPurchases", foreignKey: "buyerId" });
     User.hasOne(models.Social);
-    User.hasOne(models.Transaction);
+    // User.hasOne(models.Transaction);
   };
 
   return User;

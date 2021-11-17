@@ -3,21 +3,27 @@ const router = express.Router();
 const db = require('../models');
 const { Cart } = db;
 
-router.get('/cart/:userid', (req,res) => { //Open signup page
-  return Cart.findOne({
-    where: { user_id: userid }
-  }).then(cart => {
-    return cart;
-  })
+router.get('/cart/:userid', (req,res) => { //get users cart information
+  const { userid } = req.params;
+  return Cart.findByPk(userid)
+    .then(cart => {
+      res.json(cart);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    })
 });
 
 
 router.put('/cart/:userid', (req, res) => { //Update Cart (Delete item or Add Item)
-  Cart.update({
-    where: { user_id: userid }
-  }).then(cart => {
-    
-  })
+  const { userid } = req.params;
+  Cart.findByPk(userid)
+    .then(cart => {
+      //update 
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    })
 });
 
 module.exports = router;

@@ -26,8 +26,11 @@ router.get('/:artworkid', (req,res) => { //get specific artwork details
 
 
 router.post('/new',  (req, res) => { //add new artwork 
-    let { description, price, uri, id} = req.body;
-     Artwork.create({ description, price, uri, userId: id })
+    let { name, dimensionX, dimensionY, dimensionZ, genre, description, price, uri, id} = req.body;
+     Artwork.create(
+         { name, dimensionX, dimensionY, dimensionZ, 
+           genre, description, price, uri, userId: id })
+
         .then(artwork => {
             res.status(201).json(artwork)
         })
@@ -44,10 +47,16 @@ router.put('/:artworkid', (req, res) => { //update artwork
             if(!artwork){
                 res.sendStatus(404);
             }
-            const { description, uri, price } = req.body;
+            const { name, dimensionX, dimensionY, 
+                dimensionZ, genre, description, price, uri} = req.body;
             artwork.uri = uri;
             artwork.description = description;
             artwork.price = price;
+            artwork.name = name;
+            artwork.dimensionX = dimensionX;
+            artwork.dimensionY = dimensionY;
+            artwork.dimensionZ = dimensionZ;
+            artwork.genre = genre;
             
             artwork.save()
                 .then(artwork => {
