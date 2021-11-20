@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     // Cartitem.belongsTo(models.Cart);
     Cartitem.belongsTo(models.Cart, { as: "cart" });
+    Cartitem.belongsTo(models.Artwork, { as: "artwork" });
   };
 
   return Cartitem;

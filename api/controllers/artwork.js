@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
-const { Artwork } = db;
+const artwork = require('../models/artwork');
+const { Artwork, Transaction } = db;
 
 router.get('/', (req, res) => {
     Artwork.findAll()
@@ -26,9 +27,9 @@ router.get('/:artworkid', (req,res) => { //get specific artwork details
 
 
 router.post('/new',  (req, res) => { //add new artwork 
-    let { name, dimensionX, dimensionY, dimensionZ, genre, description, price, uri, id} = req.body;
+    let { title, dimensionX, dimensionY, dimensionZ, genre, description, price, uri, id} = req.body;
      Artwork.create(
-         { name, dimensionX, dimensionY, dimensionZ, 
+         { title, dimensionX, dimensionY, dimensionZ, 
            genre, description, price, uri, userId: id })
 
         .then(artwork => {
@@ -80,6 +81,15 @@ router.delete('/:artworkid',  (req, res) => {
         })
 });
 
-
+router.get("/history/:artworkid", (req,res) => {
+    const { artworkid } = req.params;
+    Transaction.findAll({
+        where: { artworkId: artworkid }
+    }) .then(transactions => {
+        res.json(transactions);
+    }) .catch(err => {
+        res.status(400).json(err);
+    })
+})
 
 module.exports = router;

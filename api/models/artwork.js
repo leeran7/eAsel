@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Artwork.belongsTo(models.User);
     Artwork.hasMany(models.Transaction);
-
+    // Artwork.belongsTo(models.Cartitem);
     // Artwork.belongsToMany(models.User, { through: "transactions" });
     // Artwork.belongsToMany(models.User, { through: "Buyer" });
   };
