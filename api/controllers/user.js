@@ -9,7 +9,7 @@ router.get("/", (req,res) => {
 })
 
 
-router.get('/user/:userid', (req,res) => { // Get User
+router.get('/:userid', (req,res) => { // Get User
     const { userid } = req.params;
     User.findOne(userid)
         .then(user => {
@@ -20,22 +20,17 @@ router.get('/user/:userid', (req,res) => { // Get User
         })
 });
 
-router.post('/user/new', (req,res) => {
+router.post('/new', (req,res) => {
     const { name, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
     // let id;
     User.create({
         name, state, city, zipcode
     }).then(user => {
-        
+        let completed = true;
         Cart.create({
             userId: user.id
         }).catch(err => {
-            res.status(400).json(err);
-        })
-        
-        Transaction.create({
-            userId: user.id
-        }).catch(err => {
+            completed = false;
             res.status(400).json(err);
         })
 
@@ -43,16 +38,19 @@ router.post('/user/new', (req,res) => {
             linkedin,facebook,instagram,twitter,
             userId: user.id
         }).catch(err => {
+            completed = false;
             res.status(400).json(err);
         })
-
-        res.status(201).json(user);
+        if(completed){
+            res.status(201).json(user);
+        }
+        
     }).catch(err => {
         res.status(400).json(err);
     })
 })
 
-router.put('/user/:userid', (req, res) => { // Update user
+router.put('/:userid', (req, res) => { // Update user
     const { userid } = req.params;
     
     User.findByPk(userid)
@@ -65,7 +63,6 @@ router.put('/user/:userid', (req, res) => { // Update user
             user.state = state;
             user.city = city;
             user.zipcode = zipcode;
-
             Social.findByPk(userid)
                 .then(social => {
                     if(!social){
@@ -91,7 +88,7 @@ router.put('/user/:userid', (req, res) => { // Update user
     
 });
 
-router.put('/user/:userid/artworks', (req, res) => { // Get only users artworks
+router.put('/:userid/artworks', (req, res) => { // Get only users artworks
     const { userid } = req.params;
     Artwork.findAll({
         where: { userId: userid }
@@ -102,7 +99,7 @@ router.put('/user/:userid/artworks', (req, res) => { // Get only users artworks
     })
   });
 
-router.delete('/user/:userid', (req, res) => { // Delete user
+router.delete('/:userid', (req, res) => { // Delete user
     const { userid } = req.params;
     User.findByPk(userid)
         .then(user => {

@@ -11,13 +11,28 @@ module.exports = (sequelize, DataTypes) => {
     //     primaryKey: true,
     //     autoIncrement: true
     // },
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
     description: {
         type: DataTypes.STRING,
         validate: {
           notEmpty: true
         }
     },
-    category: {
+    dimensionX: {
+        type: DataTypes.INTEGER
+    },
+    dimensionY: {
+        type: DataTypes.INTEGER
+    },
+    dimensionZ: {
+        type: DataTypes.INTEGER
+    },
+    genre: {
         type: DataTypes.STRING,
         validate: {
           notEmpty: true
@@ -29,9 +44,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true
         }
     }, 
-    time_sold: {
-        type: DataTypes.STRING
-    },
     price: {
         type: DataTypes.INTEGER
     }, 
@@ -43,8 +55,11 @@ module.exports = (sequelize, DataTypes) => {
 
   Artwork.associate = (models) => {
     // associations can be defined here
-    // Artwork.belongsTo(models.User, { foreignKey: "artwork_id"});
     Artwork.belongsTo(models.User);
+    Artwork.hasMany(models.Transaction);
+    // Artwork.belongsTo(models.Cartitem);
+    // Artwork.belongsToMany(models.User, { through: "transactions" });
+    // Artwork.belongsToMany(models.User, { through: "Buyer" });
   };
 
   return Artwork;

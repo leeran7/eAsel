@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
-const { Artwork } = db;
+const artwork = require('../models/artwork');
+const { Artwork, Transaction } = db;
 
 router.get('/', (req, res) => {
     Artwork.findAll()
@@ -26,8 +27,11 @@ router.get('/:artworkid', (req,res) => { //get specific artwork details
 
 
 router.post('/new',  (req, res) => { //add new artwork 
-    let { description, price, uri, id} = req.body;
-     Artwork.create({ description, price, uri, userId: id })
+    let { title, dimensionX, dimensionY, dimensionZ, genre, description, price, uri, id} = req.body;
+     Artwork.create(
+         { title, dimensionX, dimensionY, dimensionZ, 
+           genre, description, price, uri, userId: id })
+
         .then(artwork => {
             res.status(201).json(artwork)
         })
@@ -44,10 +48,16 @@ router.put('/:artworkid', (req, res) => { //update artwork
             if(!artwork){
                 res.sendStatus(404);
             }
-            const { description, uri, price } = req.body;
+            const { name, dimensionX, dimensionY, 
+                dimensionZ, genre, description, price, uri} = req.body;
             artwork.uri = uri;
             artwork.description = description;
             artwork.price = price;
+            artwork.name = name;
+            artwork.dimensionX = dimensionX;
+            artwork.dimensionY = dimensionY;
+            artwork.dimensionZ = dimensionZ;
+            artwork.genre = genre;
             
             artwork.save()
                 .then(artwork => {
@@ -71,6 +81,15 @@ router.delete('/:artworkid',  (req, res) => {
         })
 });
 
-
+router.get("/history/:artworkid", (req,res) => {
+    const { artworkid } = req.params;
+    Transaction.findAll({
+        where: { artworkId: artworkid }
+    }) .then(transactions => {
+        res.json(transactions);
+    }) .catch(err => {
+        res.status(400).json(err);
+    })
+})
 
 module.exports = router;
