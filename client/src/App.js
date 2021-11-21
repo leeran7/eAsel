@@ -54,7 +54,7 @@ class App extends React.Component {
 
           <Container>
 
-            <div clasName="App">
+            <div className="App">
               <Navbar /> 
 
               {/* add this toolbar to push the rest of the content down on the page, so nothing is hidden by navabar */}

@@ -6,23 +6,24 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
-import { createTheme } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
-import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import Slider from "@material-ui/core/Slider";
 import Button from "@material-ui/core/Button";
 import { Typography } from '@material-ui/core';
-
-
+import CloudinaryUploadWidget from './CloudinaryUploadWidget';
+import { Paper } from '@material-ui/core';
 
 const defaultValues = {
-    nameOfArt: "",
+    error: false,
+    success: false,
+    title: "",
     nameOfArtist: "",
     description: "",
-    dimensions: 0,
+    dimensionX: 0,
+    dimensionY: 0,
+    dimensionZ: 0,
     genre: "",
-    price: 0,
-    photos: null,
+    price: undefined,
+    uri: [],
 };
 
 
@@ -47,13 +48,40 @@ const SellForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        fetch("/api/artwork/new", {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ content: formValues }),
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                }
+
+                throw new Error('Content validation');
+            })
+            .then(post => {
+                setFormValues({
+                    success: true,
+                });
+            })
+            .catch(err => {
+                setFormValues({
+                    error: true,
+                });
+            });
+
         console.log(formValues);//make popup window ????
     };
 
     return (
         <form onSubmit={handleSubmit}>
 
-            <Grid container justify="center" direction="column" spacing={3}>
+            <Grid container justifyContent="center" direction="column" spacing={3}>
 
                 <Grid item>
                     <Typography variant="h5">Tell us a bit about your artwork...</Typography>
@@ -65,22 +93,22 @@ const SellForm = () => {
                         variant="outlined"
                         value={formValues.name}
                         onChange={handleInputChange}
-                        name="nameOfArtwork"
+                        name= "title"
                         label="Name Of Artwork"
                         fullWidth
-                        autocomplete="none" />
+                        autoComplete="none" />
                 </Grid>
 
                 <Grid item xs={9}>
                     <TextField
                         type="text"
                         variant="outlined"
-                        value={formValues.name}
+                        value={formValues.name} //get name from db and input
                         onChange={handleInputChange}
                         name="nameOfArtist"
                         label="Name Of Artist"
                         fullWidth
-                        autocomplete="none" />
+                        autoComplete="none" />
                 </Grid>
 
                 <Grid item xs={12}>
@@ -89,12 +117,12 @@ const SellForm = () => {
                         variant="outlined"
                         value={formValues.name}
                         onChange={handleInputChange}
-                        name="nameOfArtwork"
+                        name="description"
                         label="Description i.e. color, style"
                         fullWidth
                         multiline
                         rows={4}
-                        autocomplete="none" />
+                        autoComplete="none" />
                 </Grid>
 
                 <Grid item xs={12}>
@@ -108,8 +136,8 @@ const SellForm = () => {
                                 variant="outlined"
                                 value={formValues.name}
                                 onChange={handleInputChange}
-                                name="Dimensions"
-                                autocomplete="none" />
+                                name="dimensionX"
+                                autoComplete="none" />
 
                         </Grid>
                         <FormLabel>x</FormLabel>
@@ -119,9 +147,9 @@ const SellForm = () => {
                                 variant="outlined"
                                 value={formValues.name}
                                 onChange={handleInputChange}
-                                name="Dimensions"
+                                name="dimensionY"
                                 // label="dimension"
-                                autocomplete="none" />
+                                autoComplete="none" />
                         </Grid>
                         <FormLabel>x</FormLabel>
                         <Grid item xs={3}>
@@ -130,8 +158,8 @@ const SellForm = () => {
                                 variant="outlined"
                                 value={formValues.name}
                                 onChange={handleInputChange}
-                                name="Dimensions"
-                                autocomplete="none" />
+                                name="dimensionZ"
+                                autoComplete="none" />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -140,7 +168,7 @@ const SellForm = () => {
                         <FormLabel>Genre</FormLabel>
                         <RadioGroup
                             name="genre"
-                            value={formValues.genre}
+                            value={formValues.name}
                             onChange={handleInputChange}
                             row
                         >
@@ -209,15 +237,17 @@ const SellForm = () => {
                         />
                     </div>
                 </Grid>
+
                 <Grid item xs={12}>
-                    <Button variant="contained" color="primary" component="label">
-                        <input type="file" hidden />
-                        <IconButton>
-                            <CameraAltOutlinedIcon fontSize="large" style={{ fill: "white" }} />
-                        </IconButton>
-                        {/* not updating any state... is it necessary? */}
-                        Upload Photos
-                    </Button>
+                    <Grid container alignItems="center" spacing={1} direction="row"> 
+                            <Grid item={3}>
+                               
+                              <CloudinaryUploadWidget />
+                              <div class="imageUploadContainer"></div>
+                              <div class="uploaded-images"></div>
+                            </Grid>
+                    
+                    </Grid>
                 </Grid>
 
                 <Grid item>
