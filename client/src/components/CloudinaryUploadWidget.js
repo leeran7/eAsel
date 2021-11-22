@@ -4,8 +4,10 @@ import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 
 class CloudinaryUploadWidget extends Component {
   componentDidMount() {
+    
     var myWidget = window.cloudinary.createUploadWidget(
       {
+        
         cloudName: "ctp-easel",
         uploadPreset: "easelImages",
         cropping: true,
@@ -18,7 +20,8 @@ class CloudinaryUploadWidget extends Component {
     );
     document.getElementById("upload_widget").addEventListener(
       "click",
-      function () {
+      function (event) {
+        event.preventDefault();
         myWidget.open();
       },
       false

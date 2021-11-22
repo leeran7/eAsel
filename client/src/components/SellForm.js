@@ -23,12 +23,11 @@ const defaultValues = {
     dimensionZ: 0,
     genre: "",
     price: undefined,
-    uri: [],
+    uri: "",
 };
 
 
 const SellForm = () => {
-
     const [formValues, setFormValues] = useState(defaultValues);
 
     const handleInputChange = (e) => {
@@ -49,20 +48,21 @@ const SellForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        fetch("/api/artwork/new", {
+        fetch("/api/artworks/new", {
             method: 'POST',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ content: formValues }),
+            body: JSON.stringify(formValues)
+            // body: JSON.stringify({ content: formValues.json }),
         })
             .then(res => {
                 if (res.ok) {
                     return res.json()
                 }
 
-                throw new Error('Content validation');
+                // throw new Error('Content validation');
             })
             .then(post => {
                 setFormValues({
@@ -75,7 +75,7 @@ const SellForm = () => {
                 });
             });
 
-        console.log(formValues);//make popup window ????
+        console.log(formValues );//make popup window ????
     };
 
     return (
