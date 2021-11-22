@@ -14,13 +14,13 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: true
+        // notEmpty: true
       }
     },
     description: {
         type: DataTypes.STRING,
         validate: {
-          notEmpty: true
+          // notEmpty: true
         }
     },
     dimensionX: {
@@ -35,13 +35,13 @@ module.exports = (sequelize, DataTypes) => {
     genre: {
         type: DataTypes.STRING,
         validate: {
-          notEmpty: true
+          // notEmpty: true
         }
     }, 
     uri: {
         type: DataTypes.STRING,
         validate: {
-          notEmpty: true
+          // notEmpty: true
         }
     }, 
     price: {
