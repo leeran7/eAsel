@@ -3,7 +3,7 @@ import { IconButton } from "@material-ui/core";
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 
 class CloudinaryUploadWidget extends Component {
-
+  
    componentDidMount() {
     const myWidget = window.cloudinary.createUploadWidget(
       {

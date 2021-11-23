@@ -30,7 +30,6 @@ const defaultValues = {
 };
 
 const SellForm = () => {
-
     const [formValues, setFormValues] = useState(defaultValues);
 
     const handleUriChange = (value) =>{
@@ -59,20 +58,21 @@ const SellForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        fetch("/api/artwork/new", {
+        fetch("/api/artworks/new", {
             method: 'POST',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ content: formValues }),
+            body: JSON.stringify(formValues)
+            // body: JSON.stringify({ content: formValues.json }),
         })
             .then(res => {
                 if (res.ok) {
                     return res.json()
                 }
 
-                throw new Error('Content validation');
+                // throw new Error('Content validation');
             })
             .then(post => {
                 setFormValues({
@@ -86,8 +86,8 @@ const SellForm = () => {
                 });
                 console.error('Error:', err)
             });
-
         console.log(formValues);//make popup window to say successfully saved the data to db?
+
     };
 
     return (
