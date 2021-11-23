@@ -11,6 +11,9 @@ import Button from "@material-ui/core/Button";
 import { Typography } from '@material-ui/core';
 import CloudinaryUploadWidget from './CloudinaryUploadWidget';
 import { Paper } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import {CameraAltOutlinedIcon} from '@material-ui/icons/CameraAltOutlined'
+
 
 const defaultValues = {
     error: false,
@@ -23,13 +26,20 @@ const defaultValues = {
     dimensionZ: 0,
     genre: "",
     price: undefined,
-    uri: [],
+    uri: "",
 };
-
 
 const SellForm = () => {
 
     const [formValues, setFormValues] = useState(defaultValues);
+
+    const handleUriChange = (value) =>{
+
+        setFormValues({
+            ...formValues,
+            uri: value,
+        });
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -72,10 +82,12 @@ const SellForm = () => {
             .catch(err => {
                 setFormValues({
                     error: true,
+                    //replace all the data values with nothing? 
                 });
+                console.error('Error:', err)
             });
 
-        console.log(formValues);//make popup window ????
+        console.log(formValues);//make popup window to say successfully saved the data to db?
     };
 
     return (
@@ -241,10 +253,7 @@ const SellForm = () => {
                 <Grid item xs={12}>
                     <Grid container alignItems="center" spacing={1} direction="row"> 
                             <Grid item={3}>
-                               
-                              <CloudinaryUploadWidget />
-                              <div class="imageUploadContainer"></div>
-                              <div class="uploaded-images"></div>
+                              <CloudinaryUploadWidget changeUri={handleUriChange}/>
                             </Grid>
                     
                     </Grid>
