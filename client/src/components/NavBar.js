@@ -18,6 +18,7 @@ import image from '../img/background5.png';
 
 const navigationLinks = [
     { name: "Artists", href: "" },
+    { name: "Buy", href:""},
     { name: "Sell", href: "/SellWithUs" },
     { name: "Cart", href: "" },
     { name: "Login/Sign Up", href: "" },
