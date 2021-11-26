@@ -17,7 +17,7 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import image from '../img/background5.png';
 
 const navigationLinks = [
-    { name: "Artists", href: "" },
+    { name: "Artists", href: "/ArtistList" },
     { name: "Buy", href:""},
     { name: "Sell", href: "/SellWithUs" },
     { name: "Cart", href: "" },
@@ -48,13 +48,13 @@ const Navbar = () => {
 
     const [open, setOpen] = useState(false);
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
+    // const handleOpen = () => {
+    //     setOpen(true);
+    // };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+    // const handleClose = () => {
+    //     setOpen(false);
+    // };
 
     return (
         <AppBar className={styles.appbar} >

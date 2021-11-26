@@ -10,9 +10,6 @@ import Slider from "@material-ui/core/Slider";
 import Button from "@material-ui/core/Button";
 import { Typography } from '@material-ui/core';
 import CloudinaryUploadWidget from './CloudinaryUploadWidget';
-import { Paper } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import {CameraAltOutlinedIcon} from '@material-ui/icons/CameraAltOutlined'
 
 
 const defaultValues = {
