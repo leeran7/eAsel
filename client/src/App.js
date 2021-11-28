@@ -24,7 +24,6 @@ import ArtistPage from './pages/ArtistPage';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { mergeClasses } from '@material-ui/styles';
 import toolbar from '@material-ui/core/Toolbar';
-
 import './index.css';
 
 // var request = require('superagent');
@@ -82,7 +81,6 @@ const theme = createTheme({
 });
 
 class App extends React.Component {
-  
   render() {
     return (
       <Router>

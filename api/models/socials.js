@@ -18,6 +18,13 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         }
     },
+    pinterest: {
+      type: DataTypes.STRING,
+      validate: {
+        // len: [28, 50],
+        notEmpty: true,
+      }
+  },
     instagram: {
         type: DataTypes.STRING,
         validate: {
