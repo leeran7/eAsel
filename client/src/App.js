@@ -23,7 +23,6 @@ import ArtistList from './pages/ArtistList';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { mergeClasses } from '@material-ui/styles';
 import toolbar from '@material-ui/core/Toolbar';
-
 import './index.css';
 
 // var request = require('superagent');
