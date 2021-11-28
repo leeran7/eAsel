@@ -16,22 +16,37 @@ class ArtistList extends React.Component {
 
   componentDidMount() {
 
-    fetch('https://random-data-api.com/api/lorem_flickr/random_lorem_flickr')
-    .then(res=> res.json())
-    .then(data => {
-        this.setState({picture: data.image});
-    })
-    .catch(err => {
-        this.setState({
-          notFound: true,
-        });
-    });
+    // fetch('https://random-data-api.com/api/lorem_flickr/random_lorem_flickr')
+    // .then(res=> res.json())
+    // .then(data => {
+    //     this.setState({picture: data.image});
+    // })
+    // .catch(err => {
+    //     this.setState({
+    //       notFound: true,
+    //     });
+    // });
+
+    // fetch('https://random-data-api.com/api/users/random_user')
+    // .then(res => res.json())
+    // .then(data => {
+    //   this.setState( prevState => ({
+    //     artists:[...prevState.artists, ...data],
+    //     loading: false,
+    //   }));
+    // })
+    // .catch(err => {
+    //   this.setState({
+    //     notFound: true,
+    //   });
+    // });
+//}
 
     fetch('https://random-data-api.com/api/users/random_user')
       .then(res => res.json())
       .then(data => {
         this.setState( prevState => ({
-          artists:[...prevState.artists, <ArtistName artist={data} picture={this.state.picture}/>],
+          artists:[...prevState.artists, <ArtistName artist={data}/>],
           loading: false,
         }));
       })
@@ -50,13 +65,14 @@ class ArtistList extends React.Component {
             <Grid container spacing={2}>
                     <Grid item xs={12} sm={6} md={3}>
                         {/* add key  */}
+                        {/* {this.state.artists.map(artist=> {
+                          return <ArtistName artist={artist} />
+                        })} */}
                         {this.state.artists}
                     </Grid> 
             </Grid>
         </Container>
-    )
-    
-    
+    )    
   }
 }
 
