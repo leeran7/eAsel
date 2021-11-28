@@ -48,14 +48,6 @@ const Navbar = () => {
 
     const [open, setOpen] = useState(false);
 
-    // const handleOpen = () => {
-    //     setOpen(true);
-    // };
-
-    // const handleClose = () => {
-    //     setOpen(false);
-    // };
-
     return (
         <AppBar className={styles.appbar} >
             <Container maxWidth="md">
