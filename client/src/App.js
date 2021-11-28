@@ -22,7 +22,6 @@ import SellArtPage from './pages/SellArtPage';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { mergeClasses } from '@material-ui/styles';
 import toolbar from '@material-ui/core/Toolbar';
-
 import './index.css';
 
 const theme = createTheme({
