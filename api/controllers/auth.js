@@ -7,9 +7,9 @@ const { User, Cart, Social } = db;
 
 
 router.post('/signup', (req,res) => { //Open signup page
-  const { firstName, lastName, bio, email, password, state, city, zipcode, facebook, linkedin, instagram, twitter} = req.body;
+  const { firstName, lastName, bio, email, profilePic, password, state, city, zipcode, facebook, linkedin, instagram, twitter, pinterest} = req.body;
     User.create({
-        firstName, lastName, email, state, city, zipcode, password 
+        firstName, lastName, bio, email, state, city, zipcode, password, profilePic
     }) .then(user => {
         let completed = true;
         Cart.create({
@@ -20,7 +20,7 @@ router.post('/signup', (req,res) => { //Open signup page
         })
 
         Social.create({
-            linkedin,facebook,instagram,twitter,
+            linkedin,facebook,instagram,twitter,pinterest,
             userId: user.id
         }).catch(err => {
             completed = false;

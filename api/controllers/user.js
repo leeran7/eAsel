@@ -27,8 +27,12 @@ router.put('/:userid', (req, res) => { // Update user
             if(!user){
                 return res.sendStatus(404);
             }
-            const { name, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
-            user.name = name;
+            const { firstName, lastName, bio, email, profilePic, pinterest, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
+            user.firstName = firstName;
+            user.lastName = lastName;
+            user.bio = bio;
+            user.email = email;
+            user.profilePic = profilePic;
             user.state = state;
             user.city = city;
             user.zipcode = zipcode;
@@ -41,6 +45,7 @@ router.put('/:userid', (req, res) => { // Update user
                     social.facebook = facebook;
                     social.linkedin = linkedin;
                     social.instagram = instagram;
+                    social.pinterest = pinterest;
                     social.save()
                         .catch(err => {
                             res.sendStatus(400);
