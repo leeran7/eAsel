@@ -1,41 +1,67 @@
 const express = require('express');
+
 const router = express.Router();
 const db = require('../models');
-const { User } = db;
-
-// This is a simple example for providing basic CRUD routes for
-// a resource/model. It provides the following:
-//    GET    /posts
-//    POST   /posts
-//    GET    /posts/:id
-//    PUT    /posts/:id
-//    DELETE /posts/:id 
-
-// There are other styles for creating these route handlers, we typically
-// explore other patterns to reduce code duplication.
-// TODO: Can you spot where we have some duplication below?
+const passport = require('../middlewares/Auth');
+const { User, Cart, Social } = db;
 
 
-router.get('/signup', (req,res) => { //Open signup page
-  res.send("GET Signup")
+router.post('/signup', (req,res) => { //Open signup page
+  const { firstName, lastName, email, password, state, city, zipcode, facebook, linkedin, instagram, twitter} = req.body;
+    User.create({
+        firstName, lastName, email, state, city, zipcode, password 
+    }) .then(user => {
+        let completed = true;
+        Cart.create({
+            userId: user.id
+        }).catch(err => {
+            completed = false;
+            res.status(400).json(err);
+        })
+
+        Social.create({
+            linkedin,facebook,instagram,twitter,
+            userId: user.id
+        }).catch(err => {
+            completed = false;
+            res.status(400).json(err);
+        })
+        if(completed){
+          req.login(user, () => {
+            user.password = undefined;
+            res.status(201).json(user)
+          });    
+        }
+        
+    })
+    .catch(err => {
+        res.status(400).json(err);
+    })
 });
 
+router.get("/login", (req,res) => {
+  if(req.user){
+    res.json(req.user)
+  } else {
+    res.status(400).json({ msg: "Not Logged In" });
+  }
+})
+router.post('/login',
+  passport.authenticate('local'),
+  (req, res) => {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    res.json(req.user);
+  });
 
-router.post('/signup', (req, res) => { //Post signup information
-  res.send("POST Signup")
-});
-
-router.get('/signin', (req,res) => { //signin page
-  res.send("GET Signin")
-});
-
-
-router.post('/signin', (req, res) => { //process signin
-  res.send("POST Signin")
-});
-
-router.get("/logout", (req,res) => { //process logout
-  res.send("Logout");
+router.post('/logout', (req,res) => {
+  if(req.user){
+    req.logout();
+    res.status(200).json({ msg: "Successfully Logged Out" });
+  } else {
+    res.status(400).json({ msg: "Already Logged Out" });
+  }
+  
 })
 
 module.exports = router;
