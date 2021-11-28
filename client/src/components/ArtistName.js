@@ -10,6 +10,7 @@ export default function ArtistName({artist, picture}) {
     return (
     <div>
          <Card sx={{maxWidth: 345}}> 
+         {/* add userId to artistPage endpoint */}
                 <CardActionArea href="/ArtistPage">
                     <CardMedia
                     component="img"
@@ -19,8 +20,7 @@ export default function ArtistName({artist, picture}) {
                      />
                      <CardContent>
                          <Typography gutterBottom variant="h5" component="div">
-                            {/* {artist.firstName} {artist.lastName} */}
-                            {artist.first_name}
+                            {artist.firstName} {artist.lastName}
                          </Typography>
                      </CardContent>
                 </CardActionArea>
