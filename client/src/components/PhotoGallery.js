@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import Masonry from "react-masonry-css";
 // import Masonry from 'react-masonry-component';
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import "../App.css";
+//import "../App.css";
 
 //dummy content - include fetch from atrowork API
 const PHOTOS = [
