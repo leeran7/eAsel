@@ -80,7 +80,6 @@ const theme = createTheme({
 });
 
 class App extends React.Component {
-  
   render() {
     return (
       <Router>

@@ -19,37 +19,6 @@ router.get('/:userid', (req,res) => { // Get User
             res.json(user);
         })
 });
-
-router.post('/new', (req,res) => {
-    const { name, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
-    // let id;
-    User.create({
-        name, state, city, zipcode
-    }).then(user => {
-        let completed = true;
-        Cart.create({
-            userId: user.id
-        }).catch(err => {
-            completed = false;
-            res.status(400).json(err);
-        })
-
-        Social.create({
-            linkedin,facebook,instagram,twitter,
-            userId: user.id
-        }).catch(err => {
-            completed = false;
-            res.status(400).json(err);
-        })
-        if(completed){
-            res.status(201).json(user);
-        }
-        
-    }).catch(err => {
-        res.status(400).json(err);
-    })
-})
-
 router.put('/:userid', (req, res) => { // Update user
     const { userid } = req.params;
     
@@ -58,8 +27,12 @@ router.put('/:userid', (req, res) => { // Update user
             if(!user){
                 return res.sendStatus(404);
             }
-            const { name, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
-            user.name = name;
+            const { firstName, lastName, bio, email, profilePic, pinterest, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
+            user.firstName = firstName;
+            user.lastName = lastName;
+            user.bio = bio;
+            user.email = email;
+            user.profilePic = profilePic;
             user.state = state;
             user.city = city;
             user.zipcode = zipcode;
@@ -72,6 +45,7 @@ router.put('/:userid', (req, res) => { // Update user
                     social.facebook = facebook;
                     social.linkedin = linkedin;
                     social.instagram = instagram;
+                    social.pinterest = pinterest;
                     social.save()
                         .catch(err => {
                             res.sendStatus(400);

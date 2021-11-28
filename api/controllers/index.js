@@ -10,9 +10,11 @@ const checkoutController = require("./checkout.js");
 const cartController = require("./cart.js");
 const artworkController = require("./artwork.js");
 const authController = require("./auth.js")
+const sampleArtworksController = require("./sampleartworks.js");
 // Mount each controller under a specific route. These
 // will be prefixes to all routes defined inside the controller
 
+router.use("/sampleArtworks", sampleArtworksController);
 router.use("/auth", authController);
 router.use('/users', userController);
 router.use('/artworks', artworkController);
