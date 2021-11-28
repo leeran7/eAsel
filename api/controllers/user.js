@@ -19,37 +19,6 @@ router.get('/:userid', (req,res) => { // Get User
             res.json(user);
         })
 });
-
-router.post('/new', (req,res) => {
-    const { name, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
-    // let id;
-    User.create({
-        name, state, city, zipcode
-    }).then(user => {
-        let completed = true;
-        Cart.create({
-            userId: user.id
-        }).catch(err => {
-            completed = false;
-            res.status(400).json(err);
-        })
-
-        Social.create({
-            linkedin,facebook,instagram,twitter,
-            userId: user.id
-        }).catch(err => {
-            completed = false;
-            res.status(400).json(err);
-        })
-        if(completed){
-            res.status(201).json(user);
-        }
-        
-    }).catch(err => {
-        res.status(400).json(err);
-    })
-})
-
 router.put('/:userid', (req, res) => { // Update user
     const { userid } = req.params;
     

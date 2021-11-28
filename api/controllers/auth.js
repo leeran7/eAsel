@@ -7,7 +7,7 @@ const { User, Cart, Social } = db;
 
 
 router.post('/signup', (req,res) => { //Open signup page
-  const { firstName, lastName, email, password, state, city, zipcode, facebook, linkedin, instagram, twitter} = req.body;
+  const { firstName, lastName, bio, email, password, state, city, zipcode, facebook, linkedin, instagram, twitter} = req.body;
     User.create({
         firstName, lastName, email, state, city, zipcode, password 
     }) .then(user => {
