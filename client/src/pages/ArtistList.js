@@ -22,7 +22,7 @@ class ArtistList extends React.Component {
     //   this.setState( prevState => ({
     //     artists:[...prevState.artists, ...data],
     //     loading: false,
-    //   }));
+    //   }));z
     // })
     // .catch(err => {
     //   this.setState({
