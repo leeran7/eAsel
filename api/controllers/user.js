@@ -76,7 +76,7 @@ router.put('/:userid', (req, res) => { // Update user
     
 });
 
-router.put('/:userid/artworks', (req, res) => { // Get only users artworks
+router.get('/:userid/artworks', (req, res) => { // Get only users artworks
     const { userid } = req.params;
     Artwork.findAll({
         where: { userId: userid }

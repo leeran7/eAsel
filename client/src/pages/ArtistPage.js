@@ -59,13 +59,15 @@ class ArtistPage extends React.Component{
               notFound: true,
             });
           });
-
-        fetch("/api/sampleArtworks/")
+        fetch(`/api/users/${id}/artworks`)
         .then(res=> res.json())
-        .then(data=> this.setState({
+        .then(data=> {
+          // console.log(data[0].uri);
+          this.setState({
             artwork: [...this.state.artwork,
-                       data]
-        }))
+                       ...data]
+        })
+        })
         .catch(err => {
             this.setState({
               notFound: true,
