@@ -7,35 +7,36 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
 export default function AboutTheArtist(props) {
+        const { artist, socials } = props;
         return (
         <div>
             <Typography component={'span'} variant={'h3'}>
-              <h1> {props.name}  <Avatar src={props.profilePic}/> </h1> 
+              <h1> {artist.firstName} {artist.lastName}  <Avatar src={artist.profilePic}/> </h1> 
               
             </Typography>
             
             <Typography component={'span'}>
-            <h3> {props.city}, {props.state}</h3>
-              {props.bio}
+            <h3> {artist.city}, {artist.state}</h3>
+              {artist.bio}
             </Typography>
 
-            <IconButton href={props.insta} target="_blank">
+            <IconButton href={socials.instagram} target="_blank">
                 <InstagramIcon fontSize="large"/>
             </IconButton>
 
-            <IconButton href={props.faceBook} target="_blank">
+            <IconButton href={socials.facebook} target="_blank">
                 <FacebookIcon fontSize="large"/>
             </IconButton>
 
-            <IconButton href={props.pinterest} target="_blank" >
+            <IconButton href={socials.pinterest} target="_blank" >
                 <PinterestIcon fontSize="large"/>
             </IconButton>
 
-            <IconButton href={props.linkedIn} target="_blank">
+            <IconButton href={socials.linkedin} target="_blank">
                 <LinkedInIcon fontSize="large"/>
             </IconButton>
 
-            <IconButton href={props.twitter} target="_blank">
+            <IconButton href={socials.twitter} target="_blank">
                 <TwitterIcon fontSize="large"/>
             </IconButton>
         </div>

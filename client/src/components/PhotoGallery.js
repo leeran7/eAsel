@@ -80,7 +80,7 @@ class PhotoGallery extends React.Component {
                 {this.props.artwork.map((image, i) => (
                     <img
                         key={i}
-                        src={image.imageUrl}
+                        src={image.uri}
                         style={{width: "100%", display: "block"}}
                         alt=" "
                     />

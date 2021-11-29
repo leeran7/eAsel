@@ -5,31 +5,37 @@ import PhotoGallery from "../components/PhotoGallery";
 //question: how do I get the userId for this artist????? 
 class ArtistPage extends React.Component{
     state ={
-        artistFirstName: "",
-        artistLastName:"",
-        artistCity: "",
-        artistState:"",
-        artistBio:"",
-        artistProfilePic:"",
-        artistInsta:'',
-        artistFB:"",
-        artistTwitter:"",
-        artistPin:"",
-        artistLinkedIn:"",
-        artwork: [],//fetches sample artwork here and passes as prop to photoGallery component
+      artist : {},
+      socials: {},
+      artwork: []
+        // artistFirstName: "",
+        // artistLastName:"",
+        // artistCity: "",
+        // artistState:"",
+        // artistBio:"",
+        // artistProfilePic:"",
+        // artistInsta:'',
+        // artistFB:"",
+        // artistTwitter:"",
+        // artistPin:"",
+        // artistLinkedIn:"",
+        // artwork: [],//fetches sample artwork here and passes as prop to photoGallery component
     }
     
     componentDidMount(){
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
         // include artistId in fetch call +this.state.artistName.userId
-        fetch('/api/users/')
+        fetch(`/api/users/${id}`)
         .then(res=> res.json())
         .then(data=> this.setState({
-            artistFirstName: data.firstName, 
-            artistLastName: data.lastName,
-            artistCity: data.city,
-            artistState: data.state,
-            artistBio: data.bio,
-            atistProfilePic: data.profilePic,
+            artist : Object.assign(data)
+            // artistFirstName: data.firstName, 
+            // artistLastName: data.lastName,
+            // artistCity: data.city,
+            // artistState: data.state,
+            // artistBio: data.bio,
+            // atistProfilePic: data.profilePic,
         }))
         .catch(err => {
             this.setState({
@@ -38,49 +44,55 @@ class ArtistPage extends React.Component{
           });
 
         //include userId endpoint in the fetch call + this.state.artistName.userId
-        fetch('/api/socials/')
+        fetch(`/api/users/socials/${id}`)
         .then(res=> res.json())
         .then(data=> this.setState({
-            artistInsta: data.instagram,
-            artistFB:data.facebook,
-            artistPin: data.pinterest,
-            artistLinkedIn: data.linkedin,
-            artistTwitter: data.twitter,
+          socials: data
+            // artistInsta: data.instagram,
+            // artistFB:data.facebook,
+            // artistPin: data.pinterest,
+            // artistLinkedIn: data.linkedin,
+            // artistTwitter: data.twitter,
         }))     
         .catch(err => {
             this.setState({
               notFound: true,
             });
           });
-
-        fetch("/api/sampleArtwork/")
+        fetch(`/api/users/${id}/artworks`)
         .then(res=> res.json())
-        .then(data=> this.setState({
+        .then(data=> {
+          // console.log(data[0].uri);
+          this.setState({
             artwork: [...this.state.artwork,
-                       data.image]
-        }))
+                       ...data]
+        })
+        })
         .catch(err => {
             this.setState({
               notFound: true,
             });
           });
+        
     }
     
     render(){
         return(
             <div>
             <AboutTheArtist 
-            firstName={this.state.artistFirstName}
-            lastName={this.state.artistLastName} 
-            city={this.state.city} 
-            state={this.state.state} 
-            profilePic={this.state.artistProfilePic} 
-            bio={this.state.artistBio}
-            insta={this.state.artistInsta}
-            faceBook={this.state.artistFB}
-            linkedIn={this.state.artistLinkedIn}
-            twitter={this.state.artistTwitter}
-            pinterest={this.state.artistPin}
+              artist={this.state.artist}
+              socials={this.state.socials}
+            // firstName={this.state.artistFirstName}
+            // lastName={this.state.artistLastName} 
+            // city={this.state.city} 
+            // state={this.state.state} 
+            // profilePic={this.state.artistProfilePic} 
+            // bio={this.state.artistBio}
+            // insta={this.state.artistInsta}
+            // facebook={this.state.artistFB}
+            // linkedin={this.state.artistLinkedIn}
+            // twitter={this.state.artistTwitter}
+            // pinterest={this.state.artistPin}
 
 
             // name="Micheal Brown" 

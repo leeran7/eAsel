@@ -11,7 +11,7 @@ router.get("/", (req,res) => {
 
 router.get('/:userid', (req,res) => { // Get User
     const { userid } = req.params;
-    User.findOne(userid)
+    User.findByPk(userid)
         .then(user => {
             if(!user){
                 return res.sendStatus(404)
@@ -19,6 +19,20 @@ router.get('/:userid', (req,res) => { // Get User
             res.json(user);
         })
 });
+
+router.get("/socials/:userid", (req,res) => {
+    const { userid } = req.params;
+    Social.findOne({
+        where: { userId: userid }
+    })
+        .then(socials => {
+            if(!socials){
+                return res.sendStatus(404)
+            }
+            res.json(socials);
+        })
+})
+
 router.put('/:userid', (req, res) => { // Update user
     const { userid } = req.params;
     
@@ -62,7 +76,7 @@ router.put('/:userid', (req, res) => { // Update user
     
 });
 
-router.put('/:userid/artworks', (req, res) => { // Get only users artworks
+router.get('/:userid/artworks', (req, res) => { // Get only users artworks
     const { userid } = req.params;
     Artwork.findAll({
         where: { userId: userid }
