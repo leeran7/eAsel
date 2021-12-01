@@ -15,13 +15,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import image from '../img/background5.png';
+import AuthButton from './AuthButton';
 
 const navigationLinks = [
     { name: "Artists", href: "/ArtistList" },
     { name: "Buy", href:""},
     { name: "Sell", href: "/SellWithUs" },
     { name: "Cart", href: "" },
-    { name: "Login/Sign Up", href: "" },
+    // { name: "Login/Sign Up", href: "" },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -119,6 +120,7 @@ const Navbar = () => {
 
                         </ListItem>
                     ))}
+                    <AuthButton />
                 </List>
             </SwipeableDrawer>
         </AppBar>
