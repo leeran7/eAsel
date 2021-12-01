@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const passport = require('../middlewares/Auth');
-const { Cart, Cartitem, Artwork } = db;
+const { Cart, Cartitem } = db;
 
 //gets all items in a users cart
 router.get('/', passport.isAuthenticated(), (req,res) => { //get users cart information
@@ -24,7 +24,7 @@ router.get('/', passport.isAuthenticated(), (req,res) => { //get users cart info
 });
 
 //adds a new item into a users cart
-router.post('/:artworkid', passport.isAuthenticated(), (req, res) => { //Update Cart (Delete item or Add Item)
+router.post('/:artworkid/new', passport.isAuthenticated(), (req, res) => { //Update Cart (Delete item or Add Item)
   const { artworkid } = req.params;
   Cart.findByPk(req.user.id)
     .then(cart => {
@@ -35,12 +35,7 @@ router.post('/:artworkid', passport.isAuthenticated(), (req, res) => { //Update 
         artworkId: artworkid,
         cartId: cart.id
       })
-      Cartitem.findAll({
-        where: { cartId: cart.id }
-      }) 
-        .then(items => {
-          return res.status(200);
-        })
+      res.sendStatus(200);
     })
     .catch(err => {
       res.status(400).json(err);
