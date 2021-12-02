@@ -6,26 +6,22 @@ import {
   Link,
   NavLink
 } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { createTheme, ThemeProvider, Toolbar } from '@material-ui/core';
+
+//PAGES
 import PostsListPage from './pages/PostsListPage';
 import PostFormPage from './pages/PostFormPage';
 import ShowPostPage from './pages/ShowPostPage';
 import AboutUsPage from './pages/AboutUsPage';
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Navbar from './components/NavBar';
-import SellArtPage from './pages/SellArtPage';
-import ArtistList from './pages/ArtistList';
 import ArtistPage from './pages/ArtistPage';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { mergeClasses } from '@material-ui/styles';
-import toolbar from '@material-ui/core/Toolbar';
-import './index.css';
+import SellArtPage from './pages/SellArtPage';
 
+import { Container}  from "@material-ui/core";
+import Navbar from './components/NavBar';
+import ArtistList from './pages/ArtistList';
+
+import './index.css';
+import { AuthProvider  } from './context/AuthContext';
 // var request = require('superagent');
 
 // var clientID = 'bdb593999fa5f2db388b',
@@ -83,23 +79,24 @@ const theme = createTheme({
 class App extends React.Component {
   render() {
     return (
-      <Router>
-        <ThemeProvider theme={theme}>
-
-          <Container>
-
-            <div className="App">
-              <Navbar /> 
-
-              {/* add this toolbar to push the rest of the content down on the page, so nothing is hidden by navabar */}
-              <Toolbar /> 
-              <Route path="/SellWithUs" component={SellArtPage} />
-              <Route path="/ArtistList" component={ArtistList}/>
-              <Route path="/ArtistPage" component={ArtistPage} />
-            </div>
-          </Container>
-        </ThemeProvider>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <ThemeProvider theme={theme}>
+            <Container>
+              <div className="App">
+                <Navbar /> 
+                {/* add this toolbar to push the rest of the content down on the page, so nothing is hidden by navabar */}
+                <Toolbar /> 
+                <Switch>
+                  <Route path="/SellWithUs" component={SellArtPage} />
+                  <Route path="/ArtistList" component={ArtistList}/>
+                  <Route path="/ArtistPage" component={ArtistPage} />
+                </Switch>
+              </div>
+            </Container>
+          </ThemeProvider>
+        </Router>
+      </AuthProvider>
 
       // <Router>
       //   <Navigation />
