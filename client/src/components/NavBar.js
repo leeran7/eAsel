@@ -55,7 +55,7 @@ const Navbar = () => {
 
                 <Toolbar>
                     <img src={logo} alt="logo" className={styles.logo} />
-
+                    <AuthButton />
                     <Hidden xsDown>
                         {navigationLinks.map((item) => (
                             <Link
@@ -65,7 +65,7 @@ const Navbar = () => {
                                 underline="none"
                                 href={item.href}
                                 key={item.name}
-                            >
+                            r>
                                 {item.name}
                             </Link>
                         ))}
@@ -106,7 +106,7 @@ const Navbar = () => {
                 <Divider />
 
                 <List>
-                    {navigationLinks.map((item) => (
+                    {/* {navigationLinks.map((item) => (
                         <ListItem key={item.name}>
                             <Link
                                 className={styles.link}
@@ -119,12 +119,11 @@ const Navbar = () => {
                             </Link>
 
                         </ListItem>
-                    ))}
-                    <AuthButton />
+                    ))} */}
+                    
                 </List>
             </SwipeableDrawer>
         </AppBar>
-        
 
     );
 };
