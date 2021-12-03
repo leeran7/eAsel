@@ -1,8 +1,9 @@
 import React from 'react'
 import { 
     Grid, TextField, Typography, Link, Container, 
-    Box, CssBaseline, Avatar , Button} from '@material-ui/core';
-    import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+    Box, CssBaseline, Button, Paper} from '@material-ui/core';
+import Logo from "../img/logo.png";
+    
 export default function AuthForm({type}) {
     return (
         <Container component="main" maxWidth="xs">
@@ -15,9 +16,9 @@ export default function AuthForm({type}) {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <Paper variant="outlined">
+            <img src={Logo} alt="logo" />
+          </Paper>
           <Typography component="h1" variant="h5">
             {type}
           </Typography>
@@ -153,9 +154,8 @@ export default function AuthForm({type}) {
                             {"Have an account? Sign in"}
                         </Link>
                 }
-                
               </Grid>
-              
+        
             </Grid>
           </Box>
           <Button>Submit</Button>

@@ -15,13 +15,15 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import image from '../img/background5.png';
+import AuthButton from './AuthButton';
 
 const navigationLinks = [
     { name: "Artists", href: "/ArtistList" },
     { name: "Buy", href:""},
     { name: "Sell", href: "/SellWithUs" },
     { name: "Cart", href: "" },
-    { name: "Login/Sign Up", href: "" },
+    { name: "Login", href: "/Login" },
+    { name: "SignUp", href: "/SignUp" },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +56,7 @@ const Navbar = () => {
 
                 <Toolbar>
                     <img src={logo} alt="logo" className={styles.logo} />
-
+                    <AuthButton />
                     <Hidden xsDown>
                         {navigationLinks.map((item) => (
                             <Link
@@ -64,7 +66,7 @@ const Navbar = () => {
                                 underline="none"
                                 href={item.href}
                                 key={item.name}
-                            >
+                            r>
                                 {item.name}
                             </Link>
                         ))}
@@ -105,7 +107,7 @@ const Navbar = () => {
                 <Divider />
 
                 <List>
-                    {navigationLinks.map((item) => (
+                    {/* {navigationLinks.map((item) => (
                         <ListItem key={item.name}>
                             <Link
                                 className={styles.link}
@@ -118,7 +120,8 @@ const Navbar = () => {
                             </Link>
 
                         </ListItem>
-                    ))}
+                    ))} */}
+                    
                 </List>
             </SwipeableDrawer>
         </AppBar>

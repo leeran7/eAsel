@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
+const passport = require("../middlewares/Auth");
 const artwork = require('../models/artwork');
 const { Artwork, Transaction } = db;
 
@@ -26,11 +27,11 @@ router.get('/:artworkid', (req,res) => { //get specific artwork details
 });
 
 
-router.post('/new',  (req, res) => { //add new artwork 
-    let { title, dimensionX, dimensionY, dimensionZ, genre, description, price, uri, id} = req.body;
+router.post('/new', passport.isAuthenticated(), (req, res) => { //add new artwork 
+    let { title, dimensionX, dimensionY, dimensionZ, genre, description, price, uri} = req.body;
      Artwork.create(
          { title, dimensionX, dimensionY, dimensionZ, 
-           genre, description, price, uri, userId: id })
+           genre, description, price, uri, userId : req.user.id })
 
         .then(artwork => {
             res.status(201).json(artwork)
@@ -41,7 +42,7 @@ router.post('/new',  (req, res) => { //add new artwork
 });
 
 
-router.put('/:artworkid', (req, res) => { //update artwork
+router.put('/:artworkid', passport.isAuthenticated(),(req, res) => { //update artwork
     let { artworkid } = req.params;
     Artwork.findByPk(artworkid)
         .then(artwork => {
@@ -69,7 +70,7 @@ router.put('/:artworkid', (req, res) => { //update artwork
         })
 });
 
-router.delete('/:artworkid',  (req, res) => {
+router.delete('/:artworkid', passport.isAuthenticated(), (req, res) => {
     const { artworkid } = req.params;
     Artwork.findByPk(artworkid)
         .then(artwork => {
