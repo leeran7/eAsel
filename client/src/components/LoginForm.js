@@ -1,37 +1,3 @@
-<<<<<<< HEAD
-import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
-import { CssBaseline } from '@material-ui/core';
-import { TextField } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
-import { Box } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
-import { Container } from '@material-ui/core';
-import { createTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
-import { FormControlLabel } from '@material-ui/core';
-import { Checkbox } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
-
-import Logo from "../img/logo.png";
-
-const theme = createTheme();
-
-export default function LoginForm() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
-  return (
-    <ThemeProvider theme={theme}>
-=======
 import React, {useState, useContext} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, CssBaseline, TextField, Grid, Box, Typography, Container,createTheme,
@@ -189,7 +155,6 @@ function LoginForm() {
   return (
     <ThemeProvider theme={theme}>
       {err}
->>>>>>> proxy
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -206,11 +171,7 @@ function LoginForm() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-<<<<<<< HEAD
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-=======
           <Box component="form" onSubmit={login} noValidate sx={{ mt: 1 }}>
->>>>>>> proxy
             <TextField
               margin="normal"
               required
@@ -245,11 +206,7 @@ function LoginForm() {
             </Button>
             <Grid container>
               <Grid item>
-<<<<<<< HEAD
-                <Link to="/client/src/pages/SignUp.js" variant="body2">
-=======
-                <Link to="/Signup" variant="body2">
->>>>>>> proxy
+                <Link to="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -259,10 +216,6 @@ function LoginForm() {
       </Container>
     </ThemeProvider>
   );
-<<<<<<< HEAD
-}
-=======
 }
 
 export default LoginForm;
->>>>>>> proxy

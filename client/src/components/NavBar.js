@@ -18,12 +18,12 @@ import image from '../img/background5.png';
 import AuthButton from './AuthButton';
 
 const navigationLinks = [
-    { name: "Artists", href: "/ArtistList" },
+    { name: "Artists", href: "/artistlist" },
     { name: "Buy", href:""},
-    { name: "Sell", href: "/SellWithUs" },
+    { name: "Sell", href: "/sellwithus" },
     { name: "Cart", href: "" },
-    { name: "Login", href: "/Login" },
-    { name: "SignUp", href: "/SignUp" },
+    { name: "Login", href: "/login" },
+    { name: "SignUp", href: "/signup" },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -55,10 +55,6 @@ const Navbar = () => {
             <Container maxWidth="md">
                 
                 <Toolbar>
-<<<<<<< HEAD
-                    <img src={logo} alt="logo" className={styles.logo} />
-                    <AuthButton />
-=======
                     <Container>
                         <Link href="/" >
                             <img src={logo} alt="logo" className={styles.logo} />
@@ -67,7 +63,6 @@ const Navbar = () => {
                     <Container>
                     <AuthButton />
                     </Container>
->>>>>>> proxy
                     <Hidden xsDown>
                         {navigationLinks.map((item) => (
                             <Link
@@ -92,7 +87,7 @@ const Navbar = () => {
 
                     <IconButton
                         color="secondary"
-                        href={"/Login"} //get ModalDialog to open when pressing the customer icon
+                        href={"/profile"} //get ModalDialog to open when pressing the customer icon
                     >
                         <AccountCircleOutlinedIcon fontSize="large" />
                     </IconButton>

@@ -15,13 +15,7 @@ import ShowPostPage from './pages/ShowPostPage';
 import AboutUsPage from './pages/AboutUsPage';
 import ArtistPage from './pages/ArtistPage';
 import SellArtPage from './pages/SellArtPage';
-<<<<<<< HEAD
-import Login from './pages/Login';
-import SignUp from './pages/SignUp'
-
-=======
 import LoginForm from './components/LoginForm';
->>>>>>> proxy
 
 import { Container}  from "@material-ui/core";
 import Navbar from './components/NavBar';
@@ -96,17 +90,12 @@ class App extends React.Component {
                 {/* add this toolbar to push the rest of the content down on the page, so nothing is hidden by navabar */}
                 <Toolbar /> 
                 <Switch>
-                  <Route path="/" component={ArtistList} />
+                  {/* <Route path="/" component={ArtistList} /> */}
                   <Route path="/SellWithUs" component={SellArtPage} />
                   <Route path="/ArtistList" component={ArtistList}/>
                   <Route path="/ArtistPage" component={ArtistPage} />
-<<<<<<< HEAD
-                  <Route path="/SignUp" component={SignUp}/>
-                  <Route path="/Login" component={Login}/>
-=======
                   <Route path="/Login" component={LoginForm} />
                   <Route path="/Signup" component={SignUpForm} />
->>>>>>> proxy
                 </Switch>
               </div>
             </Container>

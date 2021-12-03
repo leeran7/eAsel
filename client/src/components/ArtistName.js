@@ -11,7 +11,7 @@ export default function ArtistName({artist, picture}) {
     <div>
          <Card sx={{maxWidth: 345}}> 
          {/* add userId to artistPage endpoint */}
-                <CardActionArea href={`/ArtistPage/?id=${artist.id}`}>
+                <CardActionArea id={artist.id} href={`/artist/`}>
                     <CardMedia
                     component="img"
                     height="100"
