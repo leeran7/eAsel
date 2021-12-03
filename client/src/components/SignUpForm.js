@@ -10,7 +10,14 @@ import { Container } from '@material-ui/core';
 import { createTheme } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { Paper } from '@material-ui/core';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
 import Logo from "../img/logo.png";
+import Login from '../pages/Login';
 
 const theme = createTheme();
 
@@ -24,6 +31,7 @@ export default function SignUpForm() {
       password: data.get('password'),
     });
   };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -90,6 +98,66 @@ export default function SignUpForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  required
+                  fullWidth
+                  name="confirmPassword"
+                  label="Confirm Password"
+                  type="password"
+                  id="confirmPassword"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    required
+                    fullWidth
+                    id="birthday"
+                    label="Birthday"
+                    type="date"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  required
+                  id="city"
+                  label="City"
+                  type="text"
+                  autoComplete="address-level2"
+                />
+              </Grid>          
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  id="zipcode"
+                  label="ZipCode"
+                  type="text"
+                  autoComplete="postal-code"
+                />
+              </Grid>              
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  id="State"
+                  label="State"
+                  type="text"
+                  autoComplete="address-level1"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  type="url"
+                  name="pintrest"
+                  label="Pintrest"
+                  id="pintrest"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
                   fullWidth
                   type="url"
                   name="twitter"
@@ -110,6 +178,15 @@ export default function SignUpForm() {
                 <TextField
                   fullWidth
                   type="url"
+                  name="facebook"
+                  label="Facebook"
+                  id="facebook"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  type="url"
                   name="LinkedIn"
                   label="LinkedIn"
                   id="LinkedIn"
@@ -118,7 +195,7 @@ export default function SignUpForm() {
             </Grid>
             <Grid container>
               <Grid item>
-                <Link href="/Login" variant="body2">
+                <Link href="/Login.js" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
