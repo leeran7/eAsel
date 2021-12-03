@@ -10,11 +10,6 @@ import { Container } from '@material-ui/core';
 import { createTheme } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { Paper } from '@material-ui/core';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 
 import Logo from "../img/logo.png";
 import Login from '../pages/Login';
@@ -195,7 +190,7 @@ export default function SignUpForm() {
             </Grid>
             <Grid container>
               <Grid item>
-                <Link href="/Login.js" variant="body2">
+                <Link to="/client/src/pages/Login.js" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
