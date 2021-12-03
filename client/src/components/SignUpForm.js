@@ -190,7 +190,7 @@ export default function SignUpForm() {
             </Grid>
             <Grid container>
               <Grid item>
-                <Link to="/client/src/pages/Login.js" variant="body2">
+                <Link to="/Login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
