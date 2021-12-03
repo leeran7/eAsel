@@ -1,4 +1,4 @@
-import { Avatar, IconButton, Typography } from "@material-ui/core";
+import { Avatar, Divider, IconButton, Typography } from "@material-ui/core";
 import React from "react";
 import InstagramIcon from '@material-ui/icons/Instagram';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -12,14 +12,13 @@ export default function AboutTheArtist(props) {
         <div>
             <Typography component={'span'} variant={'h3'}>
               <h1> {artist.firstName} {artist.lastName}  <Avatar src={artist.profilePic}/> </h1> 
-              
             </Typography>
             
             <Typography component={'span'}>
             <h3> {artist.city}, {artist.state}</h3>
               {artist.bio}
             </Typography>
-
+            <Divider />
             <IconButton href={socials.instagram} target="_blank">
                 <InstagramIcon fontSize="large"/>
             </IconButton>
@@ -39,6 +38,8 @@ export default function AboutTheArtist(props) {
             <IconButton href={socials.twitter} target="_blank">
                 <TwitterIcon fontSize="large"/>
             </IconButton>
+            
+            <Divider />
         </div>
         );
 }
