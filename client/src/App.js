@@ -15,6 +15,9 @@ import ShowPostPage from './pages/ShowPostPage';
 import AboutUsPage from './pages/AboutUsPage';
 import ArtistPage from './pages/ArtistPage';
 import SellArtPage from './pages/SellArtPage';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp'
+
 
 import { Container}  from "@material-ui/core";
 import Navbar from './components/NavBar';
@@ -91,6 +94,8 @@ class App extends React.Component {
                   <Route path="/SellWithUs" component={SellArtPage} />
                   <Route path="/ArtistList" component={ArtistList}/>
                   <Route path="/ArtistPage" component={ArtistPage} />
+                  <Route path="/SignUp" component={SignUp}/>
+                  <Route path="/Login" component={Login}/>
                 </Switch>
               </div>
             </Container>
