@@ -4,9 +4,10 @@ import { AuthContext } from '../context/AuthContext'
 import { Button, Container } from '@material-ui/core';
 
 const AuthButton = withRouter(({ history }) => {
-    const auth = useContext(AuthContext)
+    const auth = useContext(AuthContext);
+    console.log(auth);
     if(!auth.isAuthenticated){
-        return <Button variant="contained" href="/login">Log In</Button>
+        return <Button  href="/Login">Log In</Button>
     }
     const logout = () => {
         auth.signout().then(() => history.push("/"));
@@ -15,9 +16,7 @@ const AuthButton = withRouter(({ history }) => {
         <Container>
             Welcome { auth.user.firstName }
             <Button onClick={logout}></Button>
-            <Button variant="contained"  href="#contained-buttons">
-                    Log Out
-                    </Button>
+            <Button  href="/Logout">Log Out</Button>
         </Container>
     );
 });
