@@ -52,10 +52,16 @@ const Navbar = () => {
     return (
         <AppBar className={styles.appbar} >
             <Container maxWidth="md">
-
+                
                 <Toolbar>
-                    <img src={logo} alt="logo" className={styles.logo} />
-
+                    <Container>
+                        <Link href="/" >
+                            <img src={logo} alt="logo" className={styles.logo} />
+                        </Link>
+                    </Container>
+                    <Container>
+                    <AuthButton />
+                    </Container>
                     <Hidden xsDown>
                         {navigationLinks.map((item) => (
                             <Link
@@ -80,7 +86,7 @@ const Navbar = () => {
 
                     <IconButton
                         color="secondary"
-                        href={"/login/signup.href"} //get ModalDialog to open when pressing the customer icon
+                        href={"/Login"} //get ModalDialog to open when pressing the customer icon
                     >
                         <AccountCircleOutlinedIcon fontSize="large" />
                     </IconButton>
