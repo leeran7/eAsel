@@ -14,15 +14,12 @@ import PostFormPage from './pages/PostFormPage';
 import ShowPostPage from './pages/ShowPostPage';
 import AboutUsPage from './pages/AboutUsPage';
 import ArtistPage from './pages/ArtistPage';
+import ArtistList from './pages/ArtistList';
 import SellArtPage from './pages/SellArtPage';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp'
-
-
 import { Container}  from "@material-ui/core";
 import Navbar from './components/NavBar';
-import ArtistList from './pages/ArtistList';
-
 import './index.css';
 import { AuthProvider  } from './context/AuthContext';
 // var request = require('superagent');
@@ -94,6 +91,7 @@ class App extends React.Component {
                   <Route path="/SellWithUs" component={SellArtPage} />
                   <Route path="/ArtistList" component={ArtistList}/>
                   <Route path="/ArtistPage" component={ArtistPage} />
+                  <Route path="/Buy" component={BuyHomePage} />
                   <Route path="/SignUp" component={SignUp}/>
                   <Route path="/Login" component={Login}/>
                 </Switch>
