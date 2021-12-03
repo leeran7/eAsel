@@ -21,6 +21,7 @@ import Navbar from './components/NavBar';
 import SellArtPage from './pages/SellArtPage';
 import ArtistList from './pages/ArtistList';
 import ArtistPage from './pages/ArtistPage';
+import BuyHomePage from './pages/BuyHomePage';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { mergeClasses } from '@material-ui/styles';
 import toolbar from '@material-ui/core/Toolbar';
@@ -96,6 +97,7 @@ class App extends React.Component {
               <Route path="/SellWithUs" component={SellArtPage} />
               <Route path="/ArtistList" component={ArtistList}/>
               <Route path="/ArtistPage" component={ArtistPage} />
+              <Route path="/Buy" component={BuyHomePage} />
             </div>
           </Container>
         </ThemeProvider>
