@@ -53,7 +53,7 @@ const SellForm = () => {
     };
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
 
         fetch("/api/artworks/new", {
             method: 'POST',
