@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -10,7 +11,6 @@ import Slider from "@material-ui/core/Slider";
 import Button from "@material-ui/core/Button";
 import { Typography } from '@material-ui/core';
 import CloudinaryUploadWidget from './CloudinaryUploadWidget';
-
 
 const defaultValues = {
     error: false,
@@ -24,11 +24,11 @@ const defaultValues = {
     genre: "",
     price: undefined,
     uri: "",
+    redirect: false,
 };
 
 const SellForm = () => {
     const [formValues, setFormValues] = useState(defaultValues);
-
     const handleUriChange = (value) =>{
 
         setFormValues({
@@ -65,16 +65,18 @@ const SellForm = () => {
             // body: JSON.stringify({ content: formValues.json }),
         })
             .then(res => {
+                // console.log(res);
                 if (res.ok) {
-                    return res.json()
+                    return res.json();
                 }
-
                 // throw new Error('Content validation');
             })
-            .then(post => {
+            .then(() => {
                 setFormValues({
                     success: true,
+                    redirect: true
                 });
+                
             })
             .catch(err => {
                 setFormValues({
@@ -83,10 +85,12 @@ const SellForm = () => {
                 });
                 console.error('Error:', err)
             });
-        console.log(formValues);//make popup window to say successfully saved the data to db?
-
+        // console.log(formValues);//make popup window to say successfully saved the data to db?
+        
     };
-
+    if(formValues.redirect){
+        return <Redirect to="/"/>
+    }
     return (
         <form onSubmit={handleSubmit}>
 

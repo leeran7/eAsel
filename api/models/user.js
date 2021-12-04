@@ -7,11 +7,13 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     firstName: {
       type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      }
     },
     lastName: {
       type: DataTypes.STRING,
       validate: {
-        len: [2, 13],
         notEmpty: true,
       }
     },
@@ -53,14 +55,14 @@ module.exports = (sequelize, DataTypes) => {
     city: {
         type: DataTypes.STRING,
         validate: {
-          len: [3, 21],
+          // len: [3, 21],
           notEmpty: true,
         }
     }, 
     zipcode: {
         type: DataTypes.STRING,
         validate: {
-          len: [5, 5],
+          // len: [5, 5],
           notEmpty: true,
         }
     },
