@@ -1,6 +1,11 @@
 import React, { useState, useContext } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+
+import { AppBar, Toolbar, Grid
+
+} from '@material-ui/core/';
+
+// import AppBar from '@material-ui/core/AppBar';
+// import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from '../img/logo.png';
 import IconButton from '@material-ui/core/IconButton';
@@ -54,48 +59,61 @@ const Navbar = () => {
             <Container maxWidth="md">
                 
                 <Toolbar>
-                    <Link href="/" >
-                        <img src={logo} alt="logo" className={styles.logo} />
-                    </Link>
-                    
-                    <Hidden xsDown>
-                        
-                        {navigationLinks.map((item) => (
-                            <Link
-                                className={styles.link}
-                                color="textPrimary"
-                                variant="button"
-                                underline="none"
-                                href={item.href}
-                                key={item.name}
-                            r>
-                                {item.name}
+                    <Grid item>
+                            <Link href="/" >
+                                <img src={logo} alt="logo" className={styles.logo} />
                             </Link>
-                        ))}
-                        <AuthButton />
-                    </Hidden>
-
-                    <Hidden smUp>
+                        </Grid>
+                    <Grid
+                        alignItems="center"
+                        justify="flex-end"
+                        container
+                        // spacing={12}
+                    >
                         
-                        <IconButton onClick={() => setOpen(true)}>
-                            <MenuIcon fontSize="large" color="secondary" />
-                        </IconButton>
+                        
+                        {/* <Hidden xsDown>
+                            
+                            {navigationLinks.map((item) => (
+                                <Link
+                                    className={styles.link}
+                                    color="textPrimary"
+                                    variant="button"
+                                    underline="none"
+                                    href={item.href}
+                                    key={item.name}
+                                r>
+                                    {item.name}
+                                </Link>
+                            ))}
+                            <AuthButton />
+                        </Hidden> */}
+                        
+                        <Grid item>
+                            {auth.isAuthenticated && 
+                                <>
+                                        <IconButton
+                                        color="secondary"
+                                        href={"/profile"} //get ModalDialog to open when pressing the customer icon
+                                    >
+                                        <AccountCircleOutlinedIcon fontSize="large" />
+                                    </IconButton>
+                                </>
+                            }
+                        </Grid>
 
-                    </Hidden>
-
-                    {auth.isAuthenticated && 
-                        <>
-                                <IconButton
-                                color="secondary"
-                                href={"/profile"} //get ModalDialog to open when pressing the customer icon
-                            >
-                                <AccountCircleOutlinedIcon fontSize="large" />
-                            </IconButton>
-                        </>
-                    }
+                        <Grid item>
+                            <Hidden smUp>
+                                <IconButton onClick={() => setOpen(true)}>
+                                    <MenuIcon fontSize="large" color="secondary" />
+                                </IconButton>
+                            </Hidden>
+                        </Grid>
+                    </Grid>
+                    
                 </Toolbar>
+                
             </Container>
-
             <SwipeableDrawer
                 anchor="right"
                 open={open}

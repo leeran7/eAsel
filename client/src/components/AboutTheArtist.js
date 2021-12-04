@@ -10,8 +10,11 @@ export default function AboutTheArtist(props) {
         const { artist, socials } = props;
         return (
         <div>
+            
             <Typography component={'span'} variant={'h3'}>
-              <h1> {artist.firstName} {artist.lastName}  <Avatar src={artist.profilePic}/> </h1> 
+                
+              <h1> <Avatar height="80%" width="60%" alt="profilepic" src={artist.profilePic}/> {artist.firstName} {artist.lastName} </h1>
+              
             </Typography>
             
             <Typography component={'span'}>

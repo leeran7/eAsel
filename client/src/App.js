@@ -3,16 +3,16 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  NavLink
+  // Link,
+  // NavLink
 } from 'react-router-dom';
 import { createTheme, ThemeProvider, Toolbar } from '@material-ui/core';
-
+import PrivateRoute from './components/PrivateRoute';
 //PAGES
-import PostsListPage from './pages/PostsListPage';
-import PostFormPage from './pages/PostFormPage';
-import ShowPostPage from './pages/ShowPostPage';
-import AboutUsPage from './pages/AboutUsPage';
+// import PostsListPage from './pages/PostsListPage';
+// import PostFormPage from './pages/PostFormPage';
+// import ShowPostPage from './pages/ShowPostPage';
+// import AboutUsPage from './pages/AboutUsPage';
 import ArtistPage from './pages/ArtistPage';
 import ArtistList from './pages/ArtistList';
 import SellArtPage from './pages/SellArtPage';
@@ -58,12 +58,12 @@ class App extends React.Component {
                 <Toolbar /> 
                 <Switch>
                   {/* <Route path="/" component={ArtistList} /> */}
-                  <Route path="/SellWithUs" component={SellArtPage} />
+                  <PrivateRoute path="/SellWithUs" component={SellArtPage} />
                   <Route path="/ArtistList" component={ArtistList}/>
                   <Route path="/ArtistPage" component={ArtistPage} />
                   <Route path="/Login" component={LoginForm} />
                   <Route path="/Signup" component={SignUpForm} />
-                  <Route path="/Buy" component={BuyHomePage} />
+                  <PrivateRoute path="/Buy" component={BuyHomePage} />
                 </Switch>
               </div>
             </Container>
