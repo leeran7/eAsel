@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { CssBaseline } from '@material-ui/core';
 import { TextField } from '@material-ui/core';
@@ -12,22 +12,71 @@ import { ThemeProvider } from '@material-ui/styles';
 import { Paper } from '@material-ui/core';
 
 import Logo from "../img/logo.png";
-import Login from '../pages/Login';
+import { AuthContext } from '../context/AuthContext';
 
 const theme = createTheme();
 
-export default function SignUpForm() {
+function SignUpForm() {
+
+  const auth = useContext(AuthContext);
+  const [redirect, setRedirect] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [passEqual, setPassEqual ] = useState(true);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
+    const formValues = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+      passwordConfirm: data.get('confirmPassword'),
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
+      city: data.get('city'),
+      state: data.get('state'),
+      zipcode: data.get('zipcode'),
+      instagram: data.get('instagram'),
+      pinterest: data.get('pinterest'),
+      linkedin: data.get('linkedin'),
+      facebook: data.get('facebook'),
+      twitter: data.get('twitter')
+    };
+
+    // formValues.password === formValues.passwordConfirm
+    //   ?
+      fetch("/api/auth/signup", {
+        method: 'POST',
+        body: JSON.stringify(formValues),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+        .then(res => {
+          if(res.ok){
+            return res.json();
+          }
+        })
+        .then(() => {
+
+          setRedirect(true);
+        })
+        .catch(err => {
+          console.log(err);
+          setFailed(err)
+        })
+      // :
+      // setPassEqual(false);
   };
-
-
+  let err = "";
+  !passEqual && (err = "Password Mismatch..");
+  if(redirect){
+    return <Redirect to="/" />
+  }
+  if(loading){
+    return <p>Loading..</p>
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -46,6 +95,8 @@ export default function SignUpForm() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          {failed}
+          {err}
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -119,6 +170,7 @@ export default function SignUpForm() {
                   fullWidth
                   required
                   id="city"
+                  name="city"
                   label="City"
                   type="text"
                   autoComplete="address-level2"
@@ -128,6 +180,7 @@ export default function SignUpForm() {
                 <TextField
                   required
                   id="zipcode"
+                  name="zipcode"
                   label="ZipCode"
                   type="text"
                   autoComplete="postal-code"
@@ -136,7 +189,8 @@ export default function SignUpForm() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
-                  id="State"
+                  id="state"
+                  name="state"
                   label="State"
                   type="text"
                   autoComplete="address-level1"
@@ -146,9 +200,9 @@ export default function SignUpForm() {
                 <TextField
                   fullWidth
                   type="url"
-                  name="pintrest"
-                  label="Pintrest"
-                  id="pintrest"
+                  name="pinterest"
+                  label="Pinterest"
+                  id="pinterest"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -182,9 +236,9 @@ export default function SignUpForm() {
                 <TextField
                   fullWidth
                   type="url"
-                  name="LinkedIn"
+                  name="linkedin"
                   label="LinkedIn"
-                  id="LinkedIn"
+                  id="linkedin"
                 />
               </Grid>
             </Grid>
@@ -209,3 +263,4 @@ export default function SignUpForm() {
     </ThemeProvider>
   );
 }
+export default SignUpForm;

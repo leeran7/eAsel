@@ -125,14 +125,12 @@ const theme = createTheme();
 
 
 function LoginForm() {
-  const context = useContext(AuthContext);
+  const auth = useContext(AuthContext);
   const [redirect, setRedirect] = useState(false);
   const [failed, setFailed] = useState(false);
 
   const login = e => {
-    console.log(e);
     e.preventDefault();
-    const auth = context;
     const data = new FormData(e.currentTarget);
     // eslint-disable-next-line no-console
     let email = data.get("email");
