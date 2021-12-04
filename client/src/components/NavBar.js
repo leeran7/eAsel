@@ -19,7 +19,7 @@ import AuthButton from './AuthButton';
 import { AuthContext } from '../context/AuthContext';
 const navigationLinks = [
     { name: "Artists", href: "/artistlist" },
-    { name: "Buy", href:""},
+    { name: "Buy", href:"/Buy"},
     { name: "Sell", href: "/sellwithus" },
     { name: "Cart", href: "" },
     // { name: "Login", href: "/login" },
