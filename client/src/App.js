@@ -14,13 +14,12 @@ import PostFormPage from './pages/PostFormPage';
 import ShowPostPage from './pages/ShowPostPage';
 import AboutUsPage from './pages/AboutUsPage';
 import ArtistPage from './pages/ArtistPage';
+import ArtistList from './pages/ArtistList';
 import SellArtPage from './pages/SellArtPage';
 import LoginForm from './components/LoginForm';
 
 import { Container}  from "@material-ui/core";
 import Navbar from './components/NavBar';
-import ArtistList from './pages/ArtistList';
-
 import './index.css';
 import { AuthProvider  } from './context/AuthContext';
 import SignUpForm from './components/SignUpForm';
@@ -96,6 +95,7 @@ class App extends React.Component {
                   <Route path="/ArtistPage" component={ArtistPage} />
                   <Route path="/Login" component={LoginForm} />
                   <Route path="/Signup" component={SignUpForm} />
+                  <Route path="/Buy" component={BuyHomePage} />
                 </Switch>
               </div>
             </Container>
