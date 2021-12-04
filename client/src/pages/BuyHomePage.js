@@ -190,22 +190,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const fetchData = async() => {
-  fetch("/api/artworks")
-      .then((res) => res.json())
-      .catch((err) => {
-        console.log("API ERROR: ", err);
-        //setLoading(true);
-      });
-}
-
 export default function BuyHomePage() {
   //get id of user so we can add the specific artwork to user's cart - does this get the artist of the artwork's id? or the person using the app's id
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
-
+  
   const classes = useStyles();
-  const [artwork, setArtwork] = React.useState([null]);
+  const [artwork, setArtwork] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [selectedTile, setSelectedTile] = React.useState(null);
   const [open, setOpen] = React.useState(false);
@@ -253,12 +244,19 @@ export default function BuyHomePage() {
   };
 
   useEffect(() => {
-    fetchData()
+    setLoading(true);
+    fetch("/api/artworks")
+      .then(res => {
+        if(res.ok){
+          return res.json();
+        }
+      })
       .then(data => {
-        setArtwork((prevState) => ({
-          artwork: [...prevState.artwork, ...data],
-        }));
+        setArtwork(data);
         setLoading(false);
+      })
+      .catch((err) => {
+        console.log("API ERROR: ", err);
       });
   }, []);
 
