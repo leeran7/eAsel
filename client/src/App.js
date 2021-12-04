@@ -17,45 +17,13 @@ import ArtistPage from './pages/ArtistPage';
 import ArtistList from './pages/ArtistList';
 import SellArtPage from './pages/SellArtPage';
 import LoginForm from './components/LoginForm';
+import BuyHomePage from './pages/BuyHomePage';
 
 import { Container}  from "@material-ui/core";
 import Navbar from './components/NavBar';
 import './index.css';
 import { AuthProvider  } from './context/AuthContext';
 import SignUpForm from './components/SignUpForm';
-// var request = require('superagent');
-
-// var clientID = 'bdb593999fa5f2db388b',
-//     clientSecret = 'bb8b0c4c796b975776c1b27c41f420d3',
-//     apiUrl = 'https://api.artsy.net/api/tokens/xapp_token',
-//     xappToken;
-
-// request
-//   .post(apiUrl)
-//   .send({ client_id: clientID, client_secret: clientSecret })
-//   .end(function(res) {
-//     xappToken = res.body.token; 
-//   });
-
-//   var traverson = require('traverson'),
-//   JsonHalAdapter = require('traverson-hal'),
-//   xappToken = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IiIsInN1YmplY3RfYXBwbGljYXRpb24iOiI2MWEwMWUzZDAxNGUyNzAwMGNiNjg1YWYiLCJleHAiOjE2Mzg0OTUxNDcsImlhdCI6MTYzNzg5MDM0NywiYXVkIjoiNjFhMDFlM2QwMTRlMjcwMDBjYjY4NWFmIiwiaXNzIjoiR3Jhdml0eSIsImp0aSI6IjYxYTAzOTJiZjEyMTgzMDAwZTk4ZWI1MSJ9.pWGPXViybEqTZc6RVaVuXx9DIO1_s9BfzoL4AEzyCLo';
-
-//   traverson.registerMediaType(JsonHalAdapter.mediaType, JsonHalAdapter);
-//   const api = traverson.from('https://api.artsy.net/api').jsonHal();
-
-//   api.newRequest()
-//   .follow('artist')
-//   .withRequestOptions({
-//     headers: {
-//       'X-Xapp-Token': xappToken,
-//       'Accept': 'application/vnd.artsy-v2+json'
-//     }
-//   })
-//   .withTemplateParameters({ id: 'andy-warhol' })
-//   .getResource(function(error, andyWarhol) {
-//     console.log(andyWarhol.name + 'was born in ' + andyWarhol.birthday + ' in ' + andyWarhol.hometown);
-//   });
 
 const theme = createTheme({
   palette: {
