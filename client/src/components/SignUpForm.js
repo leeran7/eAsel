@@ -10,7 +10,6 @@ import { Container } from '@material-ui/core';
 import { createTheme } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { Paper } from '@material-ui/core';
-
 import Logo from "../img/logo.png";
 import { AuthContext } from '../context/AuthContext';
 
@@ -24,17 +23,19 @@ function SignUpForm() {
   const [loading, setLoading] = useState(false);
   const [passEqual, setPassEqual ] = useState(true);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     const formValues = {
       email: data.get('email'),
       password: data.get('password'),
-      passwordConfirm: data.get('confirmPassword'),
+      // passwordConfirm: data.get('confirmPassword'),
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
       city: data.get('city'),
+      bio: data.get('bio'),
+      profilePic: data.get('profilePic'),
       state: data.get('state'),
       zipcode: data.get('zipcode'),
       instagram: data.get('instagram'),
@@ -43,34 +44,47 @@ function SignUpForm() {
       facebook: data.get('facebook'),
       twitter: data.get('twitter')
     };
-
-    // formValues.password === formValues.passwordConfirm
-    //   ?
-      fetch("/api/auth/signup", {
+    // if(formValues.profilePic === ''){
+    //   formValues.profilePic = "www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
+    // }
+    setLoading(true);
+    // setPassEqual(formValues.password === formValues.passwordConfirm);
+    // passEqual &&
+      
+      await fetch("/api/auth/signup", {
         method: 'POST',
-        body: JSON.stringify(formValues),
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
+        body: JSON.stringify(formValues)
+        
       })
         .then(res => {
+          console.log(res);
           if(res.ok){
+            
             return res.json();
+          } else {
+            setFailed("Unsucessful Sign up");
           }
+          
         })
-        .then(() => {
-
-          setRedirect(true);
+        .then(data => {
+          if(data){
+            setRedirect(true);
+          }
+          setLoading(false);
         })
         .catch(err => {
-          console.log(err);
-          setFailed(err)
+          setFailed(err);
+          setLoading(false);
         })
-      // :
-      // setPassEqual(false);
   };
   let err = "";
   !passEqual && (err = "Password Mismatch..");
+  if(auth.isAuthenticated){
+    setRedirect(true);
+  }
   if(redirect){
     return <Redirect to="/" />
   }
@@ -95,8 +109,9 @@ function SignUpForm() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          {failed}
-          {err}
+          <Typography>{failed}</Typography>
+          <Typography>{err}</Typography>
+        
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -142,7 +157,7 @@ function SignUpForm() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -152,19 +167,7 @@ function SignUpForm() {
                   id="confirmPassword"
                   autoComplete="new-password"
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    required
-                    fullWidth
-                    id="birthday"
-                    label="Birthday"
-                    type="date"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   fullWidth
@@ -176,24 +179,49 @@ function SignUpForm() {
                   autoComplete="address-level2"
                 />
               </Grid>          
+              
+                         
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
+                  fullWidth
+                  id="state"
+                  name="state"
+                  label="State"
+                  type="text"
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
                   id="zipcode"
                   name="zipcode"
                   label="ZipCode"
                   type="text"
                   autoComplete="postal-code"
                 />
-              </Grid>              
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
-                  id="state"
-                  name="state"
-                  label="State"
+                  
+                  fullWidth
+                  id="profilePic"
+                  name="profilePic"
+                  label="Profile Pic"
                   type="text"
-                  autoComplete="address-level1"
+                />
+              </Grid>
+              <Grid item xs={12} >
+                <TextField
+                  
+                  fullWidth
+                  id="bio"
+                  name="bio"
+                  label="Personal Bio"
+                  type="text"
+                  autoComplete="postal-code"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -205,6 +233,7 @@ function SignUpForm() {
                   id="pinterest"
                 />
               </Grid>
+                  
               <Grid item xs={12}>
                 <TextField
                   fullWidth
@@ -244,7 +273,7 @@ function SignUpForm() {
             </Grid>
             <Grid container>
               <Grid item>
-                <Link to="/Login" variant="body2">
+                <Link to="/Login" variant="contained">
                   Already have an account? Sign in
                 </Link>
               </Grid>
