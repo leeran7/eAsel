@@ -16,7 +16,7 @@ const defaultValues = {
     error: false,
     success: false,
     title: "",
-    nameOfArtist: "",
+    artistName: "",
     description: "",
     dimensionX: 0,
     dimensionY: 0,
@@ -118,7 +118,7 @@ const SellForm = () => {
                         variant="outlined"
                         value={formValues.name} //get name from db and input
                         onChange={handleInputChange}
-                        name="nameOfArtist"
+                        name="artistName"
                         label="Name Of Artist"
                         fullWidth
                         autoComplete="none" />

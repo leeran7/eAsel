@@ -23,10 +23,11 @@ const AuthProvider = ({ children }) => {
   const authenticate = (email, password) => {
     return fetch('/api/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
       headers: {
         'Content-Type': 'application/json',
-      }
+      },
+      body: JSON.stringify({ email, password }),
+      
     })
       .then((response) => {
         if(response.ok) {
@@ -38,7 +39,6 @@ const AuthProvider = ({ children }) => {
         return body;
       });
   }
-
   const signout = () => {
     return fetch('/api/auth/logout', {
       method: 'POST',

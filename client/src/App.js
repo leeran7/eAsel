@@ -24,6 +24,7 @@ import Navbar from './components/NavBar';
 import './index.css';
 import { AuthProvider  } from './context/AuthContext';
 import SignUpForm from './components/SignUpForm';
+import ProfilePage from './pages/ProfilePage';
 
 const theme = createTheme({
   palette: {
@@ -58,12 +59,13 @@ class App extends React.Component {
                 <Toolbar /> 
                 <Switch>
                   {/* <Route path="/" component={ArtistList} /> */}
-                  <PrivateRoute path="/SellWithUs" component={SellArtPage} />
+                  <Route path="/SellWithUs" component={SellArtPage} />
                   <Route path="/ArtistList" component={ArtistList}/>
                   <Route path="/ArtistPage" component={ArtistPage} />
                   <Route path="/Login" component={LoginForm} />
                   <Route path="/Signup" component={SignUpForm} />
-                  <PrivateRoute path="/Buy" component={BuyHomePage} />
+                  <Route path="/Profile" component={ProfilePage} />
+                  <Route path="/" component={BuyHomePage} />
                 </Switch>
               </div>
             </Container>

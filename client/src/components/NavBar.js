@@ -24,7 +24,7 @@ import AuthButton from './AuthButton';
 import { AuthContext } from '../context/AuthContext';
 const navigationLinks = [
     { name: "Artists", href: "/artistlist" },
-    { name: "Buy", href:"/Buy"},
+    { name: "Buy", href:"/buy"},
     { name: "Sell", href: "/sellwithus" },
     { name: "Cart", href: "" },
     // { name: "Login", href: "/login" },
@@ -66,13 +66,13 @@ const Navbar = () => {
                         </Grid>
                     <Grid
                         alignItems="center"
-                        justify="flex-end"
+                        justifyContent="flex-end"
                         container
                         // spacing={12}
                     >
                         
                         
-                        {/* <Hidden xsDown>
+                        <Hidden xsDown>
                             
                             {navigationLinks.map((item) => (
                                 <Link
@@ -82,12 +82,12 @@ const Navbar = () => {
                                     underline="none"
                                     href={item.href}
                                     key={item.name}
-                                r>
+                                >
                                     {item.name}
                                 </Link>
                             ))}
                             <AuthButton />
-                        </Hidden> */}
+                        </Hidden>
                         
                         <Grid item>
                             {auth.isAuthenticated && 
@@ -134,7 +134,8 @@ const Navbar = () => {
 
                 <List>
                     <AuthButton />
-                    {auth.isAuthenticated ?
+                    {
+                    // auth.isAuthenticated ?
                         (navigationLinks.map((item) => (
                         <ListItem key={item.name}>
                             <Link
@@ -149,19 +150,19 @@ const Navbar = () => {
 
                         </ListItem>
                     )))
-                            :
-                        <ListItem >
-                            <Link
-                                className={styles.link}
-                                color="textPrimary"
-                                variant="button"
-                                underline="none"
-                                href={navigationLinks[0].href}
-                            >
-                                {navigationLinks[0].name}
-                            </Link>
+                        //     :
+                        // <ListItem >
+                        //     <Link
+                        //         className={styles.link}
+                        //         color="textPrimary"
+                        //         variant="button"
+                        //         underline="none"
+                        //         href={navigationLinks[0].href}
+                        //     >
+                        //         {navigationLinks[0].name}
+                        //     </Link>
 
-                        </ListItem>
+                        // </ListItem>
                 }
                     
                     
