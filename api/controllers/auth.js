@@ -8,30 +8,24 @@ const { User, Cart, Social } = db;
 
 router.post('/signup', (req,res) => { //Open signup page
   const { firstName, lastName, bio, email, profilePic, password, state, city, zipcode, facebook, linkedin, instagram, twitter, pinterest} = req.body;
+  
     User.create({
         firstName, lastName, bio, email, state, city, zipcode, password, profilePic
     }) .then(user => {
-        let completed = true;
         Cart.create({
             userId: user.id
-        }).catch(err => {
-            completed = false;
-            res.status(400).json(err);
         })
 
         Social.create({
-            linkedin,facebook,instagram,twitter,pinterest,
+            linkedin, facebook, instagram, twitter, pinterest,
             userId: user.id
-        }).catch(err => {
-            completed = false;
-            res.status(400).json(err);
         })
-        if(completed){
-          req.login(user, () => {
-            user.password = undefined;
-            res.status(201).json(user)
-          });    
-        }
+        user.password = undefined;
+        req.login(user, () => {
+          req.user = user;
+          res.status(200).json(user);
+        });  
+        
         
     })
     .catch(err => {

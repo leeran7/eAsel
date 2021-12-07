@@ -28,9 +28,9 @@ router.get('/:artworkid', (req,res) => { //get specific artwork details
 
 
 router.post('/new', passport.isAuthenticated(), (req, res) => { //add new artwork 
-    let { title, dimensionX, dimensionY, dimensionZ, genre, description, price, uri} = req.body;
+    let { title, artistName, dimensionX, dimensionY, dimensionZ, genre, description, price, uri} = req.body;
      Artwork.create(
-         { title, dimensionX, dimensionY, dimensionZ, 
+         { title, artistName, dimensionX, dimensionY, dimensionZ, 
            genre, description, price, uri, userId : req.user.id })
 
         .then(artwork => {

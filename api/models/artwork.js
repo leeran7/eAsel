@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         // notEmpty: true
       }
     },
+    artistName: {
+      type: DataTypes.STRING,
+      validate: {
+        // notEmpty: true
+      }
+    },
     description: {
         type: DataTypes.STRING,
         validate: {

@@ -6,45 +6,20 @@ module.exports = (sequelize, DataTypes) => {
   class Social extends Model {}
 
   Social.init({
-    // socials_id: {
-    //     type: DataTypes.INTEGER,
-    //     primaryKey: true,
-    //     autoIncrement: true
-    // },
     linkedin: {
         type: DataTypes.STRING,
-        validate: {
-          // len: [28, 50],
-          notEmpty: true,
-        }
     },
     pinterest: {
-      type: DataTypes.STRING,
-      validate: {
-        // len: [28, 50],
-        notEmpty: true,
-      }
+      type: DataTypes.STRING
   },
     instagram: {
-        type: DataTypes.STRING,
-        validate: {
-          // len: [26, 50],
-          notEmpty: true,
-        }
+        type: DataTypes.STRING
     }, 
     twitter: {
-        type: DataTypes.STRING,
-        validate: {
-          // len: [12, 30],
-          notEmpty: true,
-        }
+        type: DataTypes.STRING
     }, 
     facebook: {
-        type: DataTypes.STRING,
-        validate: {
-          // len: [25, 50],
-          notEmpty: true,
-        }
+        type: DataTypes.STRING
     },
     
   }, {
