@@ -19,14 +19,14 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRightSharp';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import image from '../img/background5.png';
 import AuthButton from './AuthButton';
 import { AuthContext } from '../context/AuthContext';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 const navigationLinks = [
     { name: "Artists", href: "/artistlist" },
     { name: "Buy", href:"/buy"},
     { name: "Sell", href: "/sellwithus" },
-    { name: "Cart", href: "" },
+    { name: <ShoppingCartOutlinedIcon />, href: "/cart" },
     // { name: "Login", href: "/login" },
     // { name: "SignUp", href: "/signup" },
 ];
@@ -34,8 +34,8 @@ const navigationLinks = [
 const useStyles = makeStyles((theme) => ({
     appbar: {
         flexGrow: 1,
-        backgroundImage: `url(${image})`,
-        backgroundSize: 'cover',
+        // backgroundImage: `url(${image})`,
+        backgroundSize: 'cover'
     },
     link: {
         marginRight: '20px',
@@ -55,7 +55,7 @@ const Navbar = () => {
     const [open, setOpen] = useState(false);
     const auth = useContext(AuthContext);
     return (
-        <AppBar className={styles.appbar} >
+        <AppBar elevation={0} className={styles.appbar} >
             <Container maxWidth="md">
                 
                 <Toolbar>

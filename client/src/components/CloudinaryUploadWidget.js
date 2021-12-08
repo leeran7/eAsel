@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Button } from "@material-ui/core";
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 
 class CloudinaryUploadWidget extends Component {
@@ -9,7 +9,7 @@ class CloudinaryUploadWidget extends Component {
       {
         cloudName: "ctp-easel",
         uploadPreset: "easelImages",
-        cropping: true,
+        cropping: true
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
@@ -31,12 +31,12 @@ class CloudinaryUploadWidget extends Component {
 
   render() {
     return (
-      <button id="upload_widget" className="cloudinary-button">
+      <Button id="upload_widget" style={{ backgroundColor: "#9575cd", color: "white" }}>
         <IconButton>
-            <CameraAltOutlinedIcon fontSize="large" style={{ fill: "white" }} /> 
+            <CameraAltOutlinedIcon style={{ fill: "white" }} /> 
           </IconButton>
-        Upload
-      </button>
+        <span>Upload</span>
+      </Button>
     );
   }
 }
