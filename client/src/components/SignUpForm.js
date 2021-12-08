@@ -103,17 +103,16 @@ function SignUpForm() {
             alignItems: 'center',
           }}
         >
-          <Paper variant="outlined">
             <img src={Logo} alt="logo" />
-          </Paper>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
           <Typography>{failed}</Typography>
           <Typography>{err}</Typography>
         
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
+          <Grid component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2} alignItems="center"
+            justifyContent="center">
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
@@ -157,17 +156,6 @@ function SignUpForm() {
                   autoComplete="new-password"
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="confirmPassword"
-                  label="Confirm Password"
-                  type="password"
-                  id="confirmPassword"
-                  autoComplete="new-password"
-                />
-              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   fullWidth
@@ -221,7 +209,8 @@ function SignUpForm() {
                   name="bio"
                   label="Personal Bio"
                   type="text"
-                  autoComplete="postal-code"
+                  multiline
+                  rows={4}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -270,23 +259,21 @@ function SignUpForm() {
                   id="linkedin"
                 />
               </Grid>
+            <Grid item>
+              <Link style={{textDecoration: 'none', color: "black"}} to="/Login" variant="contained">
+                Already have an account? Sign in
+              </Link>
             </Grid>
-            <Grid container>
-              <Grid item>
-                <Link to="/Login" variant="contained">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
+            <Grid item xs={4} >
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >Sign Up</Button>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-          </Box>
+          </Grid>
+          </Grid>
         </Box>
       </Container>
     </ThemeProvider>

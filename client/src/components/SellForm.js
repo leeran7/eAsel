@@ -22,7 +22,7 @@ const defaultValues = {
     dimensionY: 0,
     dimensionZ: 0,
     genre: "",
-    price: undefined,
+    price: 10,
     uri: "",
     redirect: false,
 };
@@ -94,7 +94,11 @@ const SellForm = () => {
     return (
         <form onSubmit={handleSubmit}>
 
-            <Grid container justifyContent="center" direction="column" spacing={3}>
+            <Grid container 
+            // alignItems="center"
+            justifyContent="center" 
+            direction="column" 
+            spacing={3}>
 
                 <Grid item>
                     <Typography variant="h5">Tell us a bit about your artwork...</Typography>
@@ -112,7 +116,7 @@ const SellForm = () => {
                         autoComplete="none" />
                 </Grid>
 
-                <Grid item xs={9}>
+                <Grid item xs={12}>
                     <TextField
                         type="text"
                         variant="outlined"
@@ -139,7 +143,7 @@ const SellForm = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Grid container alignItems="center" spacing={1} direction="row">
+                    <Grid container alignItems="center" justifyContent="center" spacing={1} direction="row">
                         <Grid item xs={12}>
                             <FormLabel>Dimensions (in.)</FormLabel>
                         </Grid>
@@ -252,18 +256,20 @@ const SellForm = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Grid container alignItems="center" spacing={1} direction="row"> 
-                            <Grid item={3}>
-                              <CloudinaryUploadWidget changeUri={handleUriChange}/>
-                            </Grid>
-                    
-                    </Grid>
+                    {/* <Grid container alignItems="center" spacing={1} direction="row">  */}
+                            {/* <Grid item> */}
+                              <CloudinaryUploadWidget
+
+                              changeUri={handleUriChange}/>
+                            {/* </Grid> */}
+                            <Button variant="contained" color="secondary" type="submit" fontSize="large">
+                                Submit
+                            </Button>
+                    {/* </Grid> */}
                 </Grid>
 
                 <Grid item>
-                    <Button variant="contained" color="secondary" type="submit" fontSize="large">
-                        submit
-                    </Button>
+                    
                 </Grid>
             </Grid>
         </form>
