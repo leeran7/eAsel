@@ -166,7 +166,7 @@ function ProfilePage(){
                  aria-controls="panel2a-content"
                  id="panel2a-header"
                >
-                 <Typography>email</Typography>
+                 <Typography>Email</Typography>
                </AccordionSummary>
                <AccordionDetails>
                  <Typography>{auth.user.email}</Typography>

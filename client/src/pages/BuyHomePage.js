@@ -141,7 +141,7 @@ function BuyHomePage() {
     <div className={classes.root}>
       <ImageList cols={1}>
         className={classes.gridList}
-        {artwork.map((tile) => (
+        {artwork.reverse().map((tile) => (
           <ImageListItem key={tile.uri}>
             <img src={tile.uri} alt={tile.uri} />
             <ImageListItemBar
@@ -238,11 +238,11 @@ function BuyHomePage() {
           <DialogActions>
             <Button variant="outlined" onClick={handleClose}>
               <CloseIcon />
-              Nope
+              Go Back
             </Button>
             <Button variant="outlined" onClick={addToCart}>
               <ShoppingCartIcon />
-              Heck, Yeah
+              Add to Cart
             </Button>
           </DialogActions>
         )}
