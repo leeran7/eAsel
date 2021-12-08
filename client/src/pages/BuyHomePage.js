@@ -8,8 +8,10 @@ import {
   Dialog,
   ListItemText,
   List,
-  ListItem,
+  ListItem
 } from "@material-ui/core";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import React, { useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -50,23 +52,40 @@ const useStyles = makeStyles((theme) => ({
   checkIcon: {
     minWidth: "40px",
   },
+  alert: {
+    color: "black",
+    backgroundColor: "#4bb543",
+    fontSize: "16px",
+    borderRadius: "5px",
+    padding: "10px",
+    fontFamily: "Roboto Condensed",
+  }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
+// function Alert(props) {
+//   return <MuiAlert elevation={6} variant="outline" {...props} />;
+// }
 function BuyHomePage() {
   //get id of user so we can add the specific artwork to user's cart - does this get the artist of the artwork's id? or the person using the app's id
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-  const auth = useContext(AuthContext);
+  // const params = new URLSearchParams(window.location.search);
+  // const id = params.get("id");
+  // const auth = useContext(AuthContext);
   const classes = useStyles();
   const [artwork, setArtwork] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [selectedTile, setSelectedTile] = React.useState(null);
+  const [snackOpen , setSnackOpen] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  
+  const handleSnackClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackOpen(false);
+  };
   const handleClickOpen = (tile) => {
     setSelectedTile(tile);
     console.log("clicked");
@@ -104,7 +123,7 @@ function BuyHomePage() {
         
       });
       handleClose();
-    
+      setSnackOpen(true);
   };
 
   const descriptionOpen = () => {
@@ -239,6 +258,15 @@ function BuyHomePage() {
           </DialogActions>
         )}
       </Dialog>
+      <Snackbar
+        open={snackOpen}
+        autoHideDuration={4000}
+        onClose={handleSnackClose}
+      >
+        <div className={classes.alert} onClose={handleSnackClose} >
+          Successfully added artwork to cart 🙂
+        </div>
+      </Snackbar>
     </div>
   );
 }
