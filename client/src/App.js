@@ -7,7 +7,7 @@ import {
   // NavLink
 } from 'react-router-dom';
 import { createTheme, ThemeProvider, Toolbar } from '@material-ui/core';
-import PrivateRoute from './components/PrivateRoute';
+// import PrivateRoute from './components/PrivateRoute';
 //PAGES
 // import PostsListPage from './pages/PostsListPage';
 // import PostFormPage from './pages/PostFormPage';
@@ -25,14 +25,14 @@ import './index.css';
 import { AuthProvider  } from './context/AuthContext';
 import SignUpForm from './components/SignUpForm';
 import ProfilePage from './pages/ProfilePage';
-
+import CartPage from './components/CartForm';
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#d50000"
+      main: "#d1c4e9"
     },
     secondary: {
-      main: "#448aff"
+      main: "#7e57c2"
     }
   },
   typography: {
@@ -62,6 +62,7 @@ class App extends React.Component {
                   <Route path="/SellWithUs" component={SellArtPage} />
                   <Route path="/ArtistList" component={ArtistList}/>
                   <Route path="/ArtistPage" component={ArtistPage} />
+                  <Route path="/Cart" component={CartPage} />
                   <Route path="/Login" component={LoginForm} />
                   <Route path="/Signup" component={SignUpForm} />
                   <Route path="/Profile" component={ProfilePage} />
