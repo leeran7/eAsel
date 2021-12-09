@@ -1,4 +1,4 @@
-import { Avatar, Divider, IconButton, Typography } from "@material-ui/core";
+import { Avatar, Divider, IconButton, Typography, makeStyles, Grid } from "@material-ui/core";
 import React from "react";
 import InstagramIcon from '@material-ui/icons/Instagram';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -6,44 +6,67 @@ import PinterestIcon from '@material-ui/icons/Pinterest';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
+const useStyles = makeStyles((theme) => ({
+    socials: {
+        paddingBottom: 10
+    },
+    artist: {
+        padding: 4,
+        fontFamily: "Roboto Condensed"
+    },
+    avatar: {
+        margin: 20,
+        width: 200,
+        height: 200,
+        // flexGrow: 1
+      }
+  }));
+
 export default function AboutTheArtist(props) {
         const { artist, socials } = props;
+        const classes = useStyles();
         return (
-        <div>
-            
-            <Typography component={'span'} variant={'h3'}>
+        <Grid 
+        justifyContent="center"
+        alignContent="center"
+        container>
+            <Avatar className={classes.avatar} alt="profilepic" src={artist.profilePic}/>
+                <Typography component={'div'} variant={'h4'}>
+                        {artist.firstName} {artist.lastName} 
+                </Typography>
+                <Typography component={'div'} variant={'h5'}>
+                    {artist.city}, {artist.state}
+                </Typography>
+                <Typography component={'div'}>
+                    {artist.bio}
+                </Typography>
+                {/* <h3 className={classes.artist}> {artist.city}, {artist.state}</h3>
+                <h4 className={classes.artist}>{artist.bio}</h4> */}
+            <div className={classes.socials}>
+                <Divider />
+                    <IconButton href={socials.instagram} target="_blank">
+                        <InstagramIcon fontSize="large"/>
+                    </IconButton>
+
+                    <IconButton href={socials.facebook} target="_blank">
+                        <FacebookIcon fontSize="large"/>
+                    </IconButton>
+
+                    <IconButton href={socials.pinterest} target="_blank" >
+                        <PinterestIcon fontSize="large"/>
+                    </IconButton>
+
+                    <IconButton href={socials.linkedin} target="_blank">
+                        <LinkedInIcon fontSize="large"/>
+                    </IconButton>
+
+                    <IconButton href={socials.twitter} target="_blank">
+                        <TwitterIcon fontSize="large"/>
+                    </IconButton>
                 
-              <h1> <Avatar height="80%" width="60%" alt="profilepic" src={artist.profilePic}/> {artist.firstName} {artist.lastName} </h1>
-              
-            </Typography>
-            
-            <Typography component={'span'}>
-            <h3> {artist.city}, {artist.state}</h3>
-              {artist.bio}
-            </Typography>
-            <Divider />
-            <IconButton href={socials.instagram} target="_blank">
-                <InstagramIcon fontSize="large"/>
-            </IconButton>
-
-            <IconButton href={socials.facebook} target="_blank">
-                <FacebookIcon fontSize="large"/>
-            </IconButton>
-
-            <IconButton href={socials.pinterest} target="_blank" >
-                <PinterestIcon fontSize="large"/>
-            </IconButton>
-
-            <IconButton href={socials.linkedin} target="_blank">
-                <LinkedInIcon fontSize="large"/>
-            </IconButton>
-
-            <IconButton href={socials.twitter} target="_blank">
-                <TwitterIcon fontSize="large"/>
-            </IconButton>
-            
-            <Divider />
-        </div>
+                <Divider />
+            </div>
+        </Grid>
         );
 }
 

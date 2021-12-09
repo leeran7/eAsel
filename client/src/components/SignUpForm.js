@@ -89,7 +89,7 @@ function SignUpForm() {
     return <Redirect to="/" />
   }
   if(loading){
-    return <p>Loading..</p>
+    return <Typography>Loading..</Typography>
   }
   return (
     <ThemeProvider theme={theme}>

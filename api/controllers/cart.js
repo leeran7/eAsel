@@ -15,7 +15,7 @@ router.get('/', passport.isAuthenticated(), (req,res) => { //get users cart info
         where: { cartId: cart.id }
       })
         .then(items => {
-          res.json(items);
+          res.status(200).json(items);
         })
     })
     .catch(err => {
@@ -46,7 +46,7 @@ router.post('/:artworkid/new', passport.isAuthenticated(), (req, res) => { //Upd
 router.delete('/:itemid', passport.isAuthenticated() , (req, res) => {
   const { itemid } = req.params;
   Cartitem.findOne({
-    where: { artworkId: itemid, userId: req.user.id }
+    where: { artworkId: itemid, cartId: req.user.id }
   })
     .then(item => {
       if(!item){

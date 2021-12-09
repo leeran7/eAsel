@@ -52,8 +52,7 @@ class App extends React.Component {
       <AuthProvider>
         <Router>
           <ThemeProvider theme={theme}>
-            <Container>
-              <div className="App">
+              <Container className="App">
                 <Navbar /> 
                 {/* add this toolbar to push the rest of the content down on the page, so nothing is hidden by navabar */}
                 <Toolbar /> 
@@ -68,8 +67,7 @@ class App extends React.Component {
                   <Route path="/Profile" component={ProfilePage} />
                   <Route path="/" component={BuyHomePage} />
                 </Switch>
-              </div>
-            </Container>
+              </Container>
           </ThemeProvider>
         </Router>
       </AuthProvider>
