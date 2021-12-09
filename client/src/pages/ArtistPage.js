@@ -1,3 +1,4 @@
+import { Container, Grid } from '@material-ui/core';
 import React from 'react';
 import AboutTheArtist from "../components/AboutTheArtist";
 import PhotoGallery from "../components/PhotoGallery";
@@ -55,14 +56,14 @@ class ArtistPage extends React.Component{
     
     render(){
         return(
-            <div>
-            <AboutTheArtist 
-              artist={this.state.artist}
-              socials={this.state.socials}
-            />
-            {/* send prop to photoGallery thats an array of all artist artwork?  */}
-            <PhotoGallery artwork={this.state.artwork}/>
-            </div>
+            <Grid>
+              <AboutTheArtist 
+                artist={this.state.artist}
+                socials={this.state.socials}
+              />
+              {/* send prop to photoGallery thats an array of all artist artwork?  */}
+              <PhotoGallery artwork={this.state.artwork}/>
+            </Grid>
         );
     }
 }

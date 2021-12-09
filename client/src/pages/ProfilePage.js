@@ -32,7 +32,7 @@ function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Container
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -40,11 +40,11 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box >
           <Typography>{children}</Typography>
         </Box>
       )}
-    </div>
+    </Container>
   );
 }
 
@@ -92,12 +92,12 @@ function ProfilePage(){
    if(auth.isAuthenticated){
      return (
        <Container 
-           disableGutters
+           disablegutters="true"
           // xs={12} 
           className={classes.root}>
           <Grid
             container
-            disableGutters
+            disablegutters="true"
             justifyContent="center"
           >
           

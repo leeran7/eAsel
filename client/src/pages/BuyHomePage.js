@@ -83,7 +83,6 @@ function BuyHomePage() {
     if (reason === "clickaway") {
       return;
     }
-
     setSnackOpen(false);
   };
   const handleClickOpen = (tile) => {
@@ -260,11 +259,12 @@ function BuyHomePage() {
       </Dialog>
       <Snackbar
         open={snackOpen}
-        autoHideDuration={4000}
+        autoHideDuration={2500}
         onClose={handleSnackClose}
       >
         <div className={classes.alert} onClose={handleSnackClose} >
-          Successfully added artwork to cart 🙂
+  
+          <Typography>Successfully added artwork to cart 🙂</Typography>
         </div>
       </Snackbar>
     </div>
