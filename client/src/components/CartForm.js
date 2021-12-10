@@ -22,7 +22,7 @@ export default function CartForm(props) {
     const auth = useContext(AuthContext);
     const [artworks, setArtworks] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [snackOpen , setSnackOpen] = React.useState(false);
+    const [snackOpen , setSnackOpen] = useState(false);
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
     const handleSnackClose = (event, reason) => {
@@ -51,12 +51,14 @@ export default function CartForm(props) {
         let i=0;
         let urllist=[];
         for(i; i< data.length ;i++){
-            const response = await fetch(`/api/artworks/${data[i].artworkId}`)
-            const json = await response.json();
-            urllist.push(json)
-          }
-          setArtworks(urllist);
-       }
+          const response = await fetch(`/api/artworks/${data[i].artworkId}`);
+          const json = await response.json();
+          urllist.push(json);
+          //should we setTotalPrice(totalPrice + {json.price}) here?
+        }
+        setArtworks(urllist);
+          
+   }
     useEffect( () => {
         getCarts();
           
@@ -73,6 +75,7 @@ export default function CartForm(props) {
         })
     }
     function handleCheckout(){
+        alert('Enjoy your new buys!');
         setLoading(true);
         fetch("/api/checkout", {
             method: 'POST',
@@ -88,7 +91,13 @@ export default function CartForm(props) {
     console.log(auth)
     if(!auth.isAuthenticated && !loading) return <LoginForm from="/cart"/>;
     if(artworks.length === 0){
-        return <Container style={{marginTop: "20px"}}>Cart is Empty</Container>
+        return (
+          <Container
+            style={{ marginTop: "20px", fontFamily: "Roboto Condensed" }}
+          >
+            Cart is Empty
+          </Container>
+        );
     }
     if(artworks.length > 0 && !loading){
         // const itemsPrice = artworks.reduce((prev, next) => prev.price + next.price);
@@ -123,41 +132,48 @@ export default function CartForm(props) {
                         artworks.map( artwork => {
                             // console.log(artwork)
                             return (
-                                <Grid 
-                                    
-                                    item 
-                                    xs={12}
-                                    
-                                    key={artwork.id}>
-                                    <Grid 
-                                        
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        variant="outlined"
-                                        container
-                                        direction="column"
-                                        >
-                                        <img width="100%" src={artwork.uri} alt="cart item"/>
-                                        <Typography>${artwork.price}</Typography>
-                                        <Typography>{artwork.title}</Typography>
-                                        <IconButton onClick={() => deleteItem(artwork.id)}  ><DeleteOutlineOutlinedIcon /></IconButton>
-                                    </Grid>
-                                    
-                                </Grid>)
+                              <Grid item xs={12} key={artwork.id}>
+                                <Grid
+                                  justifyContent="center"
+                                  alignItems="center"
+                                  variant="outlined"
+                                  container
+                                  direction="column"
+                                >
+                                  <img
+                                    width="100%"
+                                    src={artwork.uri}
+                                    alt="cart item"
+                                  />
+                                  <Typography>${artwork.price}</Typography>
+                                  <Typography>{artwork.title}</Typography>
+                                  <IconButton
+                                    onClick={() => deleteItem(artwork.id)}
+                                  >
+                                    <DeleteOutlineOutlinedIcon />
+                                  </IconButton>
+                                  <Snackbar
+                                    open={snackOpen}
+                                    autoHideDuration={2500}
+                                    onClose={handleSnackClose}
+                                  >
+                                    <div
+                                      className={classes.alert}
+                                      onClose={handleSnackClose}
+                                    >
+                                      <Typography>
+                                        deleted artwork from cart
+                                      </Typography>
+                                    </div>
+                                  </Snackbar>
+                                </Grid>
+                              </Grid>
+                            );
                         })
                     }
                     
                 </Grid>
-                <Snackbar
-                    open={snackOpen}
-                    autoHideDuration={2500}
-                    onClose={handleSnackClose}
-                >
-                    <div className={classes.alert} onClose={handleSnackClose} >
-            
-                    <Typography>Successfully deleted artwork from cart 🙂</Typography>
-                    </div>
-                </Snackbar>
+           
             </Box>
         </Container>
       </ThemeProvider>

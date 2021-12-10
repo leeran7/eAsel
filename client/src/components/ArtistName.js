@@ -12,7 +12,7 @@ export default function ArtistName({artist, picture}) {
                     component="img"
                     height="100"
                     image= {artist.profilePic}
-                    alt="artist work"
+                    alt="artist profile"
                      />
                      <CardContent>
                          <Typography gutterBottom variant="h5" component="div">

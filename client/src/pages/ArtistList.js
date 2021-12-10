@@ -31,7 +31,7 @@ class ArtistList extends React.Component {
     if(this.state.loading) {return <Loading />};
         return(
         <Container> 
-            <Grid container spacing={2}>
+            <Grid container rowSpacing={2}>
                     <Grid item xs={12} sm={6} md={3}>
                         {/* add key  */}
                         {this.state.artists.map(artist=> {

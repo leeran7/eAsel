@@ -1,16 +1,11 @@
 import React, { useState, useContext } from 'react';
 
-import { AppBar, Toolbar, Grid
-
-} from '@material-ui/core/';
-
-// import AppBar from '@material-ui/core/AppBar';
-// import Toolbar from '@material-ui/core/Toolbar';
+import { AppBar, Toolbar, Grid} from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from '../img/logo.png';
 
 import { IconButton, Link, Container, Hidden, SwipeableDrawer,
-    Divider, List, ListItem
+    Divider, List, ListItem , Badge
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -20,16 +15,23 @@ import AuthButton from './AuthButton';
 import { AuthContext } from '../context/AuthContext';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 const navigationLinks = [
-    { name: "Artists", href: "/artistlist" },
-    { name: "Sell", href: "/sellwithus" },
-    { name: <ShoppingCartOutlinedIcon />, href: "/cart" }
+  { name: "Artists", href: "/artistlist" },
+  { name: "Sell", href: "/sellwithus" },
+  {
+    name: (
+      <Badge color="secondary" variant="dot">
+        <ShoppingCartOutlinedIcon />
+      </Badge>
+    ),
+    href: "/cart",
+  },
 ];
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
         flexGrow: 1,
-        // backgroundImage: `url(${image})`,
-        backgroundSize: 'cover'
+        backgroundSize: 'cover',
+        marginBottom: 3,
     },
     link: {
         marginRight: '20px',
