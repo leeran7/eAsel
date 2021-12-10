@@ -51,13 +51,14 @@ export default function CartForm(props) {
         let i=0;
         let urllist=[];
         for(i; i< data.length ;i++){
-            const response = await fetch(`/api/artworks/${data[i].artworkId}`)
-            const json = await response.json();
-            urllist.push(json)
-          }
-          setArtworks(urllist);
-          //should we setTotal(total + {json.price}) here?
-       }
+          const response = await fetch(`/api/artworks/${data[i].artworkId}`);
+          const json = await response.json();
+          urllist.push(json);
+          //should we setTotalPrice(totalPrice + {json.price}) here?
+        }
+        setArtworks(urllist);
+          
+   }
     useEffect( () => {
         getCarts();
           
@@ -74,6 +75,7 @@ export default function CartForm(props) {
         })
     }
     function handleCheckout(){
+        alert('Enjoy your new buys!');
         setLoading(true);
         fetch("/api/checkout", {
             method: 'POST',
