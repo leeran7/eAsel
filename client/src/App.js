@@ -18,7 +18,7 @@ import ArtistList from './pages/ArtistList';
 import SellArtPage from './pages/SellArtPage';
 import LoginForm from './components/LoginForm';
 import BuyHomePage from './pages/BuyHomePage';
-
+import PrivateRoute from './components/PrivateRoute';
 import { Container}  from "@material-ui/core";
 import Navbar from './components/NavBar';
 import './index.css';
@@ -58,13 +58,13 @@ class App extends React.Component {
                 <Toolbar /> 
                 <Switch>
                   {/* <Route path="/" component={ArtistList} /> */}
-                  <Route path="/SellWithUs" component={SellArtPage} />
+                  <PrivateRoute path="/SellWithUs" component={SellArtPage} />
                   <Route path="/ArtistList" component={ArtistList}/>
                   <Route path="/ArtistPage" component={ArtistPage} />
-                  <Route path="/Cart" component={CartPage} />
+                  <PrivateRoute path="/Cart" component={CartPage} />
                   <Route path="/Login" component={LoginForm} />
                   <Route path="/Signup" component={SignUpForm} />
-                  <Route path="/Profile" component={ProfilePage} />
+                  <PrivateRoute path="/Profile" component={ProfilePage} />
                   <Route path="/" component={BuyHomePage} />
                 </Switch>
               </Container>

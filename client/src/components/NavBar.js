@@ -24,7 +24,6 @@ import { AuthContext } from '../context/AuthContext';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 const navigationLinks = [
     { name: "Artists", href: "/artistlist" },
-    { name: "Buy", href:"/buy"},
     { name: "Sell", href: "/sellwithus" },
     { name: <ShoppingCartOutlinedIcon />, href: "/cart" },
     // { name: "Login", href: "/login" },
