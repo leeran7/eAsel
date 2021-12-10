@@ -1,15 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Button } from '@material-ui/core';
-import { CssBaseline } from '@material-ui/core';
-import { TextField } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
-import { Box } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
-import { Container } from '@material-ui/core';
-import { createTheme } from '@material-ui/core';
+import { Button, CssBaseline, TextField, Grid, Box, Typography , Container, createTheme} from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
-import { Paper } from '@material-ui/core';
 import Logo from "../img/logo.png";
 import { AuthContext } from '../context/AuthContext';
 

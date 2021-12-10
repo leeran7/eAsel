@@ -1,9 +1,12 @@
-import { Typography, Paper, Button, Grid, Box, Container, createTheme, IconButton  } from '@material-ui/core';
+import { Typography, Button, Grid, 
+    Box, Container, createTheme, IconButton, Snackbar  } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import React, { useState, useEffect } from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
+import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
+import { AuthContext } from '../context/AuthContext';
+import LoginForm from './LoginForm';
+
 const theme = createTheme();
 const useStyles = makeStyles((theme) => ({
     alert: {
@@ -16,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 export default function CartForm(props) {
+    const auth = useContext(AuthContext);
     const [artworks, setArtworks] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [snackOpen , setSnackOpen] = React.useState(false);
@@ -81,6 +85,8 @@ export default function CartForm(props) {
                 console.log("HERE")
             })
     }
+    console.log(auth)
+    if(!auth.isAuthenticated && !loading) return <LoginForm from="/cart"/>;
     if(artworks.length === 0){
         return <Container style={{marginTop: "20px"}}>Cart is Empty</Container>
     }

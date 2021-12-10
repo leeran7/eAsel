@@ -2,23 +2,14 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  // Link,
-  // NavLink
+  Route
 } from 'react-router-dom';
 import { createTheme, ThemeProvider, Toolbar } from '@material-ui/core';
-// import PrivateRoute from './components/PrivateRoute';
-//PAGES
-// import PostsListPage from './pages/PostsListPage';
-// import PostFormPage from './pages/PostFormPage';
-// import ShowPostPage from './pages/ShowPostPage';
-// import AboutUsPage from './pages/AboutUsPage';
 import ArtistPage from './pages/ArtistPage';
 import ArtistList from './pages/ArtistList';
 import SellArtPage from './pages/SellArtPage';
 import LoginForm from './components/LoginForm';
 import BuyHomePage from './pages/BuyHomePage';
-import PrivateRoute from './components/PrivateRoute';
 import { Container}  from "@material-ui/core";
 import Navbar from './components/NavBar';
 import './index.css';
@@ -58,13 +49,13 @@ class App extends React.Component {
                 <Toolbar /> 
                 <Switch>
                   {/* <Route path="/" component={ArtistList} /> */}
-                  <PrivateRoute path="/SellWithUs" component={SellArtPage} />
+                  <Route path="/SellWithUs" component={SellArtPage} />
                   <Route path="/ArtistList" component={ArtistList}/>
                   <Route path="/ArtistPage" component={ArtistPage} />
-                  <PrivateRoute path="/Cart" component={CartPage} />
+                  <Route path="/Cart" component={CartPage} />
                   <Route path="/Login" component={LoginForm} />
                   <Route path="/Signup" component={SignUpForm} />
-                  <PrivateRoute path="/Profile" component={ProfilePage} />
+                  <Route path="/Profile" component={ProfilePage} />
                   <Route path="/" component={BuyHomePage} />
                 </Switch>
               </Container>

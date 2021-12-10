@@ -8,16 +8,13 @@ import { AppBar, Toolbar, Grid
 // import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from '../img/logo.png';
-import IconButton from '@material-ui/core/IconButton';
+
+import { IconButton, Link, Container, Hidden, SwipeableDrawer,
+    Divider, List, ListItem
+} from '@material-ui/core';
+
 import MenuIcon from '@material-ui/icons/Menu';
-import Link from '@material-ui/core/Link';
-import Container from '@material-ui/core/Container';
-import Hidden from '@material-ui/core/Hidden';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Divider from '@material-ui/core/Divider';
 import ChevronRightIcon from '@material-ui/icons/ChevronRightSharp';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import AuthButton from './AuthButton';
 import { AuthContext } from '../context/AuthContext';
@@ -25,9 +22,7 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 const navigationLinks = [
     { name: "Artists", href: "/artistlist" },
     { name: "Sell", href: "/sellwithus" },
-    { name: <ShoppingCartOutlinedIcon />, href: "/cart" },
-    // { name: "Login", href: "/login" },
-    // { name: "SignUp", href: "/signup" },
+    { name: <ShoppingCartOutlinedIcon />, href: "/cart" }
 ];
 
 const useStyles = makeStyles((theme) => ({

@@ -87,9 +87,9 @@ function ProfilePage(){
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
-   if(!auth.isAuthenticated) return<LoginForm />;
-    
-   if(auth.isAuthenticated){
+    if(!auth.isAuthenticated){
+      return<LoginForm from="/profile" />
+    } else {
      return (
        <Container 
            disablegutters="true"

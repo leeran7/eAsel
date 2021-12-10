@@ -1,31 +1,19 @@
 import { Container, ImageList, ImageListItem, ImageListItemBar } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import {
-  DialogTitle,
-  DialogContent,
-  Button,
-  DialogActions,
-  Dialog,
-  ListItemText,
-  List,
-  ListItem
+  DialogTitle, DialogContent, Button, DialogActions, Dialog,
+  ListItemText, List, ListItem, Typography, Collapse, Slide,
+  ListItemIcon, makeStyles
 } from "@material-ui/core";
 import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import React, { useEffect, useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-import { ListItemIcon } from "@material-ui/core";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import Typography from "@material-ui/core/Typography";
+import React, { useEffect} from "react";
+// import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import CloseIcon from "@material-ui/icons/Close";
-import { Collapse } from "@material-ui/core";
-import Slide from "@material-ui/core/Slide";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import Loading from "../components/Loading";
-import { AuthContext } from '../context/AuthContext';
+// import { AuthContext } from '../context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {

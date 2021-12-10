@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, CssBaseline, TextField, Grid, Box, Typography, Container,createTheme,
-  ThemeProvider, FormControlLabel, Checkbox, Paper
+  ThemeProvider, FormControlLabel, Checkbox
   } from '@material-ui/core';
 
 import Logo from "../img/logo.png";
@@ -9,7 +9,7 @@ import { AuthContext } from '../context/AuthContext';
 
 const theme = createTheme();
 
-function LoginForm() {
+function LoginForm(props) {
   const auth = useContext(AuthContext);
   const [redirect, setRedirect] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -28,8 +28,14 @@ function LoginForm() {
         setFailed(true);
       })
   }
+  console.log(props);
   if(redirect){
-    return <Redirect to="/" />
+    if(!props.from){
+      return <Redirect to="/" />
+    } else {
+      return <Redirect to={props.from} />
+    }
+    
   }
   let err = "";
   if(failed){

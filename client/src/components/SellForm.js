@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
-import Slider from "@material-ui/core/Slider";
-import Button from "@material-ui/core/Button";
-import { Typography } from '@material-ui/core';
+import { Grid, TextField, FormControlLabel, FormControl, FormLabel,
+    RadioGroup, Slider, Button, Typography, Radio
+} from "@material-ui/core";
 import CloudinaryUploadWidget from './CloudinaryUploadWidget';
 
 const defaultValues = {
