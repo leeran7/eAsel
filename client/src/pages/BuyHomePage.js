@@ -13,6 +13,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import CloseIcon from "@material-ui/icons/Close";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import Loading from "../components/Loading";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 // import { AuthContext } from '../context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -172,8 +173,27 @@ function BuyHomePage() {
         )}
         {selectedTile && (
           <DialogTitle id="scroll-dialog-title">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+              }}
+            >
+              <span>{selectedTile.title}</span>
+              <IconButton
+                //style={{ color: "primary" }}
+                //onClick={changeColor}
+                style={{ font: "large" }}
+                className={classes.like}
+              >
+                <FavoriteIcon />
+              </IconButton>
+            </div>
             <Typography>{selectedTile.title}</Typography>
-            <Typography variant="subtitle2">{selectedTile.artistName}</Typography>
+            <Typography variant="subtitle2">
+              {selectedTile.artistName}
+            </Typography>
             <Typography variant="subtitle2">
               {"$"}
               {selectedTile.price}
@@ -250,8 +270,7 @@ function BuyHomePage() {
         autoHideDuration={2500}
         onClose={handleSnackClose}
       >
-        <div className={classes.alert} onClose={handleSnackClose} >
-  
+        <div className={classes.alert} onClose={handleSnackClose}>
           <Typography>Successfully added artwork to cart 🙂</Typography>
         </div>
       </Snackbar>
