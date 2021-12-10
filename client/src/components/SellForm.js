@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Grid, TextField, FormControlLabel, FormControl, FormLabel,
-    RadioGroup, Slider, Button, Typography, Radio
+import {
+  Grid,
+  TextField,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  Slider,
+  Button,
+  Typography,
+  Radio,
+  makeStyles,
 } from "@material-ui/core";
 import CloudinaryUploadWidget from './CloudinaryUploadWidget';
+import Snackbar from "@material-ui/core/Snackbar";
 
 const defaultValues = {
     error: false,
@@ -20,8 +31,22 @@ const defaultValues = {
     redirect: false,
 };
 
+const useStyles = makeStyles((theme) => ({
+  alert: {
+    color: "black",
+    backgroundColor: "#4bb543",
+    fontSize: "16px",
+    borderRadius: "5px",
+    padding: "10px",
+    fontFamily: "Roboto Condensed",
+  },
+}));
+
 const SellForm = () => {
+    const classes = useStyles();
     const [formValues, setFormValues] = useState(defaultValues);
+    const [snackOpen, setSnackOpen] = React.useState(false);
+
     const handleUriChange = (value) =>{
 
         setFormValues({
@@ -58,17 +83,19 @@ const SellForm = () => {
             // body: JSON.stringify({ content: formValues.json }),
         })
             .then(res => {
-                // console.log(res);
                 if (res.ok) {
-                    return res.json();
+                  //PLEASE CHECK THAT THIS WORKS IN THE FRONT END 
+                  //snack bar's open - yum :P
+                  setSnackOpen(true);
+                  return res.json();
                 }
-                // throw new Error('Content validation');
             })
             .then(() => {
                 setFormValues({
                     success: true,
                     redirect: true
                 });
+                
                 
             })
             .catch(err => {
@@ -78,195 +105,228 @@ const SellForm = () => {
                 });
                 console.error('Error:', err)
             });
-        // console.log(formValues);//make popup window to say successfully saved the data to db?
+            
         
     };
+
+    const handleSnackClose = (event, reason) => {
+      if (reason === "clickaway") {
+        return;
+      }
+      setSnackOpen(false);
+    };
+
     if(formValues.redirect){
         return <Redirect to="/"/>
     }
     return (
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
+        <Grid
+          container
+          // alignItems="center"
+          justifyContent="center"
+          direction="column"
+          spacing={3}
+        >
+          <Grid item>
+            <Typography variant="h5">
+              Tell us a bit about your artwork...
+            </Typography>
+          </Grid>
 
-            <Grid container 
-            // alignItems="center"
-            justifyContent="center" 
-            direction="column" 
-            spacing={3}>
+          <Grid item xs={12}>
+            <TextField
+              type="text"
+              variant="outlined"
+              value={formValues.name}
+              onChange={handleInputChange}
+              name="title"
+              label="Name Of Artwork"
+              fullWidth
+              autoComplete="none"
+            />
+          </Grid>
 
-                <Grid item>
-                    <Typography variant="h5">Tell us a bit about your artwork...</Typography>
-                </Grid>
+          <Grid item xs={12}>
+            <TextField
+              type="text"
+              variant="outlined"
+              value={formValues.name} //get name from db and input
+              onChange={handleInputChange}
+              name="artistName"
+              label="Name Of Artist"
+              fullWidth
+              autoComplete="none"
+            />
+          </Grid>
 
-                <Grid item xs={12}>
-                    <TextField
-                        type="text"
-                        variant="outlined"
-                        value={formValues.name}
-                        onChange={handleInputChange}
-                        name= "title"
-                        label="Name Of Artwork"
-                        fullWidth
-                        autoComplete="none" />
-                </Grid>
+          <Grid item xs={12}>
+            <TextField
+              type="text"
+              variant="outlined"
+              value={formValues.name}
+              onChange={handleInputChange}
+              name="description"
+              label="Description i.e. color, style"
+              fullWidth
+              multiline
+              rows={4}
+              autoComplete="none"
+            />
+          </Grid>
 
-                <Grid item xs={12}>
-                    <TextField
-                        type="text"
-                        variant="outlined"
-                        value={formValues.name} //get name from db and input
-                        onChange={handleInputChange}
-                        name="artistName"
-                        label="Name Of Artist"
-                        fullWidth
-                        autoComplete="none" />
-                </Grid>
-
-                <Grid item xs={12}>
-                    <TextField
-                        type="text"
-                        variant="outlined"
-                        value={formValues.name}
-                        onChange={handleInputChange}
-                        name="description"
-                        label="Description i.e. color, style"
-                        fullWidth
-                        multiline
-                        rows={4}
-                        autoComplete="none" />
-                </Grid>
-
-                <Grid item xs={12}>
-                    <Grid container alignItems="center" justifyContent="center" spacing={1} direction="row">
-                        <Grid item xs={12}>
-                            <FormLabel>Dimensions (in.)</FormLabel>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <TextField
-                                type="number"
-                                variant="outlined"
-                                value={formValues.name}
-                                onChange={handleInputChange}
-                                name="dimensionX"
-                                autoComplete="none" />
-
-                        </Grid>
-                        <FormLabel>x</FormLabel>
-                        <Grid item xs={3}>
-                            <TextField
-                                type="number"
-                                variant="outlined"
-                                value={formValues.name}
-                                onChange={handleInputChange}
-                                name="dimensionY"
-                                // label="dimension"
-                                autoComplete="none" />
-                        </Grid>
-                        <FormLabel>x</FormLabel>
-                        <Grid item xs={3}>
-                            <TextField
-                                type="number"
-                                variant="outlined"
-                                value={formValues.name}
-                                onChange={handleInputChange}
-                                name="dimensionZ"
-                                autoComplete="none" />
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControl  >
-                        <FormLabel>Genre</FormLabel>
-                        <RadioGroup
-                            name="genre"
-                            value={formValues.name}
-                            onChange={handleInputChange}
-                            row
-                        >
-                            <FormControlLabel
-                                key="contemporary"
-                                value="contemporary"
-                                control={<Radio size="small" />}
-                                label="Contemporary"
-                            />
-                            <FormControlLabel
-                                key="antique"
-                                value="antique"
-                                control={<Radio size="small" />}
-                                label="Antique"
-                            />
-                            <FormControlLabel
-                                key="pop-art"
-                                value="pop"
-                                control={<Radio size="small" />}
-                                label="Pop-Art"
-                            />
-                            <FormControlLabel
-                                key="abstract"
-                                value="abstract"
-                                control={<Radio size="small" />}
-                                label="Abstract"
-                            />
-                            <FormControlLabel
-                                key="other"
-                                value="other"
-                                control={<Radio size="small" />}
-                                label="Other"
-                            // make text box for this option - so user can fill in themselves
-                            />
-                        </RadioGroup>
-                    </FormControl>
-                </Grid>
-
-                <Grid item xs={12}>
-                    <div style={{ width: "80vw" }}>
-                        <Typography>
-                            <FormLabel> Price: </FormLabel> ${formValues.price}
-                        </Typography>
-                        <Slider
-                            value={formValues.price}
-                            onChange={handleSliderChange("price")}
-                            defaultValue={10}
-                            valueLabelDisplay="auto"
-                            step={10}
-                            min={10}
-                            max={6000}
-                            marks={[
-                                {
-                                    value: 1,
-                                    label: "$10",
-                                },
-                                {
-                                    value: 3000,
-                                    label: "$3,000",
-                                },
-                                {
-                                    value: 6000,
-                                    label: "$6,000",
-                                },
-                            ]}
-                        />
-                    </div>
-                </Grid>
-
-                <Grid item xs={12}>
-                    {/* <Grid container alignItems="center" spacing={1} direction="row">  */}
-                            {/* <Grid item> */}
-                              <CloudinaryUploadWidget
-
-                              changeUri={handleUriChange}/>
-                            {/* </Grid> */}
-                            <Button variant="contained" color="secondary" type="submit" fontSize="large">
-                                Submit
-                            </Button>
-                    {/* </Grid> */}
-                </Grid>
-
-                <Grid item>
-                    
-                </Grid>
+          <Grid item xs={12}>
+            <Grid
+              container
+              alignItems="center"
+              justifyContent="center"
+              spacing={1}
+              direction="row"
+            >
+              <Grid item xs={12}>
+                <FormLabel>Dimensions (in.)</FormLabel>
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  type="number"
+                  variant="outlined"
+                  value={formValues.name}
+                  onChange={handleInputChange}
+                  name="dimensionX"
+                  autoComplete="none"
+                />
+              </Grid>
+              <FormLabel>x</FormLabel>
+              <Grid item xs={3}>
+                <TextField
+                  type="number"
+                  variant="outlined"
+                  value={formValues.name}
+                  onChange={handleInputChange}
+                  name="dimensionY"
+                  // label="dimension"
+                  autoComplete="none"
+                />
+              </Grid>
+              <FormLabel>x</FormLabel>
+              <Grid item xs={3}>
+                <TextField
+                  type="number"
+                  variant="outlined"
+                  value={formValues.name}
+                  onChange={handleInputChange}
+                  name="dimensionZ"
+                  autoComplete="none"
+                />
+              </Grid>
             </Grid>
-        </form>
-    )
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl>
+              <FormLabel>Genre</FormLabel>
+              <RadioGroup
+                name="genre"
+                value={formValues.name}
+                onChange={handleInputChange}
+                row
+              >
+                <FormControlLabel
+                  key="contemporary"
+                  value="contemporary"
+                  control={<Radio size="small" />}
+                  label="Contemporary"
+                />
+                <FormControlLabel
+                  key="antique"
+                  value="antique"
+                  control={<Radio size="small" />}
+                  label="Antique"
+                />
+                <FormControlLabel
+                  key="pop-art"
+                  value="pop"
+                  control={<Radio size="small" />}
+                  label="Pop-Art"
+                />
+                <FormControlLabel
+                  key="abstract"
+                  value="abstract"
+                  control={<Radio size="small" />}
+                  label="Abstract"
+                />
+                <FormControlLabel
+                  key="other"
+                  value="other"
+                  control={<Radio size="small" />}
+                  label="Other"
+                  // make text box for this option - so user can fill in themselves
+                />
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12}>
+            <div style={{ width: "80vw" }}>
+              <Typography>
+                <FormLabel> Price: </FormLabel> ${formValues.price}
+              </Typography>
+              <Slider
+                value={formValues.price}
+                onChange={handleSliderChange("price")}
+                defaultValue={10}
+                valueLabelDisplay="auto"
+                step={10}
+                min={10}
+                max={6000}
+                marks={[
+                  {
+                    value: 1,
+                    label: "$10",
+                  },
+                  {
+                    value: 3000,
+                    label: "$3,000",
+                  },
+                  {
+                    value: 6000,
+                    label: "$6,000",
+                  },
+                ]}
+              />
+            </div>
+          </Grid>
+
+          <Grid item xs={12}>
+            {/* <Grid container alignItems="center" spacing={1} direction="row">  */}
+            {/* <Grid item> */}
+            <CloudinaryUploadWidget changeUri={handleUriChange} />
+            {/* </Grid> */}
+            <Button
+              variant="contained"
+              color="secondary"
+              type="submit"
+              fontSize="large"
+            >
+              Submit
+            </Button>
+            <Snackbar
+              open={snackOpen}
+              autoHideDuration={2500}
+              onClose={handleSnackClose}
+            >
+              <div className={classes.alert} onClose={handleSnackClose}>
+                <Typography>Bravo! Successfully posted artwork for sale :)</Typography>
+              </div>
+            </Snackbar>
+            {/* </Grid> */}
+          </Grid>
+
+          {/* why another grid item? retouch grid system here */}
+
+          <Grid item></Grid>
+        </Grid>
+      </form>
+    );
 }
 
 export default SellForm;
