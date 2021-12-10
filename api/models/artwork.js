@@ -53,7 +53,10 @@ module.exports = (sequelize, DataTypes) => {
     price: {
         type: DataTypes.INTEGER
     }, 
-    
+    isForSale: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
   }, {
     sequelize,
     modelName: 'artwork'

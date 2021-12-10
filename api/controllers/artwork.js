@@ -6,7 +6,9 @@ const artwork = require('../models/artwork');
 const { Artwork, Transaction } = db;
 
 router.get('/', (req, res) => {
-    Artwork.findAll()
+    Artwork.findAll({
+        where: { isForSale: true }
+    })
         .then(artworks => {
             res.json(artworks);
         })
@@ -14,7 +16,26 @@ router.get('/', (req, res) => {
             res.status(400).json(err);
         })
 })
-
+router.get('/purchased', passport.isAuthenticated(), (req, res) => {
+    Transaction.findAll({
+        where: { buyerId: req.user.id }
+    }) .then(purchased => {
+        res.json(purchased)
+    })
+    .catch(err => {
+        res.status(400).json(err);
+    })
+})
+router.get('/sold', passport.isAuthenticated(), (req, res) => {
+    Transaction.findAll({
+        where: { sellerId: req.user.id }
+    }) .then(purchased => {
+        res.json(purchased)
+    })
+    .catch(err => {
+        res.status(400).json(err);
+    })
+})
 router.get('/:artworkid', (req,res) => { //get specific artwork details
      const { artworkid } = req.params;
     Artwork.findByPk(artworkid)
@@ -92,5 +113,7 @@ router.get("/history/:artworkid", (req,res) => {
         res.status(400).json(err);
     })
 })
+
+
 
 module.exports = router;

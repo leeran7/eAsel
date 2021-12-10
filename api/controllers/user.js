@@ -87,9 +87,8 @@ router.get('/:userid/artworks', (req, res) => { // Get only users artworks
     })
   });
 
-router.delete('/:userid', (req, res) => { // Delete user
-    const { userid } = req.params;
-    User.findByPk(userid)
+router.delete('/', (req, res) => { // Delete user
+    User.findByPk(req.user.id)
         .then(user => {
             if(!user){
                 res.json(404);

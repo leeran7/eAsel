@@ -31,11 +31,16 @@ router.post('/:artworkid/new', passport.isAuthenticated(), (req, res) => { //Upd
       if(!cart){
         return res.sendStatus(404);
       }
-      Cartitem.create({
-        artworkId: artworkid,
-        cartId: cart.id
+      Cartitem.findOrCreate({
+        where: { artworkId: artworkid, cartId: cart.id}
+      }) .then(tag => {
+        if(tag[1]){
+          res.sendStatus(200);
+        } else {
+          res.sendStatus(409);
+        }
       })
-      res.sendStatus(200);
+        .catch(err => res.send(err))
     })
     .catch(err => {
       res.status(400).json(err);
