@@ -91,7 +91,13 @@ export default function CartForm(props) {
     console.log(auth)
     if(!auth.isAuthenticated && !loading) return <LoginForm from="/cart"/>;
     if(artworks.length === 0){
-        return <Container style={{marginTop: "20px"}}>Cart is Empty</Container>
+        return (
+          <Container
+            style={{ marginTop: "20px", fontFamily: "Roboto Condensed" }}
+          >
+            Cart is Empty
+          </Container>
+        );
     }
     if(artworks.length > 0 && !loading){
         // const itemsPrice = artworks.reduce((prev, next) => prev.price + next.price);
