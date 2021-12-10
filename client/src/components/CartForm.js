@@ -22,7 +22,7 @@ export default function CartForm(props) {
     const auth = useContext(AuthContext);
     const [artworks, setArtworks] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [snackOpen , setSnackOpen] = React.useState(false);
+    const [snackOpen , setSnackOpen] = useState(false);
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
     const handleSnackClose = (event, reason) => {
@@ -56,6 +56,7 @@ export default function CartForm(props) {
             urllist.push(json)
           }
           setArtworks(urllist);
+          //should we setTotal(total + {json.price}) here?
        }
     useEffect( () => {
         getCarts();
@@ -123,41 +124,48 @@ export default function CartForm(props) {
                         artworks.map( artwork => {
                             // console.log(artwork)
                             return (
-                                <Grid 
-                                    
-                                    item 
-                                    xs={12}
-                                    
-                                    key={artwork.id}>
-                                    <Grid 
-                                        
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        variant="outlined"
-                                        container
-                                        direction="column"
-                                        >
-                                        <img width="100%" src={artwork.uri} alt="cart item"/>
-                                        <Typography>${artwork.price}</Typography>
-                                        <Typography>{artwork.title}</Typography>
-                                        <IconButton onClick={() => deleteItem(artwork.id)}  ><DeleteOutlineOutlinedIcon /></IconButton>
-                                    </Grid>
-                                    
-                                </Grid>)
+                              <Grid item xs={12} key={artwork.id}>
+                                <Grid
+                                  justifyContent="center"
+                                  alignItems="center"
+                                  variant="outlined"
+                                  container
+                                  direction="column"
+                                >
+                                  <img
+                                    width="100%"
+                                    src={artwork.uri}
+                                    alt="cart item"
+                                  />
+                                  <Typography>${artwork.price}</Typography>
+                                  <Typography>{artwork.title}</Typography>
+                                  <IconButton
+                                    onClick={() => deleteItem(artwork.id)}
+                                  >
+                                    <DeleteOutlineOutlinedIcon />
+                                  </IconButton>
+                                  <Snackbar
+                                    open={snackOpen}
+                                    autoHideDuration={2500}
+                                    onClose={handleSnackClose}
+                                  >
+                                    <div
+                                      className={classes.alert}
+                                      onClose={handleSnackClose}
+                                    >
+                                      <Typography>
+                                        deleted artwork from cart
+                                      </Typography>
+                                    </div>
+                                  </Snackbar>
+                                </Grid>
+                              </Grid>
+                            );
                         })
                     }
                     
                 </Grid>
-                <Snackbar
-                    open={snackOpen}
-                    autoHideDuration={2500}
-                    onClose={handleSnackClose}
-                >
-                    <div className={classes.alert} onClose={handleSnackClose} >
-            
-                    <Typography>Successfully deleted artwork from cart 🙂</Typography>
-                    </div>
-                </Snackbar>
+           
             </Box>
         </Container>
       </ThemeProvider>
