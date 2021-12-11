@@ -75,8 +75,8 @@ function BuyHomePage() {
   };
   const handleClickOpen = (tile) => {
     setSelectedTile(tile);
-    console.log("clicked");
-    console.log(tile);
+    // console.log("clicked");
+    // console.log(tile);
   };
 
   const handleClose = () => {
@@ -86,7 +86,7 @@ function BuyHomePage() {
 
   const addToCart = () => {
     //add item to to specific user's cart
-    console.log("adding ", selectedTile);
+    // console.log("adding ", selectedTile);
     setOpen(false);
     
     fetch(`/api/carts/${selectedTile.id}/new`, {
@@ -100,14 +100,13 @@ function BuyHomePage() {
     })
       .then((res) => {
         if (res.ok) {
-          console.log("yay");
+          // console.log("yay");
           return res.json();
         }
         // throw new Error('Content validation');
       })
       .catch((err) => {
         // console.log("Error:", err);
-        
       });
       handleClose();
       setSnackOpen(true);
@@ -128,7 +127,6 @@ function BuyHomePage() {
         if(!data){
           setArtwork([]);
         } else {
-
         setArtwork(data);
         }
         setLoading(false);
@@ -145,8 +143,8 @@ function BuyHomePage() {
   }
   return (
     <div className={classes.root}>
-      <ImageList cols={1}>
-        className={classes.gridList}
+      <ImageList cols={1} className={classes.gridList}>
+        
         {artwork.reverse().map((tile) => (
           <ImageListItem key={tile.uri} onClick={() => handleClickOpen(tile)}>
             <img src={tile.uri} alt={tile.uri} />
@@ -220,7 +218,7 @@ function BuyHomePage() {
                 </List>
               </Collapse>
 
-              <ListItem disablepadding="true" disableGutters="true">
+              <ListItem disablepadding="true" disablegutters="true">
                 <ListItemIcon className={classes.checkIcon}>
                   <CheckCircleOutlineIcon />
                 </ListItemIcon>
