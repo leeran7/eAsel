@@ -22,7 +22,7 @@ export default function CartForm(props) {
     const auth = useContext(AuthContext);
     const [artworks, setArtworks] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [snackOpen , setSnackOpen] = React.useState(false);
+    const [snackOpen , setSnackOpen] = useState(false);
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
     const handleSnackClose = (event, reason) => {
@@ -68,9 +68,9 @@ export default function CartForm(props) {
             method: "DELETE"
         })
         .then(() => {
-            setSnackOpen(true);
             setLoading(false)
         })
+        setSnackOpen(true);
     }
     function handleCheckout(){
         setLoading(true);
@@ -82,19 +82,14 @@ export default function CartForm(props) {
         })
             .then(() => {
                 setLoading(false);
-                console.log("HERE")
             })
     }
-    console.log(auth)
     if(!auth.isAuthenticated && !loading) return <LoginForm from="/cart"/>;
-    if(artworks.length === 0){
-        return <Container style={{marginTop: "20px"}}>Cart is Empty</Container>
-    }
-    if(artworks.length > 0 && !loading){
+    // if(artworks.length > 0 && !loading){
         // const itemsPrice = artworks.reduce((prev, next) => prev.price + next.price);
         // const taxPrice = itemsPrice * 1.08875;
         // setTotalPrice(taxPrice)
-    }
+    // }
   return (
     <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs" spacing={3}>
@@ -107,7 +102,7 @@ export default function CartForm(props) {
                     alignItems: 'center',
                 }}> 
                 <Grid>
-                    <Typography>Qty:{artworks.length}</Typography>
+                    <Typography>{artworks.length} item(s)</Typography>
                 </Grid>
                 <Grid>
                     <Typography>Total:${totalPrice}</Typography>
@@ -161,57 +156,5 @@ export default function CartForm(props) {
             </Box>
         </Container>
       </ThemeProvider>
-    // <aside className="block col-1">
-    //   <h2>Cart Items</h2>
-    //   <div>
-    //     
-    //     {cartItems.map((item) => (
-    //       <div key={item.id} className="row">
-    //         <div className="col-2">{item.name}</div>
-    //         <div className="col-2">
-    //           <button onClick={() => onRemove(item)} className="remove">
-    //             -
-    //           </button>{' '}
-    //           <button onClick={() => onAdd(item)} className="add">
-    //             +
-    //           </button>
-    //         </div>
-
-    //         <div className="col-2 text-right">
-    //           {item.qty} x ${item.price}
-    //         </div>
-    //       </div>
-    //     ))}
-
-    //     {cartItems.length !== 0 && (
-    //       <>
-    //         <hr></hr>
-    //         <div className="row">
-    //           <div className="col-2">Items Price</div>
-    //           <div className="col-1 text-right">${itemsPrice.toFixed(2)}</div>
-    //         </div>
-    //         <div className="row">
-    //           <div className="col-2">Tax Price</div>
-    //           <div className="col-1 text-right">${taxPrice.toFixed(2)}</div>
-    //         </div>
-
-    //         <div className="row">
-    //           <div className="col-2">
-    //             <strong>Total Price</strong>
-    //           </div>
-    //           <div className="col-1 text-right">
-    //             <strong>${totalPrice.toFixed(2)}</strong>
-    //           </div>
-    //         </div>
-    //         <hr />
-    //         <div className="row">
-    //           <button onClick={() => alert('Implement Checkout!')}>
-    //             Checkout
-    //           </button>
-    //         </div>
-    //       </>
-    //     )}
-    //   </div>
-    // </aside>
   );
 }
