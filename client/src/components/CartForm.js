@@ -87,9 +87,9 @@ export default function CartForm(props) {
     }
     console.log(auth)
     if(!auth.isAuthenticated && !loading) return <LoginForm from="/cart"/>;
-    if(artworks.length === 0){
-        return <Container style={{marginTop: "20px"}}>Cart is Empty</Container>
-    }
+    // if(artworks.length === 0){
+    //     return <Container style={{marginTop: "20px"}}>Cart is Empty</Container>
+    // }
     if(artworks.length > 0 && !loading){
         // const itemsPrice = artworks.reduce((prev, next) => prev.price + next.price);
         // const taxPrice = itemsPrice * 1.08875;
@@ -107,7 +107,7 @@ export default function CartForm(props) {
                     alignItems: 'center',
                 }}> 
                 <Grid>
-                    <Typography>Qty:{artworks.length}</Typography>
+                    <Typography>{artworks.length} item(s)</Typography>
                 </Grid>
                 <Grid>
                     <Typography>Total:${totalPrice}</Typography>
