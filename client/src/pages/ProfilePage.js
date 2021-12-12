@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from 'react';
 import {
-  Avatar,
-  AppBar,
+  Avatar, ImageList, ImageListItem,
+  AppBar, ImageListItemBar,
   Box,
   Tabs,
   Tab,
@@ -24,12 +24,14 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
+import PhotoGallery from '../components/PhotoGallery';
 // import Stack from "@material-ui/core/Stack";
 
 //include edit option- make this a form? to send edits to database. 
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  
 
   return (
     <Container
@@ -83,7 +85,61 @@ function ProfilePage(){
     const auth = useContext(AuthContext);
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-
+    const [soldArtworks, setSoldArtworks] = useState([]);
+    const [purchasedArtworks, setPurchasedArtworks] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const getSoldArtworks = () => {
+      setLoading(true);
+      fetch("/api/artworks/sold")
+        .then(res => {
+          if(res.ok){
+            return res.json();
+          }
+        })
+        .then(data => {
+          getSoldArtworksData(data);
+        })
+        setLoading(false);
+    }
+    const getSoldArtworksData = async (data) => {
+      let list = [];
+      for(let item of data){
+        const res = await fetch(`/api/artworks/${item.id}`)
+        const data = await res.json();
+        if(res.ok){
+          list.push(data);
+        }
+      }
+      setSoldArtworks(list);
+    }
+    const getPurchasedArtworks = () => {
+      setLoading(true);
+      fetch("/api/artworks/purchased")
+        .then(res => {
+          if(res.ok){
+            return res.json();
+          }
+        })
+        .then(data => {
+          getPurchasedArtworksData(data);
+        })
+        setLoading(false);
+    }
+    const getPurchasedArtworksData = async (data) => {
+      let list = [];
+      for(let item of data){
+        const res = await fetch(`/api/artworks/${item.id}`)
+        const data = await res.json();
+        if(res.ok){
+          list.push(data);
+        }
+      }
+      setPurchasedArtworks(list);
+    }
+    useEffect(() => {
+      getSoldArtworks();
+      getPurchasedArtworks();
+    }, [])
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
@@ -110,6 +166,7 @@ function ProfilePage(){
 
             
             <TabPanel value={value} index={0}>
+
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -124,6 +181,7 @@ function ProfilePage(){
                   </Typography>
                 </AccordionDetails>
               </Accordion>
+
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -208,12 +266,18 @@ function ProfilePage(){
                 </AccordionDetails>
               </Accordion>
             </TabPanel>
+
             <TabPanel value={value} index={1}>
-              Artworks Purchased
-            </TabPanel>
-            <TabPanel value={value} index={2}>
               Artworks Sold
+              <PhotoGallery artwork={soldArtworks}/>
             </TabPanel>
+
+            <TabPanel value={value} index={2}>
+              Artworks Purchased
+              <PhotoGallery artwork={purchasedArtworks}/>
+            </TabPanel>
+            
+            
             
           </Grid>
           <Grid>
