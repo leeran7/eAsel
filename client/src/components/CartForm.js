@@ -7,6 +7,8 @@ import {
   createTheme,
   IconButton,
   Snackbar,
+  Dialog, DialogContent,
+   DialogActions, DialogTitle, DialogContentText
 } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
@@ -92,16 +94,6 @@ export default function CartForm(props) {
         getCarts();
         
     }, [loading])
-
-
-    // const getTotal = () => {
-    //     let total = 0;
-    //     for(let i = 0; i < artworks.length - 1; i++){
-    //         total += artworks[i].price;
-    //     }
-    //     console.log(total);
-    //     setTotalPrice(total);
-    // }
     const decrementPrice = (id) => {
         for(let item of artworks){
             if(item.id === id){

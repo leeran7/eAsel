@@ -152,8 +152,8 @@ function BuyHomePage() {
       <ImageList cols={1} className={classes.gridList}>
         
         {artwork.reverse().map((tile) => (
-          <ImageListItem key={tile.uri} onClick={() => handleClickOpen(tile)}>
-            <img src={tile.uri} alt={tile.uri} />
+          <ImageListItem key={tile.id} onClick={() => handleClickOpen(tile)}>
+            <img src={tile.uri} alt={tile.uri}/>
             <ImageListItemBar
               title={tile.title}
               subtitle={<span>by: {tile.artistName}</span>} //how to get artistName according to artwork...
