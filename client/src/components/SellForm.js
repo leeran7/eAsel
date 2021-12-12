@@ -144,6 +144,7 @@ const SellForm = () => {
               label="Name Of Artwork"
               fullWidth
               autoComplete="none"
+              required
             />
           </Grid>
 
@@ -157,6 +158,7 @@ const SellForm = () => {
               label="Name Of Artist"
               fullWidth
               autoComplete="none"
+              required
             />
           </Grid>
 
@@ -194,6 +196,7 @@ const SellForm = () => {
                   onChange={handleInputChange}
                   name="dimensionX"
                   autoComplete="none"
+                  required
                 />
               </Grid>
               <FormLabel>x</FormLabel>
@@ -204,8 +207,8 @@ const SellForm = () => {
                   value={formValues.name}
                   onChange={handleInputChange}
                   name="dimensionY"
-                  // label="dimension"
                   autoComplete="none"
+                  required
                 />
               </Grid>
               <FormLabel>x</FormLabel>
@@ -217,6 +220,7 @@ const SellForm = () => {
                   onChange={handleInputChange}
                   name="dimensionZ"
                   autoComplete="none"
+                  required
                 />
               </Grid>
             </Grid>
@@ -297,10 +301,11 @@ const SellForm = () => {
           </Grid>
 
           <Grid item xs={12}>
-            {/* <Grid container alignItems="center" spacing={1} direction="row">  */}
-            {/* <Grid item> */}
             <CloudinaryUploadWidget changeUri={handleUriChange} />
-            {/* </Grid> */}
+          </Grid>
+
+          <Grid item xs={12}>
+            {/* <Grid container alignItems="center" spacing={1} direction="row">  */}
             <Button
               variant="contained"
               color="secondary"
@@ -315,14 +320,15 @@ const SellForm = () => {
               onClose={handleSnackClose}
             >
               <div className={classes.alert} onClose={handleSnackClose}>
-                <Typography>Bravo! Successfully posted artwork for sale :)</Typography>
+                <Typography>
+                  Bravo! Successfully posted artwork for sale :)
+                </Typography>
               </div>
             </Snackbar>
             {/* </Grid> */}
           </Grid>
 
           {/* why another grid item? retouch grid system here */}
-
           <Grid item></Grid>
         </Grid>
       </form>
