@@ -83,42 +83,35 @@ export default function CartForm(props) {
     getCarts();
   }, [loading]);
 
-  function deleteItem(id) {
-    setLoading(true);
-    fetch(`/api/carts/${id}`, {
-      method: "DELETE",
-    }).then(() => {
-      setSnackOpen(true);
-      setLoading(false);
-    });
-  }
-  function handleCheckout() {
-    alert("Enjoy your new buys!");
-    setLoading(true);
-    fetch("/api/checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(() => {
-      setLoading(false);
-      console.log("HERE");
-    });
-  }
-  console.log(auth);
-  if (!auth.isAuthenticated && !loading) return <LoginForm from="/cart" />;
-  if (artworks.length === 0) {
-    return (
-      <Container style={{ marginTop: "20px", fontFamily: "Roboto Condensed" }}>
-        Cart is Empty
-      </Container>
-    );
-  }
-  if (artworks.length > 0 && !loading) {
-    // const itemsPrice = artworks.reduce((prev, next) => prev.price + next.price);
-    // const taxPrice = itemsPrice * 1.08875;
-    // setTotalPrice(taxPrice)
-  }
+    function deleteItem(id){
+        setLoading(true);
+        fetch(`/api/carts/${id}`, {
+            method: "DELETE"
+        })
+        .then(() => {
+            setLoading(false)
+        })
+        setSnackOpen(true);
+    }
+    function handleCheckout(){
+        alert('Enjoy your new buys!');
+        setLoading(true);
+        fetch("/api/checkout", {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+        })
+            .then(() => {
+                setLoading(false);
+            })
+    }
+    if(!auth.isAuthenticated && !loading) return <LoginForm from="/cart"/>;
+    // if(artworks.length > 0 && !loading){
+        // const itemsPrice = artworks.reduce((prev, next) => prev.price + next.price);
+        // const taxPrice = itemsPrice * 1.08875;
+        // setTotalPrice(taxPrice)
+    // }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs" spacing={3}>
@@ -173,7 +166,7 @@ export default function CartForm(props) {
                 </DialogActions>
               </Dialog>
             </Grid>
-            
+
             {artworks.map((artwork) => {
               // console.log(artwork)
               return (
