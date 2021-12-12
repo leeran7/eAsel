@@ -277,19 +277,19 @@ const SellForm = () => {
                 valueLabelDisplay="auto"
                 step={10}
                 min={10}
-                max={6000}
+                max={10000}
                 marks={[
                   {
                     value: 1,
                     label: "$10",
                   },
                   {
-                    value: 3000,
-                    label: "$3,000",
+                    value: 5000,
+                    label: "$5,000",
                   },
                   {
-                    value: 6000,
-                    label: "$6,000",
+                    value: 10000,
+                    label: "$10,000",
                   },
                 ]}
               />

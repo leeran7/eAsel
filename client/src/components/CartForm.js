@@ -53,28 +53,47 @@ export default function CartForm(props) {
           })
           .then(async data => {
              await getArtworks(data);
-             
           })
+          
           .catch(err => {
               console.log(err);
           })
+          
     }
     const getArtworks = async (data) => {
-        let i=0;
         let urllist=[];
-        for(i; i< data.length ;i++){
-          const response = await fetch(`/api/artworks/${data[i].artworkId}`);
+        let total = 0;
+        for(let item of data){
+          const response = await fetch(`/api/artworks/${item.artworkId}`);
           const json = await response.json();
           urllist.push(json);
           //should we setTotalPrice(totalPrice + {json.price}) here?
+          total += json.price;
         }
         setArtworks(urllist);
-          
+          setTotalPrice(total);
    }
+
     useEffect( () => {
         getCarts();
-          
+        
     }, [loading])
+
+    // const getTotal = () => {
+    //     let total = 0;
+    //     for(let i = 0; i < artworks.length - 1; i++){
+    //         total += artworks[i].price;
+    //     }
+    //     console.log(total);
+    //     setTotalPrice(total);
+    // }
+    const decrementPrice = (id) => {
+        for(let item of artworks){
+            if(item.id === id){
+                setTotalPrice(totalPrice - item.price);
+            }
+        }
+    }
 
     function deleteItem(id){
         setLoading(true);
@@ -84,6 +103,7 @@ export default function CartForm(props) {
         .then(() => {
             setLoading(false)
         })
+        decrementPrice(id);
         setSnackError(false);
         setSnackMessage("Successfully Deleted Artwork")
         setSnackOpen(true);
