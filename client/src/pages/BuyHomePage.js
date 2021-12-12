@@ -3,7 +3,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import {
   DialogTitle, DialogContent, Button, DialogActions, Dialog,
   ListItemText, List, ListItem, Typography, Collapse, Slide,
-  ListItemIcon, makeStyles
+  ListItemIcon, makeStyles, IconButton
 } from "@material-ui/core";
 import Snackbar from '@material-ui/core/Snackbar';
 import React, { useEffect} from "react";
@@ -68,6 +68,11 @@ function BuyHomePage() {
   const [selectedTile, setSelectedTile] = React.useState(null);
   const [snackOpen , setSnackOpen] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [color, setColor] =   React.useState("");
+  const changeColor = () => {
+    color === "" ? setColor("red") : setColor("");
+  }
+
   const handleSnackClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -171,27 +176,16 @@ function BuyHomePage() {
         )}
         {selectedTile && (
           <DialogTitle id="scroll-dialog-title">
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexWrap: "wrap",
-              }}
-            >
-              <span>{selectedTile.title}</span>
-              <IconButton
+            <span>{selectedTile.title}</span>
+            <IconButton
                 //style={{ color: "primary" }}
-                //onClick={changeColor}
-                style={{ font: "large" }}
+                onClick={changeColor}
+                style={{ font: "large", color: color}}
                 className={classes.like}
               >
                 <FavoriteIcon />
               </IconButton>
-            </div>
-            <Typography>{selectedTile.title}</Typography>
-            <Typography variant="subtitle2">
-              {selectedTile.artistName}
-            </Typography>
+            <Typography variant="subtitle2">{selectedTile.artistName}</Typography>
             <Typography variant="subtitle2">
               {"$"}
               {selectedTile.price}

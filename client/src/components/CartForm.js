@@ -6,6 +6,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthContext } from '../context/AuthContext';
 import LoginForm from './LoginForm';
+import { Redirect } from 'react-router';
 
 const theme = createTheme();
 const useStyles = makeStyles((theme) => ({
@@ -16,13 +17,24 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: "5px",
       padding: "10px",
       fontFamily: "Roboto Condensed",
-    }
+    },
+    error: {
+        color: "black",
+        backgroundColor: "red",
+        fontSize: "16px",
+        borderRadius: "5px",
+        padding: "10px",
+        fontFamily: "Roboto Condensed",
+      }
   }));
 export default function CartForm(props) {
     const auth = useContext(AuthContext);
     const [artworks, setArtworks] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [snackOpen , setSnackOpen] = useState(false);
+    const [snackMessage, setSnackMessage ] = useState("");
+    const [snackError, setSnackError] = useState(false);
+    const [redirect, setRedirect] = useState(false);
     const classes = useStyles();
     const [loading, setLoading] = useState(false);
     const handleSnackClose = (event, reason) => {
@@ -72,11 +84,18 @@ export default function CartForm(props) {
         .then(() => {
             setLoading(false)
         })
+        setSnackError(false);
+        setSnackMessage("Successfully Deleted Artwork")
         setSnackOpen(true);
     }
     function handleCheckout(){
-        alert('Enjoy your new buys!');
         setLoading(true);
+        if(artworks.length === 0){
+            setSnackError(true);
+            setSnackMessage("Nothing to checkout...");
+            setSnackOpen(true);
+            return;
+        }
         fetch("/api/checkout", {
             method: 'POST',
             headers: {
@@ -86,8 +105,18 @@ export default function CartForm(props) {
             .then(() => {
                 setLoading(false);
             })
+        setRedirect(true);
+        setSnackError(true);
+        setSnackMessage("Successfully Checked Out!");
+        setSnackOpen(true);
     }
     if(!auth.isAuthenticated && !loading) return <LoginForm from="/cart"/>;
+    if(redirect){
+        return <Redirect to="/"/>
+    }
+    // if(artworks.length === 0){
+    //     return <Container style={{marginTop: "20px"}}>Cart is Empty</Container>
+    // }
     // if(artworks.length > 0 && !loading){
         // const itemsPrice = artworks.reduce((prev, next) => prev.price + next.price);
         // const taxPrice = itemsPrice * 1.08875;
@@ -162,8 +191,16 @@ export default function CartForm(props) {
                     }
                     
                 </Grid>
-           
             </Box>
+            <Snackbar
+                    open={snackOpen}
+                    autoHideDuration={2500}
+                    onClose={handleSnackClose}
+                >
+                    <div className={snackError ? classes.error : classes.alert} onClose={handleSnackClose}>
+                    <Typography>{snackMessage}</Typography>
+                    </div>
+                </Snackbar>
         </Container>
       </ThemeProvider>
   );
