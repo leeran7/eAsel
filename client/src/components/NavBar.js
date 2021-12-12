@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import logo from '../img/logo.png';
 
 import { IconButton, Link, Container, Hidden, SwipeableDrawer,
-    Divider, List, ListItem , Badge
+    Divider, List, ListItem, Badge
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -15,16 +15,9 @@ import AuthButton from './AuthButton';
 import { AuthContext } from '../context/AuthContext';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 const navigationLinks = [
-  { name: "Artists", href: "/artistlist" },
-  { name: "Sell", href: "/sellwithus" },
-  {
-    name: (
-      <Badge color="secondary" variant="dot">
-        <ShoppingCartOutlinedIcon />
-      </Badge>
-    ),
-    href: "/cart",
-  },
+    { name: "Artists", href: "/artistlist" },
+    { name: "Sell", href: "/sellwithus" },
+    { name: <Badge color="secondary" variant="dot" ><ShoppingCartOutlinedIcon /></Badge>, href: "/cart" }
 ];
 
 const useStyles = makeStyles((theme) => ({

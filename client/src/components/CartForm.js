@@ -14,6 +14,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthContext } from "../context/AuthContext";
 import LoginForm from "./LoginForm";
+import { Redirect } from 'react-router';
 
 const theme = createTheme();
 const useStyles = makeStyles((theme) => ({
@@ -27,13 +28,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function CartForm(props) {
-  const auth = useContext(AuthContext);
-  const [artworks, setArtworks] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [snackOpen, setSnackOpen] = useState(false);
-  const classes = useStyles();
-  const [loading, setLoading] = useState(false);
-  const [open, setOpen] = React.useState(false);
+ const auth = useContext(AuthContext);
+    const [artworks, setArtworks] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [snackOpen , setSnackOpen] = useState(false);
+    const [snackMessage, setSnackMessage ] = useState("");
+    const [snackError, setSnackError] = useState(false);
+    const [redirect, setRedirect] = useState(false);
+    const classes = useStyles();
+    const [loading, setLoading] = useState(false);
+    const [open, setOpen] = React.useState(false);
 
   //opens confirm checkout dialog 
    const handleClickOpen = () => {
@@ -46,42 +50,65 @@ export default function CartForm(props) {
    };
 
   //closes snackbar
-  const handleSnackClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setSnackOpen(false);
-  };
-
-  const getCarts = async () => {
-    fetch("/api/carts")
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
+    const handleSnackClose = (event, reason) => {
+        if (reason === "clickaway") {
+          return;
         }
-        console.log("FAILED");
-      })
-      .then(async (data) => {
-        await getArtworks(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const getArtworks = async (data) => {
-    let i = 0;
-    let urllist = [];
-    for (i; i < data.length; i++) {
-      const response = await fetch(`/api/artworks/${data[i].artworkId}`);
-      const json = await response.json();
-      urllist.push(json);
-      //should we setTotalPrice(totalPrice + {json.price}) here?
+        setSnackOpen(false);
+      };
+
+    const getCarts = async () => {
+        fetch('/api/carts')
+          .then(res => {
+              if(res.ok){
+                  return res.json()
+              }
+              console.log("FAILED");
+          })
+          .then(async data => {
+             await getArtworks(data);
+          })
+          
+          .catch(err => {
+              console.log(err);
+          })
+          
     }
-    setArtworks(urllist);
-  };
-  useEffect(() => {
-    getCarts();
-  }, [loading]);
+    const getArtworks = async (data) => {
+        let urllist=[];
+        let total = 0;
+        for(let item of data){
+          const response = await fetch(`/api/artworks/${item.artworkId}`);
+          const json = await response.json();
+          urllist.push(json);
+          //should we setTotalPrice(totalPrice + {json.price}) here?
+          total += json.price;
+        }
+        setArtworks(urllist);
+          setTotalPrice(total);
+   }
+
+    useEffect( () => {
+        getCarts();
+        
+    }, [loading])
+
+
+    // const getTotal = () => {
+    //     let total = 0;
+    //     for(let i = 0; i < artworks.length - 1; i++){
+    //         total += artworks[i].price;
+    //     }
+    //     console.log(total);
+    //     setTotalPrice(total);
+    // }
+    const decrementPrice = (id) => {
+        for(let item of artworks){
+            if(item.id === id){
+                setTotalPrice(totalPrice - item.price);
+            }
+        }
+    }
 
     function deleteItem(id){
         setLoading(true);
@@ -91,11 +118,19 @@ export default function CartForm(props) {
         .then(() => {
             setLoading(false)
         })
+        decrementPrice(id);
+        setSnackError(false);
+        setSnackMessage("Successfully Deleted Artwork")
         setSnackOpen(true);
     }
     function handleCheckout(){
-        alert('Enjoy your new buys!');
         setLoading(true);
+        if(artworks.length === 0){
+            setSnackError(true);
+            setSnackMessage("Nothing to checkout...");
+            setSnackOpen(true);
+            return;
+        }
         fetch("/api/checkout", {
             method: 'POST',
             headers: {
@@ -105,8 +140,18 @@ export default function CartForm(props) {
             .then(() => {
                 setLoading(false);
             })
+        setRedirect(true);
+        setSnackError(true);
+        setSnackMessage("Successfully Checked Out!");
+        setSnackOpen(true);
     }
     if(!auth.isAuthenticated && !loading) return <LoginForm from="/cart"/>;
+    if(redirect){
+        return <Redirect to="/"/>
+    }
+    // if(artworks.length === 0){
+    //     return <Container style={{marginTop: "20px"}}>Cart is Empty</Container>
+    // }
     // if(artworks.length > 0 && !loading){
         // const itemsPrice = artworks.reduce((prev, next) => prev.price + next.price);
         // const taxPrice = itemsPrice * 1.08875;
@@ -198,8 +243,18 @@ export default function CartForm(props) {
               );
             })}
           </Grid>
-        </Box>
-      </Container>
-    </ThemeProvider>
+            </Box>
+            <Snackbar
+                    open={snackOpen}
+                    autoHideDuration={2500}
+                    onClose={handleSnackClose}
+                >
+                    <div className={snackError ? classes.error : classes.alert} onClose={handleSnackClose}>
+                    <Typography>{snackMessage}</Typography>
+                    </div>
+                </Snackbar>
+        </Container>
+      </ThemeProvider>
+
   );
 }
