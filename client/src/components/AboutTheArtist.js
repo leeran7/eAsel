@@ -41,14 +41,15 @@ export default function AboutTheArtist(props) {
                 <Grid container justifyContent="center"
                 alignContent="center">
                     <Typography component={'div'} variant={'h5'}>
-                    {artist.city}, {artist.state}
-                </Typography>
+                        {artist.city}, {artist.state}
+                    </Typography>
                 </Grid>
                 <Grid container justifyContent="center"
                 alignContent="center">
                     <Typography component={'div'}>
-                    {artist.bio}
-                </Typography></Grid>
+                        {artist.bio}
+                    </Typography>
+                </Grid>
                 {/* <h3 className={classes.artist}> {artist.city}, {artist.state}</h3>
                 <h4 className={classes.artist}>{artist.bio}</h4> */}
             <div className={classes.socials}>

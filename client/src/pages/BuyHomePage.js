@@ -151,7 +151,7 @@ function BuyHomePage() {
     <div className={classes.root}>
       <ImageList cols={1} className={classes.gridList}>
         
-        {artwork.reverse().map((tile) => (
+        {artwork.map((tile) => (
           <ImageListItem key={tile.id} onClick={() => handleClickOpen(tile)}>
             <img src={tile.uri} alt={tile.uri}/>
             <ImageListItemBar
