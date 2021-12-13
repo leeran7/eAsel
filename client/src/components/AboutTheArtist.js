@@ -30,16 +30,25 @@ export default function AboutTheArtist(props) {
         justifyContent="center"
         alignContent="center"
         container>
-            <Avatar className={classes.avatar} alt="profilepic" src={artist.profilePic}/>
+            <Grid item><Avatar className={classes.avatar} alt="profilepic" src={artist.profilePic}/></Grid>
+                <Grid container 
+                justifyContent="center"
+                alignContent="center">
                 <Typography component={'div'} variant={'h4'}>
-                        {artist.firstName} {artist.lastName} 
-                </Typography>
-                <Typography component={'div'} variant={'h5'}>
+                            {artist.firstName} {artist.lastName} 
+                    </Typography>
+                </Grid>
+                <Grid container justifyContent="center"
+                alignContent="center">
+                    <Typography component={'div'} variant={'h5'}>
                     {artist.city}, {artist.state}
                 </Typography>
-                <Typography component={'div'}>
+                </Grid>
+                <Grid container justifyContent="center"
+                alignContent="center">
+                    <Typography component={'div'}>
                     {artist.bio}
-                </Typography>
+                </Typography></Grid>
                 {/* <h3 className={classes.artist}> {artist.city}, {artist.state}</h3>
                 <h4 className={classes.artist}>{artist.bio}</h4> */}
             <div className={classes.socials}>
