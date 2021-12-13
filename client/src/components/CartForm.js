@@ -43,6 +43,7 @@ export default function CartForm(props) {
 
   //opens confirm checkout dialog 
    const handleClickOpen = () => {
+     console.log(artworks);
      setOpen(true);
    };
 
@@ -137,6 +138,7 @@ export default function CartForm(props) {
         setSnackMessage("Successfully Checked Out!");
         setSnackOpen(true);
     }
+    console.log(artworks)
     if(!auth.isAuthenticated && !loading) return <LoginForm from="/cart"/>;
     if(redirect){
         return <Redirect to="/"/>
