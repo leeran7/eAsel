@@ -104,7 +104,7 @@ function ProfilePage(){
     const getSoldArtworksData = async (data) => {
       let list = [];
       for(let item of data){
-        const res = await fetch(`/api/artworks/${item.id}`)
+        const res = await fetch(`/api/artworks/${item.artworkId}`)
         const data = await res.json();
         if(res.ok){
           list.push(data);
@@ -129,12 +129,14 @@ function ProfilePage(){
       let list = [];
       console.log(data)
       for(let item of data){
-        const res = await fetch(`/api/artworks/${item.id}`)
+        // console.log(item.id)
+        const res = await fetch(`/api/artworks/${item.artworkId}`)
         const data = await res.json();
         if(res.ok){
           list.push(data);
         }
       }
+      console.log(list);
       setPurchasedArtworks(list);
     }
     useEffect(() => {
