@@ -10,7 +10,7 @@ class PhotoGallery extends React.Component {
         open: false
     }
     handleClickOpen = (tile) => {
-        console.log(tile.id);
+        // console.log(tile.id);
         this.setState({
             selectedTile: tile,
             open: true
@@ -18,19 +18,19 @@ class PhotoGallery extends React.Component {
       };
     
     handleClose = () => {
-        console.log(this.selectedTile)
+        // console.log(this.selectedTile)
         this.setState({
             selectedTile: null,
             open: false
         });
-        console.log(this.selectedTile)
+        // console.log(this.selectedTile)
       };
     //   const Transition = React.forwardRef(function Transition(props, ref) {
     //     return <Slide direction="up" ref={ref} {...props} />;
     //   });
     render() {
         const {selectedTile} = this.state;
-        console.log(selectedTile)
+        // console.log(selectedTile)
         return (
           //two columns for screen sizes between 350 and 750 etc. 
           <Grid>

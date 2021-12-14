@@ -18,7 +18,9 @@ class PostsListPage extends React.Component {
           posts: posts.map((p,ii) => <Post {...p} key={ii} />),
         });
       })
-      .catch(err => console.log("API ERROR: ", err));
+      .catch(err => {
+        // console.log("API ERROR: ", err)
+      });
   }
 
   render() {

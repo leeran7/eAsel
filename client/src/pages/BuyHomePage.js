@@ -86,7 +86,7 @@ function BuyHomePage() {
     setSnackOpen(false);
   };
   const handleClickOpen = (tile) => {
-    console.log(tile.id);
+    // console.log(tile.id);
     setSelectedTile(tile);
     // console.log("clicked");
     // console.log(tile);
@@ -101,7 +101,7 @@ function BuyHomePage() {
     //add item to to specific user's cart
     // console.log("adding ", selectedTile);
     setOpen(false);
-    console.log(selectedTile.id);
+    // console.log(selectedTile.id);
     fetch(`/api/carts/${selectedTile.id}/new`, {
       //replace with user id from the
       method: "POST",
@@ -145,7 +145,7 @@ function BuyHomePage() {
         setLoading(false);
       })
       .catch((err) => {
-        console.log("API ERROR: ", err);
+        // console.log("API ERROR: ", err);
       });
   }, []);
   if (loading){

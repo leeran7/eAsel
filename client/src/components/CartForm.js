@@ -66,14 +66,14 @@ export default function CartForm(props) {
               if(res.ok){
                   return res.json()
               }
-              console.log("FAILED");
+              // console.log("FAILED");
           })
           .then(async data => {
              await getArtworks(data);
           })
           
           .catch(err => {
-              console.log(err);
+              // console.log(err);
           })
           
     }
@@ -138,7 +138,7 @@ export default function CartForm(props) {
         setSnackMessage("Successfully Checked Out!");
         setSnackOpen(true);
     }
-    console.log(artworks)
+    // console.log(artworks)
     if(!auth.isAuthenticated && !loading) return <LoginForm from="/cart"/>;
     if(redirect){
         return <Redirect to="/"/>

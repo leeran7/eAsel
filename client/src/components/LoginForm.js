@@ -28,7 +28,7 @@ function LoginForm(props) {
         setFailed(true);
       })
   }
-  console.log(props);
+  // console.log(props);
   if(redirect){
     if(!props.from){
       return <Redirect to="/" />

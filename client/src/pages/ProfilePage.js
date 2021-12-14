@@ -127,7 +127,7 @@ function ProfilePage(){
     }
     const getPurchasedArtworksData = async (data) => {
       let list = [];
-      console.log(data)
+      // console.log(data)
       for(let item of data){
         // console.log(item.id)
         const res = await fetch(`/api/artworks/${item.artworkId}`)
@@ -136,7 +136,7 @@ function ProfilePage(){
           list.push(data);
         }
       }
-      console.log(list);
+      // console.log(list);
       setPurchasedArtworks(list);
     }
     useEffect(() => {
@@ -234,7 +234,7 @@ function ProfilePage(){
                     </ListItem>
                     <ListItem>
                       <ListItemIcon>
-                        <TwitterIcon fontSize="large" />
+                        <TwitterIcon fontSize="large" href={auth.user.twitter} />
                       </ListItemIcon>
                       <ListItemText primary={auth.user.twitter} />
                     </ListItem>

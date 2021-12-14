@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { Button, CssBaseline, TextField, Grid, Box, Typography , Container, createTheme} from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import Logo from "../img/logo.png";
-import { AuthContext } from '../context/AuthContext';
+// import { AuthContext } from '../context/AuthContext';
 
 const theme = createTheme();
 
@@ -52,7 +52,7 @@ function SignUpForm() {
         
       })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if(res.ok){
             
             return res.json();
@@ -142,7 +142,7 @@ function SignUpForm() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Password (8 Minimum)"
                   type="password"
                   id="password"
                   autoComplete="new-password"
