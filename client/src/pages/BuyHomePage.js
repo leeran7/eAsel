@@ -1,4 +1,4 @@
-import { colors, Container, ImageList, ImageListItem, ImageListItemBar } from "@material-ui/core";
+import { Container, ImageList, ImageListItem, ImageListItemBar } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import {
   DialogTitle, DialogContent, Button, DialogActions, Dialog,

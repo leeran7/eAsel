@@ -9,11 +9,11 @@ const theme = createTheme();
 
 function SignUpForm() {
 
-  const auth = useContext(AuthContext);
+  // const auth = useContext(AuthContext);
   const [redirect, setRedirect] = useState(false);
   const [failed, setFailed] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [passEqual, setPassEqual ] = useState(true);
+  // const [passEqual, setPassEqual ] = useState(true);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -73,10 +73,10 @@ function SignUpForm() {
         })
   };
   let err = "";
-  !passEqual && (err = "Password Mismatch..");
-  if(auth.isAuthenticated){
-    setRedirect(true);
-  }
+  // !passEqual && (err = "Password Mismatch..");
+  // if(auth.isAuthenticated){
+  //   setRedirect(true);
+  // }
   if(redirect){
     return <Redirect to="/" />
   }

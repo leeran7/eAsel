@@ -1,7 +1,9 @@
 import React from 'react';
-import { Grid, Dialog, DialogActions, Button, IconButton, Modal, DialogTitle } from '@material-ui/core';
+import { Grid, Dialog,
+    //  DialogActions, Button, IconButton, Modal, DialogTitle 
+    } from '@material-ui/core';
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import CloseIcon from "@material-ui/icons/Close";
+// import CloseIcon from "@material-ui/icons/Close";
 class PhotoGallery extends React.Component {
     state = {
         selectedTile: null,

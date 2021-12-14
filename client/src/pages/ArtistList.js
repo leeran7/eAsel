@@ -1,8 +1,7 @@
 import React from 'react';
-import {Grid , Container} from '@material-ui/core';
+import {Grid } from '@material-ui/core';
 import ArtistName from '../components/ArtistName';
 import Loading from '../components/Loading';
-import { makeStyles } from '@material-ui/core/styles';
 
 
 

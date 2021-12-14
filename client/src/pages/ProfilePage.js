@@ -3,8 +3,8 @@ import LoginForm from '../components/LoginForm';
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from 'react';
 import {
-  Avatar, ImageList, ImageListItem,
-  AppBar, ImageListItemBar,
+  Avatar,
+  AppBar,
   Box,
   Tabs,
   Tab,
