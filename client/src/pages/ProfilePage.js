@@ -127,6 +127,7 @@ function ProfilePage(){
     }
     const getPurchasedArtworksData = async (data) => {
       let list = [];
+      console.log(data)
       for(let item of data){
         const res = await fetch(`/api/artworks/${item.id}`)
         const data = await res.json();
