@@ -161,7 +161,7 @@ function ProfilePage(){
           >
           
             <Avatar
-              alt="profilePic"
+              alt="profile pic"
               src={auth.user.profilePic}
               className={classes.avatar}
 

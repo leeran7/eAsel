@@ -2,6 +2,9 @@ import React from 'react';
 import {Grid , Container} from '@material-ui/core';
 import ArtistName from '../components/ArtistName';
 import Loading from '../components/Loading';
+import { makeStyles } from '@material-ui/core/styles';
+
+
 
 class ArtistList extends React.Component {
   state = {
@@ -9,7 +12,7 @@ class ArtistList extends React.Component {
     artists: [],
     notFound: false,
   }
-
+  
   componentDidMount() {
 
     fetch('/api/users')
@@ -26,11 +29,10 @@ class ArtistList extends React.Component {
         });
       });
   }
-
   render() {
+    
     if(this.state.loading) {return <Loading />};
         return(
-        <Container> 
             <Grid container rowSpacing={2}>
                     <Grid item xs={12} sm={6} md={3}>
                         {/* add key  */}
@@ -39,7 +41,6 @@ class ArtistList extends React.Component {
                         })}
                     </Grid> 
             </Grid>
-        </Container>
     )    
   }
 }

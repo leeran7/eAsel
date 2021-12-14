@@ -1,4 +1,4 @@
-import { Container, ImageList, ImageListItem, ImageListItemBar } from "@material-ui/core";
+import { colors, Container, ImageList, ImageListItem, ImageListItemBar } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import {
   DialogTitle, DialogContent, Button, DialogActions, Dialog,
@@ -48,7 +48,13 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "5px",
     padding: "10px",
     fontFamily: "Roboto Condensed",
-  }
+  },
+  like: {
+    position: "absolute",
+    right: theme.spacing(3),
+    font: "large",
+    //top: theme.spacing(0),
+},
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -165,7 +171,7 @@ function BuyHomePage() {
       <Dialog
         open={selectedTile !== null}
         onClose={handleClose}
-        TransitionComponent={Transition}
+        // TransitionComponent={Transition}
         style={{ overflow: "scroll" }}
       >
         {selectedTile && (
@@ -177,15 +183,22 @@ function BuyHomePage() {
         )}
         {selectedTile && (
           <DialogTitle id="scroll-dialog-title">
-            <span>{selectedTile.title}</span>
-            <IconButton
-                //style={{ color: "primary" }}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+              }}
+            >
+              <span>{selectedTile.title}</span>
+              <IconButton
+                style={{ color: color }}
                 onClick={changeColor}
-                style={{ font: "large", color: color}}
                 className={classes.like}
               >
                 <FavoriteIcon />
               </IconButton>
+            </div>
             <Typography variant="subtitle2">{selectedTile.artistName}</Typography>
             <Typography variant="subtitle2">
               {"$"}
