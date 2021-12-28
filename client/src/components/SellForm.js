@@ -109,7 +109,12 @@ const SellForm = () => {
     };
 
     if(formValues.redirect){
-        return <Redirect to="/"/>
+        return <Redirect to={{
+          pathname: "/",
+          state: {
+            snackMessage: "Successfully posted artwork for sale"
+          }
+        }}/>
     }
     return (
       <form onSubmit={handleSubmit}>
@@ -311,10 +316,6 @@ const SellForm = () => {
 
           {/* why another grid item? retouch grid system here */}
           <Grid item></Grid>
-          <CustomSnackBar 
-              open={snackOpen} 
-              message={"Successfully posted artwork for sale"}
-              close={handleSnackClose}/>
         </Grid>
       </form>
     );

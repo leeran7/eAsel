@@ -5,8 +5,8 @@ import {
   ListItemText, List, ListItem, Typography, Collapse, Slide,
   ListItemIcon, makeStyles, IconButton
 } from "@material-ui/core";
-import Snackbar from '@material-ui/core/Snackbar';
-import React, { useEffect, useContext} from "react";
+// import Snackbar from '@material-ui/core/Snackbar';
+import React, { useEffect, useContext, useState} from "react";
 // import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -15,6 +15,7 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import Loading from "../components/Loading";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { AuthContext } from '../context/AuthContext';
+import CustomSnackBar from "../components/CustomSnackBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,20 +64,27 @@ const useStyles = makeStyles((theme) => ({
 // function Alert(props) {
 //   return <MuiAlert elevation={6} variant="outline" {...props} />;
 // }
-function BuyHomePage() {
+function BuyHomePage(props) {
+  console.log(props.location.state)
   //get id of user so we can add the specific artwork to user's cart - does this get the artist of the artwork's id? or the person using the app's id
   // const params = new URLSearchParams(window.location.search);
   // const id = params.get("id");
   // const auth = useContext(AuthContext);
   const classes = useStyles();
   const auth = useContext(AuthContext);
-  const [artwork, setArtwork] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
-  const [likedArtworks, setLikedArtworks] = React.useState([]);
-  const [selectedTile, setSelectedTile] = React.useState(null);
-  const [snackOpen , setSnackOpen] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-  const [color, setColor] =   React.useState("");
+  const [artwork, setArtwork] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [likedArtworks, setLikedArtworks] = useState([]);
+  const [selectedTile, setSelectedTile] = useState(null);
+  const [snackOpen , setSnackOpen] = useState(false);
+  const [snackMessage, setSnackMessage] = useState("");
+  const [open, setOpen] = useState(false);
+  const [color, setColor] = useState("");
+  if( typeof props.location.state !== "undefined"){
+    setSnackMessage(props.location.state.snackMessage);
+    setSnackOpen(true);
+    props.location.state = undefined;
+  }
   const changeColor = () => {
     color === "" ? setColor("red") : setColor("");
   }
@@ -112,6 +120,7 @@ function BuyHomePage() {
       return;
     }
     setSnackOpen(false);
+    setSnackMessage("");
   };
   const handleClickOpen = (tile) => {
     // console.log(tile.id);
@@ -178,6 +187,7 @@ function BuyHomePage() {
       });
       handleClose();
       setSnackOpen(true);
+      setSnackMessage("Successfully added artwork to cart 🙂");
   };
 
   const descriptionOpen = () => {
@@ -224,11 +234,12 @@ function BuyHomePage() {
           </ImageListItem>
         ))}
       </ImageList>
+      {/* <CustomDialog open={selectedTile !== null} onClose={handleClose} selectedTile={selectedTile} > */}
       <Dialog
         open={selectedTile !== null}
         onClose={handleClose}
         // TransitionComponent={Transition}
-        style={{ overflow: "scroll" }}
+        // style={{ overflow: "scroll" }}
       >
         {selectedTile && (
           <img
@@ -270,7 +281,9 @@ function BuyHomePage() {
             style={{ overflow: "scroll-view" }}
             id="scroll-dialog-description"
           >
-            <List disablepadding="true" disablegutters="true" dense={true}>
+            <List disablepadding="true" disablegutters="true" 
+            dense={true}
+            >
               <ListItem
                 alignItems="flex-start"
                 disablepadding="true"
@@ -329,15 +342,10 @@ function BuyHomePage() {
           </DialogActions>
         )}
       </Dialog>
-      <Snackbar
-        open={snackOpen}
-        autoHideDuration={2500}
-        onClose={handleSnackClose}
-      >
-        <div className={classes.alert} onClose={handleSnackClose}>
-          <Typography>Successfully added artwork to cart 🙂</Typography>
-        </div>
-      </Snackbar>
+
+      <CustomSnackBar open={snackOpen} close={handleSnackClose} 
+        // classes={classes}
+          message={snackMessage}/>
     </div>
   );
 }
