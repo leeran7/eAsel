@@ -11,6 +11,7 @@ const cartController = require("./cart.js");
 const artworkController = require("./artwork.js");
 const authController = require("./auth.js")
 const sampleArtworksController = require("./sampleartworks.js");
+const likedController = require("./liked.js");
 // Mount each controller under a specific route. These
 // will be prefixes to all routes defined inside the controller
 
@@ -21,6 +22,7 @@ router.use('/artworks', artworkController);
 router.use('/carts', cartController);
 router.use('/checkout', checkoutController);
 router.use('/posts', postsController);
+router.use('/liked', likedController);
 router.use('/application-configuration', appConfigController);
 
 

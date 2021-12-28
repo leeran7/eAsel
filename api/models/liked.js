@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   Liked.init({
   }, {
     sequelize,
-    modelName: "liked-artworks"
+    modelName: "liked"
   });
 
   Liked.associate = (models) => {
