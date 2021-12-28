@@ -6,7 +6,7 @@ import {
   ListItemIcon, makeStyles, IconButton
 } from "@material-ui/core";
 import Snackbar from '@material-ui/core/Snackbar';
-import React, { useEffect} from "react";
+import React, { useEffect, useContext} from "react";
 // import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -14,7 +14,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import Loading from "../components/Loading";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-// import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,9 +57,9 @@ const useStyles = makeStyles((theme) => ({
 },
 }));
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//   return <Slide direction="up" ref={ref} {...props} />;
+// });
 // function Alert(props) {
 //   return <MuiAlert elevation={6} variant="outline" {...props} />;
 // }
@@ -69,8 +69,10 @@ function BuyHomePage() {
   // const id = params.get("id");
   // const auth = useContext(AuthContext);
   const classes = useStyles();
+  const auth = useContext(AuthContext);
   const [artwork, setArtwork] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const [likedArtworks, setLikedArtworks] = React.useState([]);
   const [selectedTile, setSelectedTile] = React.useState(null);
   const [snackOpen , setSnackOpen] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -78,7 +80,34 @@ function BuyHomePage() {
   const changeColor = () => {
     color === "" ? setColor("red") : setColor("");
   }
-
+  const toggleLike = artworkid => {
+    console.log(artworkid);
+    let method = "";
+    let additional = "";
+    let headers = {};
+    let body = "";
+    if(color === ""){
+      method = "POST";
+      additional = '/new';
+      headers = { 'Content-Type': 'application/json'};
+      body = JSON.stringify({ artworkid });
+    } else {
+      method = "DELETE";
+      additional = `/${artworkid}`;
+      // headers = {};
+    }
+    fetch(`/api/liked${additional}`, {
+      method,
+      headers,
+      body
+    })
+      .then(res => {
+        if(res.ok){
+          getLikedArtworks();
+          changeColor();
+        }
+      })
+  }
   const handleSnackClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -88,14 +117,41 @@ function BuyHomePage() {
   const handleClickOpen = (tile) => {
     // console.log(tile.id);
     setSelectedTile(tile);
+    for(let item of likedArtworks){
+      if(item.artworkId === tile.id){
+        changeColor();
+      }
+    }
     // console.log("clicked");
     // console.log(tile);
   };
 
   const handleClose = () => {
+    setColor("");
     setSelectedTile(null);
     setOpen(false);
   };
+
+  const getLikedArtworks = () => {
+    // console.log("hi")
+    // setLoading(false);
+    fetch("/api/liked")
+      .then(res => {
+        if(res.ok){
+          // console.log("hi")
+          return res.json();
+        }
+      })
+      .then(data => {
+        if(!data){
+          // console.log("hi")
+          setLikedArtworks([]);
+        } else {
+        setLikedArtworks(data);
+        }
+        setLoading(false);
+      })
+  }
 
   const addToCart = () => {
     //add item to to specific user's cart
@@ -128,8 +184,8 @@ function BuyHomePage() {
   const descriptionOpen = () => {
     setOpen(!open);
   };
-  useEffect(() => {
-    setLoading(true);
+
+  const getArtworks = () => {
     fetch("/api/artworks")
       .then(res => {
         if(res.ok){
@@ -142,12 +198,14 @@ function BuyHomePage() {
         } else {
         setArtwork(data);
         }
-        setLoading(false);
       })
-      .catch((err) => {
-        // console.log("API ERROR: ", err);
-      });
+  }
+  useEffect(() => {
+    setLoading(true);
+    getArtworks();
+    getLikedArtworks();
   }, []);
+  console.log(likedArtworks)
   if (loading){
     return <Loading />;
   }
@@ -183,22 +241,24 @@ function BuyHomePage() {
         )}
         {selectedTile && (
           <DialogTitle id="scroll-dialog-title">
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexWrap: "wrap",
-              }}
-            >
-              <span>{selectedTile.title}</span>
-              <IconButton
-                style={{ color: color }}
-                onClick={changeColor}
-                className={classes.like}
+            {
+              auth.isAuthenticated && (<div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                }}
               >
-                <FavoriteIcon />
-              </IconButton>
-            </div>
+                <span>{selectedTile.title}</span>
+                <IconButton
+                  style={{ color: color }}
+                  onClick={() => toggleLike(selectedTile.id)}
+                  className={classes.like}
+                >
+                  <FavoriteIcon />
+                </IconButton>
+              </div>)
+            }
             <Typography variant="subtitle2">{selectedTile.artistName}</Typography>
             <Typography variant="subtitle2">
               {"$"}
