@@ -87,6 +87,7 @@ function ProfilePage(){
     const [value, setValue] = React.useState(0);
     const [soldArtworks, setSoldArtworks] = useState([]);
     const [purchasedArtworks, setPurchasedArtworks] = useState([]);
+    const [likedArtworks, setLikedArtworks] = useState([]);
     const [loading, setLoading] = useState(false);
     const getSoldArtworks = () => {
       setLoading(true);
@@ -125,6 +126,33 @@ function ProfilePage(){
         })
         setLoading(false);
     }
+    const getLikedArtworks = () => {
+      setLoading(true);
+      fetch("/api/liked")
+        .then(res => {
+          if(res.ok){
+            return res.json();
+          }
+        })
+        .then(data => {
+          getLikedArtworksData(data);
+        })
+        setLoading(false);
+    }
+    const getLikedArtworksData = async (data) => {
+      let list = [];
+      // console.log(data)
+      for(let item of data){
+        // console.log(item.id)
+        const res = await fetch(`/api/artworks/${item.artworkId}`)
+        const data = await res.json();
+        if(res.ok){
+          list.push(data);
+        }
+      }
+      // console.log(list);
+      setLikedArtworks(list);
+    }
     const getPurchasedArtworksData = async (data) => {
       let list = [];
       // console.log(data)
@@ -142,6 +170,7 @@ function ProfilePage(){
     useEffect(() => {
       getSoldArtworks();
       getPurchasedArtworks();
+      getLikedArtworks();
     }, [])
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -280,7 +309,10 @@ function ProfilePage(){
               <PhotoGallery artwork={purchasedArtworks}/>
             </TabPanel>
             
-            
+            <TabPanel value={value} index={3}>
+              Artworks Liked
+              <PhotoGallery artwork={likedArtworks}/>
+            </TabPanel>
             
           </Grid>
           <Grid>
@@ -297,6 +329,7 @@ function ProfilePage(){
                 <Tab label="PROFILE" {...a11yProps(0)} />
                 <Tab label="SOLD" {...a11yProps(1)} />
                 <Tab label="BOUGHT" {...a11yProps(2)} />
+                <Tab label="LIKED" {...a11yProps(3)} />
               </Tabs>
             </AppBar>
           </Grid>

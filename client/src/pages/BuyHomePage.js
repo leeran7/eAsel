@@ -81,7 +81,6 @@ function BuyHomePage() {
     color === "" ? setColor("red") : setColor("");
   }
   const toggleLike = artworkid => {
-    console.log(artworkid);
     let method = "";
     let additional = "";
     let headers = {};
@@ -205,7 +204,6 @@ function BuyHomePage() {
     getArtworks();
     getLikedArtworks();
   }, []);
-  console.log(likedArtworks)
   if (loading){
     return <Loading />;
   }
