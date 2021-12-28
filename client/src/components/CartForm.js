@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AuthContext } from "../context/AuthContext";
 import LoginForm from "./LoginForm";
 import { Redirect } from 'react-router';
+import CustomSnackBar from "./CustomSnackBar";
 
 const theme = createTheme();
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +44,13 @@ export default function CartForm(props) {
 
   //opens confirm checkout dialog 
    const handleClickOpen = () => {
-     console.log(artworks);
+      if(artworks.length === 0){
+        setSnackError(true);
+        setSnackMessage("Nothing to checkout...");
+        handleClose();
+        setSnackOpen(true);
+        return;
+    }
      setOpen(true);
    };
 
@@ -94,7 +101,7 @@ export default function CartForm(props) {
     useEffect( () => {
         getCarts();
         
-    }, [loading])
+    }, [])
     const decrementPrice = (id) => {
         for(let item of artworks){
             if(item.id === id){
@@ -118,12 +125,6 @@ export default function CartForm(props) {
     }
     function handleCheckout(){
         setLoading(true);
-        if(artworks.length === 0){
-            setSnackError(true);
-            setSnackMessage("Nothing to checkout...");
-            setSnackOpen(true);
-            return;
-        }
         fetch("/api/checkout", {
             method: 'POST',
             headers: {
@@ -143,14 +144,6 @@ export default function CartForm(props) {
     if(redirect){
         return <Redirect to="/"/>
     }
-    // if(artworks.length === 0){
-    //     return <Container style={{marginTop: "20px"}}>Cart is Empty</Container>
-    // }
-    // if(artworks.length > 0 && !loading){
-        // const itemsPrice = artworks.reduce((prev, next) => prev.price + next.price);
-        // const taxPrice = itemsPrice * 1.08875;
-        // setTotalPrice(taxPrice)
-    // }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs" spacing={3}>
@@ -223,30 +216,17 @@ export default function CartForm(props) {
                     <IconButton onClick={() => deleteItem(artwork.id)}>
                       <DeleteOutlineOutlinedIcon />
                     </IconButton>
-                    <Snackbar
-                      open={snackOpen}
-                      autoHideDuration={2500}
-                      onClose={handleSnackClose}
-                    >
-                      <div className={classes.alert} onClose={handleSnackClose}>
-                        <Typography>deleted artwork from cart</Typography>
-                      </div>
-                    </Snackbar>
                   </Grid>
                 </Grid>
               );
             })}
           </Grid>
             </Box>
-            <Snackbar
-                    open={snackOpen}
-                    autoHideDuration={2500}
-                    onClose={handleSnackClose}
-                >
-                    <div className={snackError ? classes.error : classes.alert} onClose={handleSnackClose}>
-                    <Typography>{snackMessage}</Typography>
-                    </div>
-                </Snackbar>
+            <CustomSnackBar 
+              open={snackOpen} 
+              message={snackMessage}
+              close={handleSnackClose} 
+              error={snackError}/>
         </Container>
       </ThemeProvider>
 

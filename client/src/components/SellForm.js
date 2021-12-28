@@ -1,20 +1,12 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import {
-  Grid,
-  TextField,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  Slider,
-  Button,
-  Typography,
-  Radio,
-  makeStyles,
+  Grid, TextField, FormControlLabel, FormControl,
+  FormLabel, RadioGroup, Slider, Button,
+  Typography, Radio, makeStyles,
 } from "@material-ui/core";
 import CloudinaryUploadWidget from './CloudinaryUploadWidget';
-import Snackbar from "@material-ui/core/Snackbar";
+import CustomSnackBar from './CustomSnackBar';
 
 const defaultValues = {
     error: false,
@@ -314,22 +306,15 @@ const SellForm = () => {
             >
               Submit
             </Button>
-            <Snackbar
-              open={snackOpen}
-              autoHideDuration={2500}
-              onClose={handleSnackClose}
-            >
-              <div className={classes.alert} onClose={handleSnackClose}>
-                <Typography>
-                  Bravo! Successfully posted artwork for sale :)
-                </Typography>
-              </div>
-            </Snackbar>
             {/* </Grid> */}
           </Grid>
 
           {/* why another grid item? retouch grid system here */}
           <Grid item></Grid>
+          <CustomSnackBar 
+              open={snackOpen} 
+              message={"Successfully posted artwork for sale"}
+              close={handleSnackClose}/>
         </Grid>
       </form>
     );
