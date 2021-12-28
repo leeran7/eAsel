@@ -89,6 +89,7 @@ function ProfilePage(){
     const [purchasedArtworks, setPurchasedArtworks] = useState([]);
     const [likedArtworks, setLikedArtworks] = useState([]);
     const [loading, setLoading] = useState(false);
+
     const getSoldArtworks = () => {
       setLoading(true);
       fetch("/api/artworks/sold")
@@ -98,11 +99,11 @@ function ProfilePage(){
           }
         })
         .then(data => {
-          getSoldArtworksData(data);
+          getArtworksData(data, setSoldArtworks);
         })
         setLoading(false);
     }
-    const getSoldArtworksData = async (data) => {
+    const getArtworksData = async (data, fn) => {
       let list = [];
       for(let item of data){
         const res = await fetch(`/api/artworks/${item.artworkId}`)
@@ -111,7 +112,7 @@ function ProfilePage(){
           list.push(data);
         }
       }
-      setSoldArtworks(list);
+      fn(list);
     }
     const getPurchasedArtworks = () => {
       setLoading(true);
@@ -122,7 +123,7 @@ function ProfilePage(){
           }
         })
         .then(data => {
-          getPurchasedArtworksData(data);
+          getArtworksData(data, setPurchasedArtworks);
         })
         setLoading(false);
     }
@@ -135,46 +136,21 @@ function ProfilePage(){
           }
         })
         .then(data => {
-          getLikedArtworksData(data);
+          getArtworksData(data, setLikedArtworks);
         })
         setLoading(false);
     }
-    const getLikedArtworksData = async (data) => {
-      let list = [];
-      // console.log(data)
-      for(let item of data){
-        // console.log(item.id)
-        const res = await fetch(`/api/artworks/${item.artworkId}`)
-        const data = await res.json();
-        if(res.ok){
-          list.push(data);
-        }
-      }
-      // console.log(list);
-      setLikedArtworks(list);
-    }
-    const getPurchasedArtworksData = async (data) => {
-      let list = [];
-      // console.log(data)
-      for(let item of data){
-        // console.log(item.id)
-        const res = await fetch(`/api/artworks/${item.artworkId}`)
-        const data = await res.json();
-        if(res.ok){
-          list.push(data);
-        }
-      }
-      // console.log(list);
-      setPurchasedArtworks(list);
-    }
+
     useEffect(() => {
       getSoldArtworks();
       getPurchasedArtworks();
       getLikedArtworks();
     }, [])
+
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+    
     if(!auth.isAuthenticated){
       return<LoginForm from="/profile" />
     } else {
@@ -300,17 +276,17 @@ function ProfilePage(){
             </TabPanel>
 
             <TabPanel value={value} index={1}>
-              Artworks Sold
+              <Typography>Artworks Sold</Typography>
               <PhotoGallery artwork={soldArtworks}/>
             </TabPanel>
 
             <TabPanel value={value} index={2}>
-              Artworks Purchased
+              <Typography>Artworks Purchased</Typography>
               <PhotoGallery artwork={purchasedArtworks}/>
             </TabPanel>
             
             <TabPanel value={value} index={3}>
-              Artworks Liked
+              <Typography>Artworks Liked</Typography>
               <PhotoGallery artwork={likedArtworks}/>
             </TabPanel>
             
