@@ -171,54 +171,98 @@ function ProfilePage(){
             disablegutters="true"
             justifyContent="center"
           >
-          
             <Avatar
               alt="profile pic"
               src={auth.user.profilePic}
               className={classes.avatar}
-
             />
-
-            
             <TabPanel value={value} index={0}>
                 <Grid component="form" noValidate onSubmit={handleUpdate} sx={{ mt: 3 }}>
                   <Grid container spacing={2} alignItems="center"
                   justifyContent="center">
-                    <Grid container alignItems="center"
-                          justifyContent="center">
-                      <Typography>Personal Information</Typography>
+                    <Typography>Edit Profile</Typography>
+                    <Grid>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                        >
+                          <Typography>Personal Information</Typography>
+                        </AccordionSummary>
+                            <AccordionDetails>
+                              <Grid container spacing={1} component="form" alignItems="center"
+                                  justifyContent="center">
+                                    <Grid item xs={6}>
+                              <TextField label="First Name:" fullWidth defaultValue={`${auth.user.firstName}`}></TextField>
+                              {/* <FormLabel>First Name:<TextField fullWidth defaultValue={`${auth.user.firstName}`}></TextField></FormLabel> */}
+                            </Grid>
+                            <Grid item xs={6}>
+                              <TextField label="Last Name:" fullWidth defaultValue={`${auth.user.lastName}`}></TextField>
+                              {/* <FormLabel>Last Name:<TextField fullWidth defaultValue={`${auth.user.lastName}`}></TextField></FormLabel> */}
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <TextField label="Email:" fullWidth defaultValue={`${auth.user.email}`}></TextField>
+                              {/* <FormLabel>Email:<TextField fullWidth defaultValue={`${auth.user.email}`}></TextField></FormLabel> */}
+                            </Grid>
+                            <Grid item xs={6}>
+                              <TextField label="State:"  defaultValue={`${auth.user.state}`}></TextField>
+                                {/* <FormLabel>State:<TextField fullWidth defaultValue={`${auth.user.state}`}></TextField></FormLabel> */}
+                            </Grid>
+                            <Grid item xs={6}>
+                              <TextField label="Zip Code:"  defaultValue={`${auth.user.zipcode}`}></TextField>
+                              {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <TextField label="City:" fullWidth defaultValue={`${auth.user.city}`}></TextField>
+                            {/* <FormLabel>City:<TextField fullWidth defaultValue={`${auth.user.city}`}></TextField></FormLabel> */}
+                            </Grid>
+                            
+                            <Grid item xs={12} sm={6}>
+                              <TextField minRows={3} label="Bio:" fullWidth defaultValue={`${auth.user.bio}`}></TextField>
+                              {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
+                            </Grid>
+                            <Button type="submit">Submit</Button>
+                          </Grid>
+                        </AccordionDetails>
+                      </Accordion>
                     </Grid>
                     
-                    <Grid item xs={6}>
-                      <TextField label="First Name:" fullWidth defaultValue={`${auth.user.firstName}`}></TextField>
-                      {/* <FormLabel>First Name:<TextField fullWidth defaultValue={`${auth.user.firstName}`}></TextField></FormLabel> */}
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField label="Last Name:" fullWidth defaultValue={`${auth.user.lastName}`}></TextField>
-                      {/* <FormLabel>Last Name:<TextField fullWidth defaultValue={`${auth.user.lastName}`}></TextField></FormLabel> */}
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField label="Email:" fullWidth defaultValue={`${auth.user.email}`}></TextField>
-                      {/* <FormLabel>Email:<TextField fullWidth defaultValue={`${auth.user.email}`}></TextField></FormLabel> */}
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField label="State:"  defaultValue={`${auth.user.state}`}></TextField>
-                        {/* <FormLabel>State:<TextField fullWidth defaultValue={`${auth.user.state}`}></TextField></FormLabel> */}
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField label="Zip Code:"  defaultValue={`${auth.user.zipcode}`}></TextField>
-                      {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField label="City:" fullWidth defaultValue={`${auth.user.city}`}></TextField>
-                    {/* <FormLabel>City:<TextField fullWidth defaultValue={`${auth.user.city}`}></TextField></FormLabel> */}
-                    </Grid>
-                    
-                    <Grid item xs={12} sm={6}>
-                      <TextField minRows={3} label="Bio:" fullWidth defaultValue={`${auth.user.bio}`}></TextField>
-                      {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
-                    </Grid>
-                    <Typography>Social Media</Typography>
+                    <Accordion>
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                      >
+                        <Typography>Social Media</Typography>
+                      </AccordionSummary>
+                          <AccordionDetails>
+                            <Grid container spacing={1} component="form" alignItems="center"
+                                justifyContent="center">
+                                  <Grid item xs={12}>
+                            <TextField label="Instagram:" fullWidth defaultValue={`${auth.user.instragram || ""}`}></TextField>
+                            {/* <FormLabel>First Name:<TextField fullWidth defaultValue={`${auth.user.firstName}`}></TextField></FormLabel> */}
+                          </Grid>
+                          <Grid item xs={12}>
+                            <TextField label="Linkedin:" fullWidth defaultValue={`${auth.user.linkedin || ""}`}></TextField>
+                            {/* <FormLabel>Last Name:<TextField fullWidth defaultValue={`${auth.user.lastName}`}></TextField></FormLabel> */}
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <TextField label="Facebook:" fullWidth defaultValue={`${auth.user.facebook || ""}`}></TextField>
+                            {/* <FormLabel>Email:<TextField fullWidth defaultValue={`${auth.user.email}`}></TextField></FormLabel> */}
+                          </Grid>
+                          <Grid item xs={12}>
+                            <TextField label="Twitter:" fullWidth defaultValue={`${auth.user.twitter || ""}`}></TextField>
+                              {/* <FormLabel>State:<TextField fullWidth defaultValue={`${auth.user.state}`}></TextField></FormLabel> */}
+                          </Grid>
+                          <Grid item xs={12}>
+                            <TextField label="Pinterest:" fullWidth defaultValue={`${auth.user.pinterest || ""}`}></TextField>
+                            {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
+                          </Grid>
+                          <Button type="submit">Submit</Button>
+                        </Grid>
+                      </AccordionDetails>
+                    </Accordion>
 
                   </Grid>
               {/* <Accordion>
@@ -319,7 +363,7 @@ function ProfilePage(){
                   </Typography>
                 </AccordionDetails>
               </Accordion>*/}
-              <Button type="submit">Submit</Button>
+              
              </Grid>
             </TabPanel>
 
