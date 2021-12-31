@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('../middlewares/Auth');
 const router = express.Router();
 const db = require('../models');
 const { User, Cart, Social, Transaction, Artwork } = db;
@@ -20,37 +21,25 @@ router.get('/:userid', (req,res) => { // Get User
         })
 });
 
-router.get("/socials/:userid", (req,res) => {
-    const { userid } = req.params;
-    Social.findOne({
-        where: { userId: userid }
-    })
-        .then(socials => {
-            if(!socials){
-                return res.sendStatus(404)
-            }
-            res.json(socials);
-        })
-})
 
-router.put('/:userid', (req, res) => { // Update user
-    const { userid } = req.params;
+
+router.put('/', (req, res) => { // Update user
     
-    User.findByPk(userid)
+    User.findByPk(req.user.id)
         .then(user => {
             if(!user){
                 return res.sendStatus(404);
             }
-            const { firstName, lastName, bio, email, profilePic, pinterest, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
+            const { firstName, lastName, bio, profilePic, pinterest, state, city, zipcode, linkedin, instagram, twitter, facebook } = req.body;
             user.firstName = firstName;
             user.lastName = lastName;
             user.bio = bio;
-            user.email = email;
-            user.profilePic = profilePic;
+            user.email = req.user.email;
+            user.profilePic = req.user.profilePic;
             user.state = state;
             user.city = city;
             user.zipcode = zipcode;
-            Social.findByPk(userid)
+            Social.findByPk(req.user.id)
                 .then(social => {
                     if(!social){
                         return res.sendStatus(404);
@@ -70,6 +59,7 @@ router.put('/:userid', (req, res) => { // Update user
                     res.json(user);
                 })
                 .catch(err => {
+                    console.log(err)
                     res.status(400).json(err);
                 })
         })
