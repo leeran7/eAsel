@@ -11,6 +11,9 @@ import {
   Typography,
   Grid,
   Container,
+  TextField,
+  FormLabel,
+  Button
 } from "@material-ui/core";
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -150,9 +153,13 @@ function ProfilePage(){
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+
+    const handleUpdate = () => {
+
+    }
     
     if(!auth.isAuthenticated){
-      return<LoginForm from="/profile" />
+      return <LoginForm from="/profile" />
     } else {
      return (
        <Container 
@@ -174,8 +181,47 @@ function ProfilePage(){
 
             
             <TabPanel value={value} index={0}>
+                <Grid component="form" noValidate onSubmit={handleUpdate} sx={{ mt: 3 }}>
+                  <Grid container spacing={2} alignItems="center"
+                  justifyContent="center">
+                    <Grid container alignItems="center"
+                          justifyContent="center">
+                      <Typography>Personal Information</Typography>
+                    </Grid>
+                    
+                    <Grid item xs={6}>
+                      <TextField label="First Name:" fullWidth defaultValue={`${auth.user.firstName}`}></TextField>
+                      {/* <FormLabel>First Name:<TextField fullWidth defaultValue={`${auth.user.firstName}`}></TextField></FormLabel> */}
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField label="Last Name:" fullWidth defaultValue={`${auth.user.lastName}`}></TextField>
+                      {/* <FormLabel>Last Name:<TextField fullWidth defaultValue={`${auth.user.lastName}`}></TextField></FormLabel> */}
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField label="Email:" fullWidth defaultValue={`${auth.user.email}`}></TextField>
+                      {/* <FormLabel>Email:<TextField fullWidth defaultValue={`${auth.user.email}`}></TextField></FormLabel> */}
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField label="State:"  defaultValue={`${auth.user.state}`}></TextField>
+                        {/* <FormLabel>State:<TextField fullWidth defaultValue={`${auth.user.state}`}></TextField></FormLabel> */}
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField label="Zip Code:"  defaultValue={`${auth.user.zipcode}`}></TextField>
+                      {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField label="City:" fullWidth defaultValue={`${auth.user.city}`}></TextField>
+                    {/* <FormLabel>City:<TextField fullWidth defaultValue={`${auth.user.city}`}></TextField></FormLabel> */}
+                    </Grid>
+                    
+                    <Grid item xs={12} sm={6}>
+                      <TextField minRows={3} label="Bio:" fullWidth defaultValue={`${auth.user.bio}`}></TextField>
+                      {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
+                    </Grid>
+                    <Typography>Social Media</Typography>
 
-              <Accordion>
+                  </Grid>
+              {/* <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
@@ -272,7 +318,9 @@ function ProfilePage(){
                     {auth.user.city} , {auth.user.state} {auth.user.zipcode}
                   </Typography>
                 </AccordionDetails>
-              </Accordion>
+              </Accordion>*/}
+              <Button type="submit">Submit</Button>
+             </Grid>
             </TabPanel>
 
             <TabPanel value={value} index={1}>
@@ -294,7 +342,7 @@ function ProfilePage(){
           <Grid>
               <AppBar
                 className={classes.AppBar} 
-                position="sticky"
+                position="static"
               >
               <Tabs
                 value={value}
