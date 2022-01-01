@@ -114,14 +114,14 @@ export default function CartForm(props) {
         setLoading(true);
         fetch(`/api/carts/${id}`, {
             method: "DELETE"
-        })
-        .then(() => {
-            setLoading(false)
+        }) .then(() => {
+          getCarts()
         })
         decrementPrice(id);
         setSnackError(false);
         setSnackMessage("Successfully Deleted Artwork")
         setSnackOpen(true);
+        setLoading(false)
     }
     function handleCheckout(){
         setLoading(true);

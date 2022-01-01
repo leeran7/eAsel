@@ -87,10 +87,10 @@ function ProfilePage(props){
     //so if the userid is empty then it displays the login page, otherwise it displays the userprofile- from the userid feature in the
     //db. 
     const params = new URLSearchParams(window.location.search);
-    const paramsValue = parseInt(params.get("value"));
+    const tab = parseInt(params.get("tab")) - 1;
     const auth = useContext(AuthContext);
     const classes = useStyles();
-    const [value, setValue] = useState(paramsValue || 0);
+    const [value, setValue] = useState(tab || 0);
     const [soldArtworks, setSoldArtworks] = useState([]);
     const [purchasedArtworks, setPurchasedArtworks] = useState([]);
     const [likedArtworks, setLikedArtworks] = useState([]);
@@ -169,10 +169,10 @@ function ProfilePage(props){
           console.log(err);
         })
       }
-    useEffect( () =>  async () => {
-      await getSoldArtworks();
-      await getPurchasedArtworks();
-      await getLikedArtworks();
+    useEffect( () => {
+       getSoldArtworks();
+       getPurchasedArtworks();
+       getLikedArtworks();
     }, [])
     if(auth.user && Object.entries(socials).length === 0){
       getSocials()
@@ -320,7 +320,7 @@ function ProfilePage(props){
                                   {
                                     Object.entries(socials).slice(1,6).map(item => {
                                       return (
-                                        <Grid item xs={12}>
+                                        <Grid item xs={12} key={item[0]}>
                                           <TextField label={`${item[0][0].toUpperCase() + item[0].slice(1)}:`} id={item[0]}
                                           name={item[0]} fullWidth defaultValue={`${item[1] || ""}`}></TextField>
                                         </Grid>

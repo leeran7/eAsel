@@ -44,7 +44,7 @@ const Navbar = () => {
         navigationLinks = [
             { name: "Artists", href: "/artistlist" },
             { name: "Sell", href: "/sellwithus" },
-            { name: "Liked", href: "/profile?value=3"},
+            { name: "Liked", href: "/profile?tab=4"},
             { name: <Badge color="secondary" variant="dot" ><ShoppingCartOutlinedIcon /></Badge>, href: "/cart" }
         ]; 
     } else {
