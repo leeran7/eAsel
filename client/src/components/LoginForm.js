@@ -22,7 +22,10 @@ function LoginForm(props) {
     let password = data.get("password");
     auth.authenticate(email, password)
       .then(user => {
-        setRedirect(true);
+        if(user){
+          setRedirect(true);
+          return;
+        }
       })
       .then( err => {
         setFailed(true);
@@ -43,7 +46,7 @@ function LoginForm(props) {
   }
   return (
     <ThemeProvider theme={theme}>
-      {err}
+      
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -58,6 +61,7 @@ function LoginForm(props) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          <Typography >{err}</Typography>
           <Grid component="form" onSubmit={login} 
           noValidate sx={{ mt: 1 }}>
             <Grid container spacing={2} alignItems="center"

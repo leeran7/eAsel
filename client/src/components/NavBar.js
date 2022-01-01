@@ -69,7 +69,9 @@ const Navbar = () => {
                         // spacing={12}
                     >
                         
-                        
+                        {
+                            !auth.isAuthenticated && <AuthButton />
+                        }
                         <Hidden xsDown>
                             
                             {navigationLinks.map((item) => (
@@ -131,7 +133,10 @@ const Navbar = () => {
                 <Divider />
 
                 <List>
-                    <AuthButton />
+                    {
+                        auth.isAuthenticated && <AuthButton />
+                    }
+                    
                     {
                     // auth.isAuthenticated ?
                         (navigationLinks.map((item) => (
