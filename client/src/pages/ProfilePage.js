@@ -12,7 +12,7 @@ import {
   Grid,
   Container,
   TextField,
-  FormLabel,
+  FormLabel, IconButton,
   Button
 } from "@material-ui/core";
 import Accordion from '@material-ui/core/Accordion';
@@ -28,6 +28,7 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import PhotoGallery from '../components/PhotoGallery';
+import CloudinaryUploadWidget from '../components/CloudinaryUploadWidget';
 // import Stack from "@material-ui/core/Stack";
 
 //include edit option- make this a form? to send edits to database. 
@@ -80,20 +81,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function ProfilePage(){
+function ProfilePage(props){
     //so , we need to make a profile page which shows the user profile if they're logged in, 
     //otherwise shows the login page. 
     //so if the userid is empty then it displays the login page, otherwise it displays the userprofile- from the userid feature in the
     //db. 
+    const params = new URLSearchParams(window.location.search);
+    const paramsValue = parseInt(params.get("value"));
     const auth = useContext(AuthContext);
     const classes = useStyles();
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(paramsValue || 0);
     const [soldArtworks, setSoldArtworks] = useState([]);
     const [purchasedArtworks, setPurchasedArtworks] = useState([]);
     const [likedArtworks, setLikedArtworks] = useState([]);
     const [loading, setLoading] = useState(false);
     const [expandedPanel, setExpandedPanel] = useState("panel1");
     const [socials, setSocials] = useState({});
+    const [profilePic, setProfilePic] = useState(auth.user.profilePic);
     const handleAccordionChange = () => (event, isExpanded) => {
       setExpandedPanel(expandedPanel === "panel2" ? "panel1" : "panel2");
     };
@@ -176,6 +180,9 @@ function ProfilePage(){
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+    const handleUriChange = (value) =>{
+      setProfilePic(value);
+    };
     const handleSubmit = async (e) => {
       e.preventDefault();
       setLoading(true);
@@ -188,6 +195,7 @@ function ProfilePage(){
         city: data.get('city'),
         bio: data.get('bio'),
         state: data.get('state'),
+        profilePic: profilePic,
         zipcode: data.get('zipcode'),
         instagram: data.get('instagram'),
         pinterest: data.get('pinterest'),
@@ -216,7 +224,6 @@ function ProfilePage(){
         })
         setLoading(false);
     }
-    console.log(auth.user)
     if(loading){
       return <Typography>Loading...</Typography>
     } else if(!auth.isAuthenticated){
@@ -233,11 +240,13 @@ function ProfilePage(){
             disablegutters="true"
             justifyContent="center"
           >
-            <Avatar
-              alt="profile pic"
-              src={auth.user.profilePic}
-              className={classes.avatar}
-            />
+              <IconButton>
+                <Avatar 
+                alt="profile pic"
+                  src={auth.user.profilePic}
+                  className={classes.avatar}
+                  />
+              </IconButton>
             <TabPanel value={value} index={0}>
                 <Grid component="form" noValidate onSubmit={handleSubmit}
                 >

@@ -14,11 +14,7 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import AuthButton from './AuthButton';
 import { AuthContext } from '../context/AuthContext';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-const navigationLinks = [
-    { name: "Artists", href: "/artistlist" },
-    { name: "Sell", href: "/sellwithus" },
-    { name: <Badge color="secondary" variant="dot" ><ShoppingCartOutlinedIcon /></Badge>, href: "/cart" }
-];
+
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -43,6 +39,19 @@ const Navbar = () => {
     const styles = useStyles();
     const [open, setOpen] = useState(false);
     const auth = useContext(AuthContext);
+    let navigationLinks;
+    if(auth.isAuthenticated){
+        navigationLinks = [
+            { name: "Artists", href: "/artistlist" },
+            { name: "Sell", href: "/sellwithus" },
+            { name: "Liked", href: "/profile?value=3"},
+            { name: <Badge color="secondary" variant="dot" ><ShoppingCartOutlinedIcon /></Badge>, href: "/cart" }
+        ]; 
+    } else {
+        navigationLinks = [
+            { name: "Artists", href: "/artistlist" }
+        ];
+    }
     return (
         <AppBar elevation={0} className={styles.appbar} >
             <Container maxWidth="md">
