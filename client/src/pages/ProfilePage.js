@@ -92,11 +92,10 @@ function ProfilePage(){
     const [purchasedArtworks, setPurchasedArtworks] = useState([]);
     const [likedArtworks, setLikedArtworks] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [showButton, setShowButton] = useState(false);
     const [expandedPanel, setExpandedPanel] = useState("panel1");
     const [socials, setSocials] = useState({});
-    const handleAccordionChange = (panel) => (event, isExpanded) => {
-      setExpandedPanel(isExpanded ? panel : false);
+    const handleAccordionChange = () => (event, isExpanded) => {
+      setExpandedPanel(expandedPanel === "panel2" ? "panel1" : "panel2");
     };
     const getSoldArtworks = () => {
       setLoading(true);
@@ -162,16 +161,16 @@ function ProfilePage(){
       setValue(newValue);
     };
 
-    const getSocials = () => {
-      fetch("/api/users/socials/" + auth.user.id)
+    const getSocials = async () => {
+      await fetch("/api/users/socials/" + auth.user.id)
         .then(res => {
           if(res.ok){
             return res.json();
           }
         })
         .then(data => {
-          console.log(data)
           setSocials(data);
+
         })
         .catch(err => {
           console.log(err);
@@ -180,13 +179,13 @@ function ProfilePage(){
       if(auth.user && Object.entries(socials).length === 0){
         getSocials()
       }
+      console.log(socials)
     const handleSubmit = async (e) => {
       e.preventDefault();
       setLoading(true);
-      console.log(e.currentTarget)
+      // console.log(e.currentTarget)
       const data = new FormData(e.currentTarget);
       // eslint-disable-next-line no-console
-
       const formValues = {
         firstName: data.get('firstName'),
         lastName: data.get('lastName'),
@@ -222,8 +221,8 @@ function ProfilePage(){
           setLoading(false);
         })
     }
-    console.log(socials.instagram)
-    if(!auth.isAuthenticated){
+    // console.log(Object.entries(socials).slice(1,6))
+    if(!auth.isAuthenticated && !loading){
       return <LoginForm from="/profile" />
     } else {
      return (
@@ -233,7 +232,7 @@ function ProfilePage(){
           className={classes.root}>
           <Grid
             container
-            // spacing={2}
+            spacing={3}
             disablegutters="true"
             justifyContent="center"
           >
@@ -246,11 +245,11 @@ function ProfilePage(){
                 <Grid component="form" noValidate onSubmit={handleSubmit} 
                 // sx={{ mt: 3 }}
                 >
-                  <Grid container spacing={5} alignItems="center"
+                  <Grid container spacing={4} alignItems="center"
                   justifyContent="center">
                     <Typography>Edit Profile</Typography>
                     <Grid  xs={12}>
-                    <Accordion expanded={expandedPanel === 'panel1'} onChange={handleAccordionChange('panel1')}>
+                    <Accordion expanded={expandedPanel === 'panel1'} onChange={handleAccordionChange()}>
                       <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
@@ -297,9 +296,10 @@ function ProfilePage(){
                       </AccordionDetails>
                     </Accordion>
                     </Grid>
-                    
-                    <Grid>
-                    <Accordion expanded={expandedPanel === 'panel2'} onChange={handleAccordionChange('panel2')}>
+                    {
+                      socials && (
+                        <Grid>
+                    <Accordion expanded={expandedPanel === 'panel2'} onChange={handleAccordionChange()}>
                       <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
@@ -308,40 +308,42 @@ function ProfilePage(){
                         <Typography>Social Media</Typography>
                       </AccordionSummary>
                           <AccordionDetails>
-                            <Grid container alignItems="center"
+                            <Grid container 
+                                spacing={2}
+                                alignItems="center"
                                 justifyContent="center">
-                                  <Grid item xs={12}>
-                            <TextField label="Instagram:" id="instagram"
-                            name="instagram" fullWidth defaultValue={`${socials.id || "HELO"}`}></TextField>
-                            {/* <FormLabel>First Name:<TextField fullWidth defaultValue={`${auth.user.firstName}`}></TextField></FormLabel> */}
-                          </Grid>
-                          <Grid item xs={12}>
-                            <TextField label="Linkedin:" id="linkedin"
-                            name="linkedin" fullWidth defaultValue={`${socials.linkedin || "HELLO"}`}></TextField>
-                            {/* <FormLabel>Last Name:<TextField fullWidth defaultValue={`${auth.user.lastName}`}></TextField></FormLabel> */}
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <TextField label="Facebook:" id="facebook"
-                            name="facebook" fullWidth defaultValue={`${socials.facebook || ""}`}></TextField>
-                            {/* <FormLabel>Email:<TextField fullWidth defaultValue={`${auth.user.email}`}></TextField></FormLabel> */}
-                          </Grid>
-                          <Grid item xs={12}>
-                            <TextField label="Twitter:" id="twitter"
-                            name="twitter" fullWidth defaultValue={`${socials.twitter || ""}`}></TextField>
-                              {/* <FormLabel>State:<TextField fullWidth defaultValue={`${auth.user.state}`}></TextField></FormLabel> */}
-                          </Grid>
-                          <Grid item xs={12}>
-                            <TextField label="Pinterest:" id="pinterest"
-                            name="pinterest" fullWidth defaultValue={`${socials.pinterest || ""}`}></TextField>
-                            {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
-                          </Grid>
-                          <Button type="submit" >Submit</Button>
+                                <Grid item xs={12}>
+                                  <TextField label="Instagram:" id="instagram"
+                                  name="instagram" fullWidth defaultValue={`${socials.instagram}`}></TextField>
+                                  {/* <FormLabel>First Name:<TextField fullWidth defaultValue={`${auth.user.firstName}`}></TextField></FormLabel> */}
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <TextField label="Linkedin:" id="linkedin"
+                                  name="linkedin" fullWidth defaultValue={`${socials.linkedin}`}></TextField>
+                                  {/* <FormLabel>Last Name:<TextField fullWidth defaultValue={`${auth.user.lastName}`}></TextField></FormLabel> */}
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                  <TextField label="Facebook:" id="facebook"
+                                  name="facebook" fullWidth defaultValue={`${socials.facebook}`}></TextField>
+                                  {/* <FormLabel>Email:<TextField fullWidth defaultValue={`${auth.user.email}`}></TextField></FormLabel> */}
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <TextField label="Twitter:" id="twitter"
+                                  name="twitter" fullWidth defaultValue={`${socials.twitter}`}></TextField>
+                                    {/* <FormLabel>State:<TextField fullWidth defaultValue={`${auth.user.state}`}></TextField></FormLabel> */}
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <TextField label="Pinterest:" id="pinterest"
+                                  name="pinterest" fullWidth defaultValue={`${socials.pinterest}`}></TextField>
+                                  {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
+                                </Grid>
+                                <Button type="submit">Submit</Button>
+                              </Grid>
+                            </AccordionDetails>
+                          </Accordion>
                         </Grid>
-                        
-                      </AccordionDetails>
-                      
-                    </Accordion>
-                    </Grid>
+                      )
+                    }
                   </Grid>
                   
               {/* <Accordion>
