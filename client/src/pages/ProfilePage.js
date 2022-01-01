@@ -150,19 +150,8 @@ function ProfilePage(){
         })
         setLoading(false);
     }
-    useEffect( () => {
-      getSoldArtworks();
-      getPurchasedArtworks();
-      getLikedArtworks();
-      
-    }, [])
-    
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
-
-    const getSocials = async () => {
-      await fetch("/api/users/socials/" + auth.user.id)
+    const getSocials = () => {
+      fetch("/api/users/socials/" + auth.user.id)
         .then(res => {
           if(res.ok){
             return res.json();
@@ -170,16 +159,23 @@ function ProfilePage(){
         })
         .then(data => {
           setSocials(data);
-
+          setLoading(false);
         })
         .catch(err => {
           console.log(err);
         })
       }
-      if(auth.user && Object.entries(socials).length === 0){
-        getSocials()
-      }
-      console.log(socials)
+    useEffect( () =>  async () => {
+      await getSoldArtworks();
+      await getPurchasedArtworks();
+      await getLikedArtworks();
+    }, [])
+    if(auth.user && Object.entries(socials).length === 0){
+      getSocials()
+    }
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
     const handleSubmit = async (e) => {
       e.preventDefault();
       setLoading(true);
@@ -209,20 +205,20 @@ function ProfilePage(){
         })
         .then(res => {
           if(res.ok){
-            setLoading(false);
+            
             return res.json();
           }
         })
         .then(data => {
-          console.log(data);
+          getSocials()
         })
         .catch(err => {
-          console.log("FAILED")
-          setLoading(false);
         })
+        setLoading(false);
     }
-    // console.log(Object.entries(socials).slice(1,6))
-    if(!auth.isAuthenticated && !loading){
+    if(loading){
+      return <Typography>Loading...</Typography>
+    } else if(!auth.isAuthenticated){
       return <LoginForm from="/profile" />
     } else {
      return (
@@ -242,8 +238,7 @@ function ProfilePage(){
               className={classes.avatar}
             />
             <TabPanel value={value} index={0}>
-                <Grid component="form" noValidate onSubmit={handleSubmit} 
-                // sx={{ mt: 3 }}
+                <Grid component="form" noValidate onSubmit={handleSubmit}
                 >
                   <Grid container spacing={4} alignItems="center"
                   justifyContent="center">
@@ -297,7 +292,7 @@ function ProfilePage(){
                     </Accordion>
                     </Grid>
                     {
-                      socials && (
+                      (!loading && Object.entries(socials).length !== 0) && (
                         <Grid>
                     <Accordion expanded={expandedPanel === 'panel2'} onChange={handleAccordionChange()}>
                       <AccordionSummary
@@ -312,31 +307,18 @@ function ProfilePage(){
                                 spacing={2}
                                 alignItems="center"
                                 justifyContent="center">
-                                <Grid item xs={12}>
-                                  <TextField label="Instagram:" id="instagram"
-                                  name="instagram" fullWidth defaultValue={`${socials.instagram}`}></TextField>
-                                  {/* <FormLabel>First Name:<TextField fullWidth defaultValue={`${auth.user.firstName}`}></TextField></FormLabel> */}
-                                </Grid>
-                                <Grid item xs={12}>
-                                  <TextField label="Linkedin:" id="linkedin"
-                                  name="linkedin" fullWidth defaultValue={`${socials.linkedin}`}></TextField>
-                                  {/* <FormLabel>Last Name:<TextField fullWidth defaultValue={`${auth.user.lastName}`}></TextField></FormLabel> */}
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                  <TextField label="Facebook:" id="facebook"
-                                  name="facebook" fullWidth defaultValue={`${socials.facebook}`}></TextField>
-                                  {/* <FormLabel>Email:<TextField fullWidth defaultValue={`${auth.user.email}`}></TextField></FormLabel> */}
-                                </Grid>
-                                <Grid item xs={12}>
-                                  <TextField label="Twitter:" id="twitter"
-                                  name="twitter" fullWidth defaultValue={`${socials.twitter}`}></TextField>
-                                    {/* <FormLabel>State:<TextField fullWidth defaultValue={`${auth.user.state}`}></TextField></FormLabel> */}
-                                </Grid>
-                                <Grid item xs={12}>
-                                  <TextField label="Pinterest:" id="pinterest"
-                                  name="pinterest" fullWidth defaultValue={`${socials.pinterest}`}></TextField>
-                                  {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
-                                </Grid>
+                                  {
+                                    Object.entries(socials).slice(1,6).map(item => {
+                                      return (
+                                        <Grid item xs={12}>
+                                          <TextField label={`${item[0][0].toUpperCase() + item[0].slice(1)}:`} id={item[0]}
+                                          name={item[0]} fullWidth defaultValue={`${item[1] || ""}`}></TextField>
+                                          {/* <FormLabel>First Name:<TextField fullWidth defaultValue={`${auth.user.firstName}`}></TextField></FormLabel> */}
+                                        </Grid>
+                                      )
+                                    })
+                                  }
+                                
                                 <Button type="submit">Submit</Button>
                               </Grid>
                             </AccordionDetails>
