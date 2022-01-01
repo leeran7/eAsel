@@ -216,6 +216,7 @@ function ProfilePage(){
         })
         setLoading(false);
     }
+    console.log(auth.user)
     if(loading){
       return <Typography>Loading...</Typography>
     } else if(!auth.isAuthenticated){
@@ -258,33 +259,33 @@ function ProfilePage(){
                                   <Grid item xs={12}>
                             <TextField label="First Name:" id="firstName"
                             name="firstName" fullWidth defaultValue={`${auth.user.firstName}`}></TextField>
-                            {/* <FormLabel>First Name:<TextField fullWidth defaultValue={`${auth.user.firstName}`}></TextField></FormLabel> */}
+                           
                           </Grid>
                           <Grid item xs={12}>
                             <TextField label="Last Name:" id="lastName"
                             name="lastName" fullWidth defaultValue={`${auth.user.lastName}`}></TextField>
-                            {/* <FormLabel>Last Name:<TextField fullWidth defaultValue={`${auth.user.lastName}`}></TextField></FormLabel> */}
+                         
                           </Grid>
                           <Grid item xs={6}>
                             <TextField label="State:" id="state"
                             name="state" defaultValue={`${auth.user.state}`}></TextField>
-                              {/* <FormLabel>State:<TextField fullWidth defaultValue={`${auth.user.state}`}></TextField></FormLabel> */}
+                             
                           </Grid>
                           <Grid item xs={6}>
                             <TextField label="Zip Code:" id="zipcode"
                             name="zipcode" defaultValue={`${auth.user.zipcode}`}></TextField>
-                            {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
+                           
                           </Grid>
                           <Grid item xs={12} sm={6}>
                             <TextField label="City:" id="city"
                             name="city" fullWidth defaultValue={`${auth.user.city}`}></TextField>
-                          {/* <FormLabel>City:<TextField fullWidth defaultValue={`${auth.user.city}`}></TextField></FormLabel> */}
+                          
                           </Grid>
                           
                           <Grid item xs={12} sm={6}>
                             <TextField minRows={3} multiline label="Bio:" id="bio"
                             name="bio" fullWidth defaultValue={`${auth.user.bio}`}></TextField>
-                            {/* <FormLabel>Zip Code:<TextField fullWidth defaultValue={`${auth.user.zipcode}`}></TextField></FormLabel> */}
+                           
                           </Grid>
                           <Button type="submit">Submit</Button>
                         </Grid>
@@ -313,7 +314,6 @@ function ProfilePage(){
                                         <Grid item xs={12}>
                                           <TextField label={`${item[0][0].toUpperCase() + item[0].slice(1)}:`} id={item[0]}
                                           name={item[0]} fullWidth defaultValue={`${item[1] || ""}`}></TextField>
-                                          {/* <FormLabel>First Name:<TextField fullWidth defaultValue={`${auth.user.firstName}`}></TextField></FormLabel> */}
                                         </Grid>
                                       )
                                     })
@@ -327,106 +327,6 @@ function ProfilePage(){
                       )
                     }
                   </Grid>
-                  
-              {/* <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography>Name</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    {auth.user.firstName} {auth.user.lastName}
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2a-content"
-                  id="panel2a-header"
-                >
-                  <Typography>Email</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>{auth.user.email}</Typography>
-                </AccordionDetails>
-              </Accordion>
-
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel3a-content"
-                  id="panel3a-header"
-                >
-                  <Typography>Social Media</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <InstagramIcon fontSize="large" />
-                      </ListItemIcon>
-                      <ListItemText primary={auth.user.instagram} />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <FacebookIcon fontSize="large" />
-                      </ListItemIcon>
-                      <ListItemText primary={auth.user.facebook} />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <PinterestIcon fontSize="large" />
-                      </ListItemIcon>
-                      <ListItemText primary={auth.user.pinterest} />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <LinkedInIcon fontSize="large" />
-                      </ListItemIcon>
-                      <ListItemText primary={auth.user.linkedin} />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <TwitterIcon fontSize="large" href={auth.user.twitter} />
-                      </ListItemIcon>
-                      <ListItemText primary={auth.user.twitter} />
-                    </ListItem>
-                  </List>
-                </AccordionDetails>
-              </Accordion>
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2a-content"
-                  id="panel2a-header"
-                >
-                  <Typography>Bio</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>{auth.user.bio}</Typography>
-                </AccordionDetails>
-              </Accordion>
-
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2a-content"
-                  id="panel2a-header"
-                >
-                  <Typography>Location</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    {auth.user.city} , {auth.user.state} {auth.user.zipcode}
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>*/}
-              
              </Grid>
             </TabPanel>
 
