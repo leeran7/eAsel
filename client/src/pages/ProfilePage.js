@@ -250,9 +250,9 @@ function ProfilePage(props){
             <TabPanel value={value} index={0}>
                 <Grid component="form" noValidate onSubmit={handleSubmit}
                 >
-                  <Grid container spacing={4} alignItems="center"
+                  <Grid container spacing={5} alignItems="center"
                   justifyContent="center">
-                    <Typography>Edit Profile</Typography>
+                    {/* <Typography>Edit Profile</Typography> */}
                     <Grid  xs={12}>
                     <Accordion expanded={expandedPanel === 'panel1'} onChange={handleAccordionChange()}>
                       <AccordionSummary
@@ -277,12 +277,12 @@ function ProfilePage(props){
                           </Grid>
                           <Grid item xs={6}>
                             <TextField label="State:" id="state"
-                            name="state" defaultValue={`${auth.user.state}`}></TextField>
+                            name="state" fullWidth defaultValue={`${auth.user.state}`}></TextField>
                              
                           </Grid>
                           <Grid item xs={6}>
                             <TextField label="Zip Code:" id="zipcode"
-                            name="zipcode" defaultValue={`${auth.user.zipcode}`}></TextField>
+                            name="zipcode" fullWidth defaultValue={`${auth.user.zipcode}`}></TextField>
                            
                           </Grid>
                           <Grid item xs={12} sm={6}>
@@ -314,7 +314,7 @@ function ProfilePage(props){
                       </AccordionSummary>
                           <AccordionDetails>
                             <Grid container 
-                                spacing={2}
+                                spacing={0}
                                 alignItems="center"
                                 justifyContent="center">
                                   {

@@ -54,10 +54,44 @@ export default function AboutTheArtist(props) {
                 <h4 className={classes.artist}>{artist.bio}</h4> */}
             <div className={classes.socials}>
                 <Divider />
+                {/* {
+                    socials.instagram !== "" && (
+                        <IconButton href={socials.instagram} target="_blank">
+                            <InstagramIcon fontSize="large"/>
+                        </IconButton>
+                    )
+                }
+                {
+                  socials.facebook !== "" && (
+                        <IconButton href={socials.facebook} target="_blank">
+                            <FacebookIcon fontSize="large"/>
+                        </IconButton>
+                    )  
+                }
+                 {
+                  socials.pinterest !== "" && (
+                        <IconButton href={socials.pinterest} target="_blank">
+                            <PinterestIcon fontSize="large"/>
+                        </IconButton>
+                    )  
+                }
+                 {
+                  socials.linkedin !== "" && (
+                        <IconButton href={socials.linkedin} target="_blank">
+                            <LinkedInIcon fontSize="large"/>
+                        </IconButton>
+                    )  
+                }
+                 {
+                  socials.twitter !== "" && (
+                        <IconButton href={socials.twitter} target="_blank">
+                            <TwitterIcon fontSize="large"/>
+                        </IconButton>
+                    )  
+                } */}
                     <IconButton href={socials.instagram} target="_blank">
                         <InstagramIcon fontSize="large"/>
                     </IconButton>
-
                     <IconButton href={socials.facebook} target="_blank">
                         <FacebookIcon fontSize="large"/>
                     </IconButton>
