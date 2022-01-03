@@ -1,5 +1,5 @@
 # Easel Digital Fine Art Marketplace
-![easel logo](http://img/logo.png)
+![easel logo](http://client/src/img/logo.png)
 A starter repo for building CUNY Tech Prep projects with React, Express.js, and Sequelize.js
 
 ## Stack
