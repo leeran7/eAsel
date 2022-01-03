@@ -2,6 +2,8 @@
 ![easel logo](http://client/src/img/logo.png)
 A starter repo for building CUNY Tech Prep projects with React, Express.js, and Sequelize.js
 
+[![Alternate Text]({image-url})]({video-url} "Link Title")
+
 ## Stack
 
 *API*
@@ -12,7 +14,7 @@ A starter repo for building CUNY Tech Prep projects with React, Express.js, and 
 *React client*
 
 - Built using `create-react-app` and configured to work with the api.
-- Bootstrap 4.x added to `/client/public/index.html`
+- Material-UI for a clean Material Design
 - React Router
 
 
