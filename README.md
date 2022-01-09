@@ -20,6 +20,7 @@ To prevent this, our CUNY Tech Prep project was created with artists and buyers 
 [![Alternate Text]({image-url})]({video-url} "Link Title")
 ## Features
 - login / signup 
+ ![image](client/src/img/148703824-b7d1719a-40e1-4b9b-80c4-c523363ccdb1.jpeg)
  ![IMG_128B2E10EB19-1](https://user-images.githubusercontent.com/82296790/148703824-b7d1719a-40e1-4b9b-80c4-c523363ccdb1.jpeg)
 
 - easy to use upload art for sale form
