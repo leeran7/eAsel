@@ -1,25 +1,39 @@
 ![easel logo](client/src/img/logo.png)
 <br>
-# [Easel](https://easelapp.herokuapp.com) Digital Fine Art Marketplace
-#### A digital fine art marketplace designed to help artists expand their following and sell their art safely and easily
+## A digital fine art marketplace designed to help artists expand their following and sell their art safely and easily
+[Check out our Pitch Video](https://drive.google.com/file/d/1l93j8azAIsNLu3HwGAwmUuUfp3DMiSnm/view?usp=sharing)<br>
+[Check out our deployed app](https://easelapp.herokuapp.com)
 <br>
 <br>
-*Team Members:*
-- [@RachMink](https://github.com/RachMink)
-- [@leeran7](https://github.com/leeran7)
-- [@JuZNyC](https://github.com/JuZNyC)
+*Team Members:*<br>
+ [@leeran7](https://github.com/leeran7)<br>
+ [@RachMink](https://github.com/RachMink)<br>
+ [@JuZNyC](https://github.com/JuZNyC)
 
 ### Inspiration
-Leeran's 
-Aside for it being difficult to make it big in the art scene, one of the biggest issues for artists in the traditional fine art marketplace, is the production of counterfeit products. 
+Aside for it being difficult to make it big in the art scene, one of the most common issues for artists in the traditional fine art marketplace is the production of counterfeit products. 
 
-This Leeran personally, as one of these artists was his grandfather. People would counterfit his art which caused Mr. Farin to lose lots of profit on his art. 
+This hit Leeran personally, as one of these artists was his grandfather. People would counterfit his art which caused Mr. Farin to lose lots of profit on his artwork. 
 
-This CUNY Tech Prep project was created to allow an artist to easily track their sales and allow up and coming artists to gain a following at the same time
+To prevent this, our CUNY Tech Prep project was created with artists and buyers in mind. Easel allows an artist to easily track their sales, make direct residual income and gain a following at the same time. It also allows art enthusists to find new artist and buy artwork directly from the creators.  
 
 [![Alternate Text]({image-url})]({video-url} "Link Title")
 ## Features
+- login / signup 
+ ![IMG_128B2E10EB19-1](https://user-images.githubusercontent.com/82296790/148703824-b7d1719a-40e1-4b9b-80c4-c523363ccdb1.jpeg)
 
+- easy to use upload art for sale form
+- list of artists Page 
+- Individual artist profile including artist gallery and social media links
+- Browse artwork for sale
+- Add to cart / delete from cart
+- "Like" artworks
+
+
+
+- user profile includes artworks sold/bought/liked
+- edit user profile information
+- user authorization
 
 ## Stack
 
