@@ -10,31 +10,37 @@
  [@RachMink](https://github.com/RachMink)<br>
  [@JuZNyC](https://github.com/JuZNyC)
 
-### Inspiration
+## Inspiration
 Aside for it being difficult to make it big in the art scene, one of the most common issues for artists in the traditional fine art marketplace is the production of counterfeit products. 
 
 This hit Leeran personally, as one of these artists was his grandfather. People would counterfit his art which caused Mr. Farin to lose lots of profit on his artwork. 
 
 To prevent this, our CUNY Tech Prep project was created with artists and buyers in mind. Easel allows an artist to easily track their sales, make direct residual income and gain a following at the same time. It also allows art enthusists to find new artist and buy artwork directly from the creators.  
 
-[![Alternate Text]({image-url})]({video-url} "Link Title")
+## Demo
+
+![IMG_9A2A2DD492D4-1](https://user-images.githubusercontent.com/82296790/148714177-ddde1b75-228c-47e0-856a-df47d22c9892.jpeg)
+![IMG_128B2E10EB19-1](https://user-images.githubusercontent.com/82296790/148705342-0e946987-74c8-44e4-8cef-ab1819889dfa.jpeg)
+![IMG_13798F998124-1](https://user-images.githubusercontent.com/82296790/148705501-b63f308d-60ca-4812-85da-90c475645417.jpeg)
+![IMG_973D2F4F9075-1](https://user-images.githubusercontent.com/82296790/148713896-f6f2059a-d38c-4948-aa14-16023e0b7d61.jpeg)
+
+![IMG_C99D7C127DCD-1](https://user-images.githubusercontent.com/82296790/148713831-51e6cb83-996d-404e-822c-666897231616.jpeg)
+![IMG_6EF71639F22A-1](https://user-images.githubusercontent.com/82296790/148714308-effbe568-5e1b-4f7f-b370-56937ad68273.jpeg)
+![IMG_A3555E8CA43E-1](https://user-images.githubusercontent.com/82296790/148713976-a76a6d5a-e216-47a4-a805-6486400b5189.jpeg)
+![IMG_3BB0E1B4BA90-1](https://user-images.githubusercontent.com/82296790/148714088-a507b020-33be-42a9-ab06-763e8d74caa9.jpeg)
+
+
 ## Features
 - login / signup 
- ![image](client/src/img/148703824-b7d1719a-40e1-4b9b-80c4-c523363ccdb1.jpeg)
- ![IMG_128B2E10EB19-1](https://user-images.githubusercontent.com/82296790/148703824-b7d1719a-40e1-4b9b-80c4-c523363ccdb1.jpeg)
-
 - easy to use upload art for sale form
 - list of artists Page 
 - Individual artist profile including artist gallery and social media links
 - Browse artwork for sale
 - Add to cart / delete from cart
 - "Like" artworks
-
-
-
 - user profile includes artworks sold/bought/liked
 - edit user profile information
-- user authorization
+- user authentication
 
 ## Stack
 
@@ -45,8 +51,8 @@ To prevent this, our CUNY Tech Prep project was created with artists and buyers 
 
 *React client*
 
-- Material-UI for a clean Material Design
 - React Router
+- Material-UI for a clean Material Design
 
 *Deployed on Heroku*
 
