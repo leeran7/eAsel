@@ -11,11 +11,13 @@
  [@JuZNyC](https://github.com/JuZNyC)
 
 ## Inspiration
+The motivation behind our project is to create a platform that gives artists the ability to broaden their buyer market and make residual income from selling their art at the same time.
+
 Aside for it being difficult to make it big in the art scene, one of the most common issues for artists in the traditional fine art marketplace is the production of counterfeit products. 
 
-This hit Leeran personally, as one of these artists was his grandfather. People would counterfit his art which caused Mr. Farin to lose lots of profit on his artwork. 
+This hit Leeran personally, as one of these artists is his grandfather. People would counterfit his art which caused Mr. Farin to lose lots of profit from his work. 
 
-To prevent this, our CUNY Tech Prep project was created with artists and buyers in mind. Easel allows an artist to easily track their sales, make direct residual income and gain a following at the same time. It also allows art enthusists to find new artist and buy artwork directly from the creators.  
+To prevent this, our CUNY Tech Prep project was created with artists and buyers in mind. Easel allows an artist to easily track their sales, make direct residual income and gain a following at the same time. It also allows art enthusists to find new artist and buy authentic artwork directly from the creators.  
 
 ## Demo
 
