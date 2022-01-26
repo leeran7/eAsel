@@ -329,7 +329,7 @@ function BuyHomePage(props) {
             </List>
           </DialogContent>
         )}{" "}
-        {selectedTile && (
+        {(selectedTile && auth.isAuthenticated) && (
           <DialogActions>
             <Button variant="outlined" onClick={handleClose}>
               <CloseIcon />
