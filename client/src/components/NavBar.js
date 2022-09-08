@@ -79,7 +79,7 @@ const Navbar = () => {
             container
             // spacing={12}
           >
-            <Hidden>{!auth.isAuthenticated && <AuthButton />}</Hidden>
+            <Hidden lgDown>{!auth.isAuthenticated && <AuthButton />}</Hidden>
             <Hidden xsDown>
               {navigationLinks.map((item) => (
                 <Link
