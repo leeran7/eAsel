@@ -93,7 +93,7 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
-              <AuthButton />
+              {/* <AuthButton /> */}
             </Hidden>
 
             <Grid item>
